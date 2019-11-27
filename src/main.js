@@ -7,7 +7,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 
-import Vue from 'vue';
+
+
 import {
   Pagination,
   Dialog,
@@ -87,7 +88,7 @@ import {
   Message,
   Notification
 } from 'element-ui';
-
+Vue.use(ElementUI);
 Vue.use(Pagination);
 Vue.use(Dialog);
 Vue.use(Autocomplete);
@@ -174,8 +175,7 @@ Vue.prototype.$message = Message;
 
 
 
-Vue.config.productionTip = false
-Vue.use(ElementUI);
+
 
 new Vue({
   router,
