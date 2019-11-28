@@ -1,9 +1,11 @@
 <template>
   <div class="invitation">
+
+    <router-link to="/invitation/detail">Home</router-link>|
     <div class="nav">
       <div class="clearfix">
         <ul>
-          <li>信息类型:</li>
+          <li>信息类型:q12
           <li
             v-for="item in msgs"
             :key="item.id"
@@ -65,6 +67,10 @@
       ></el-pagination>
      </div>
     </div>
+
+
+
+
   </div>
 </template>
 
@@ -337,6 +343,7 @@ export default {
   border: 1px solid #dddddd;
   margin: 0 auto;
   padding: 10px;
+  color: #5291d7;
 
   ul,
   li {
