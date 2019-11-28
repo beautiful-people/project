@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-
+@import '../assets/style/base.less';
   .sideNav{
     width: 198px;
     background: #fff;
