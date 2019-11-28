@@ -3,6 +3,8 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import http from './utils/http'
+import vueAxios from 'vue-axios'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -85,6 +87,7 @@ import {
   Message,
   Notification
 } from 'element-ui';
+Vue.use(vueAxios, http)
 Vue.use(ElementUI);
 Vue.use(Pagination);
 Vue.use(Dialog);
