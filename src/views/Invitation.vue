@@ -281,7 +281,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import "../assets/style/base.css";
+@import "../assets/style/base.less";
 
 .nav {
   width: 90%;
