@@ -3,7 +3,7 @@
     <div class="nav">
       <div class="clearfix">
         <ul>
-          <li>信息类型:</li>
+          <li>信息类型:q12</li>
           <li
             v-for="item in msgs"
             :key="item.id"
@@ -40,30 +40,47 @@
 
     <div class="content">
       <div style="width:100%;">
-        <template>
-          <el-table
-            :data="tableData.slice((currpage-1)*pagesize,currpage*pagesize)"
-            style="width:100%;margin:0 auto;"
-          >
-            <el-table-column prop="date" label="日期" width="200"></el-table-column>
-            <el-table-column prop="name" label="项目类型" width="200"></el-table-column>
-            <el-table-column prop="address" label="招标采购标题" @cell-click="fun"></el-table-column>
-          </el-table>
-        </template>
+        <el-table
+          :data="tableData.slice((currpage-1)*pagesize,currpage*pagesize)"
+          style="width: 100%"
+        >
+          <el-table-column label="日期" width="200">
+            <template slot-scope="scope">
+              <i class="el-icon-time"></i>
+              <span style="margin-left: 10px">{{ scope.row.date }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="项目类型" width="200">
+            <template slot-scope="scope">
+              <el-popover trigger="hover" placement="top">
+                <p>标题: {{ scope.row.name }}</p>
+                <p>到期时间:{{scope.row.date.substr(0, 8)}}{{ scope.row.date.substr(-2) + 3}}</p>
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium">{{ scope.row.name }}</el-tag>
+                </div>
+              </el-popover>
+            </template>
+          </el-table-column>
+          <el-table-column label="招标采购标题">
+            <template slot-scope="scope">
+              <el-button size="mini" @click="fun">{{scope.row.address}}</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
 
-     <div class="page">
+      <div class="page">
         <el-pagination
-        style="text-align:center;"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currpage"
-        :page-size="pagesize"
-        :total="tableData.length"
-        background
-        layout="prev, pager, next"
-      ></el-pagination>
-     </div>
+          style="text-align:center;"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currpage"
+          :page-size="pagesize"
+          :total="tableData.length"
+          background
+          layout="prev, pager, next"
+        ></el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -315,6 +332,7 @@ export default {
     },
     fun() {
       console.log("a");
+      this.$router.replace('/invitation/detail')
     }
   }
 };
@@ -328,7 +346,7 @@ export default {
 
 .invitation {
   width: 1366px;
-  margin: 0 auto
+  margin: 0 auto;
 }
 .nav {
   width: 90%;
@@ -337,6 +355,7 @@ export default {
   border: 1px solid #dddddd;
   margin: 0 auto;
   padding: 10px;
+  color: #5291d7;
 
   ul,
   li {
@@ -380,12 +399,10 @@ export default {
   padding: 10px;
   font-size: 14px;
   border: 1px solid #dddddd;
-
-
 }
 .content {
   width: 90%;
-  height: 600px;
+  height: 640px;
   margin: 0 auto;
   border: 1px solid #dddddd;
   padding: 10px;
@@ -396,10 +413,10 @@ export default {
     width: 50%;
   }
 
-  .page{
+  .page {
     position: absolute;
     bottom: 20px;
-   width: 100%;
+    width: 100%;
   }
 }
 </style>

@@ -71,6 +71,15 @@
     </div>
 </template>
 
+<script>
+export default {
+  data(){
+    return {
+      msg:''
+    }
+  }
+}
+</script>
 <style lang="less" scoped>
 *{
   margin: 0;

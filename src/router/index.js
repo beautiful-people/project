@@ -40,8 +40,14 @@ const routes = [
   },
   {
     path: '/invitation',
-    name: 'invitation',
-    component: () => import( '../views/Invitation.vue')
+    name:'/invitation',
+    component: () => import( '../views/Invitation.vue'),
+  },
+  {
+    path:"/invitation/detail",
+    name:"/invitation/detail",
+    component: () => import( '../views/Invdetail.vue'),
+    
   },
   {
     path: '/login',
