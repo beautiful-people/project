@@ -2,7 +2,7 @@
   <div class="invitation">
     <p>这是项目招标页面</p>
     <div class="nav">
-      <div>
+      <div class="clearfix">
         <ul>
           <li>信息类型:</li>
           <li
@@ -19,7 +19,7 @@
         </ul>
       </div>
 
-      <div>
+      <div class="clearfix">
         <ul>
           <li>选择时间:</li>
           <li
@@ -62,7 +62,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-
+@import '../assets/style/base.css';
 
 
 .nav {
