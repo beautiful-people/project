@@ -1,5 +1,8 @@
 <template>
   <div class="loginHead">
+    <div class="login-img">
+          <img src="../../public/img/denlu.png"/>
+      </div>
     <div class="login-bg clear">
       <ul>
         <li @click="ind=0 " :class="{'on':ind===0}">密码登录</li>
@@ -25,7 +28,7 @@
           </div>
           <div class="form-group">
             <p>
-              <span>免费注册</span>
+              <span @click="getResiter">免费注册</span>
             </p>
           </div>
         </form>
@@ -33,7 +36,7 @@
       <div v-show="ind===1" class="phone">
         <form>
           <div class="form-group">
-            <input type="text" placeholder="请输入手机号" v-model="userphone"  />
+            <input type="telephone" placeholder="请输入手机号" v-model="userphone"  />
             <i class="el-icon-user logo"></i>
           </div>
           <div class="form-group">
@@ -47,7 +50,7 @@
           </div>
           <div class="form-group">
             <p>
-              <span>免费注册</span>
+              <span @click="getResiter">免费注册</span>
             </p>
           </div>
         </form>
@@ -67,40 +70,39 @@ export default {
     };
   },
     methods:{
-      getLogin() {
-            // console.log("访问查询参数：", this.$route.query.id);
-            // this.$route：保存了当前路由信息
-            console.log("登录")
-            this.axios.post("/users/login", {
-              username: this.username,
-              userpass: this.userpass
-            })
-            .then((res) => {
-              console.log(res.data)
-              if(res.data.state == "200") {
-                // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
-                var token = res.data.token;
-                sessionStorage.setItem("token", token)
-                // 获取参数（未登录时想访问的路由）
-                var url = this.$route.query.redirect;
-                console.log(url)
+      getResiter(){
+        this.$router.replace('/register')
+      },
+getLogin(){
+    console.log("登录")
+      this.axios.post("/users/login", {
+        username: this.username,
+        userpass: this.userpass
+      })
+      .then((res) => {
+        console.log(res.data)
+        if(res.data.state == "200") {
+          // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
+          var token = res.data.token;
+          sessionStorage.setItem("token", token)
+          // 获取参数（未登录时想访问的路由）
+          var url = this.$route.query.redirect;
+          console.log(url)
 
-                url = url ? url : "/"
-                // 切换路由
-                this.$router.replace(url)
-              } else {
-                console.log("登陆失败")
-              }
-            })
-            .catch(err=> {
-              console.log(err)
-            })
-          
-          }
+          url = url ? url : "/"
+          // 切换路由
+          this.$router.replace(url)
+        } else {
+          console.log("登陆失败")
+        }
+      })
+      .catch(err=> {
+        console.log(err)
+      })
+}
+}
 
-
-          }
-      }
+}
 </script>
 <style lang="less" scoped>
 * {
@@ -117,16 +119,25 @@ export default {
 }
 .loginHead {
   width: 100%;
-  height: 400px;
-  background-image: url(../../public/img/denlu.png);
+  height: 500px;
+  background-image: url(../../public/img/denglu-bg.png);
   background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
   position: relative;
-
-  .login-bg {
+.login-img {
     position: absolute;
     top: 50px;
-    right: 100px;
+    left: 250px;
+    img {
+       width: 520px;
+    height: 520px;
+    }
+}
+  .login-bg {
+    position: absolute;
+    top: 100px;
+    right: 180px;
     width: 300px;
     height: 320px;
     border: 1px solid rgba(0, 0, 0, 0.075);
@@ -164,7 +175,7 @@ export default {
           padding: 5px 5px;
           width: 240px;
           height: 20px;
-          margin-left: 23px;
+          margin-left: 10px;
           border: 1px solid rgba(0, 0, 0, 0.274);
           box-shadow: 0 0 3px rgba(0, 0, 0, 0.274);
           text-indent: 18px;
@@ -173,7 +184,7 @@ export default {
         .logo {
           position: absolute;
           top: 23px;
-          left: 27px;
+          left: 32px;
         }
 
         input[type="button"] {
@@ -183,7 +194,7 @@ export default {
           border: none;
           outline: none;
           background-color: orangered;
-          margin-left: 23px;
+          margin-left: 17px;
           &:active {
             box-shadow: 1px 1px 3px #10412b;
           }
@@ -202,14 +213,14 @@ export default {
         input {
           display: inline-block;
           margin-top: 5px;
-          margin-left: 20px;
           float: left;
+          margin-left: 27px;
         }
         span {
           display: inline-block;
           vertical-align: middle;
-          padding-left: 8px;
           font-size: 16px;
+          float: left;
         }
         .remove {
           width: 100px;
@@ -230,24 +241,24 @@ export default {
         line-height: 60px;
         position: relative;
 
-        input[type="text"],
+        input[type="telephone"],
         input[type="password"] {
           padding: 5px 5px;
           width: 240px;
           height: 20px;
-          margin-left: 23px;
+          margin-left: 10px;
           border: 1px solid rgba(0, 0, 0, 0.274);
           box-shadow: 0 0 3px rgba(0, 0, 0, 0.274);
           text-indent: 18px;
         }
         input[type="password"] {
-          width: 170px;
+          width: 155px;
         }
         span {
           display: inline-block;
         }
         button {
-          margin-left: 10px;
+          margin-left: 5px;
           width: 80px;
           height: 32px;
           outline: none;
@@ -259,7 +270,7 @@ export default {
         .logo {
           position: absolute;
           top: 23px;
-          left: 27px;
+          left: 32px;
         }
 
         input[type="button"] {
@@ -269,7 +280,7 @@ export default {
           border: none;
           outline: none;
           background-color: orangered;
-          margin-left: 23px;
+          margin-left: 18px;
           &:active {
             box-shadow: 1px 1px 3px #10412b;
           }
@@ -281,6 +292,7 @@ export default {
             font-size: 14px;
             cursor: pointer;
             color: rgba(0, 0, 0, 0.26);
+            
           }
         }
       }
