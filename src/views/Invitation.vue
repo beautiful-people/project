@@ -36,26 +36,34 @@
       </div>
     </div>
 
+    <div class="msg">今日更新了{{this.tableData.length}}条招标消息</div>
+
     <div class="content">
-      <div>
+      <div style="width:100%;">
         <template>
-          <el-table 
-          :data="tableData.slice((currpage-1)*pagesize,currpage*pagesize)" 
-          style="width: 100%">
-            <el-table-column prop="date" label="日期" width="180"></el-table-column>
-            <el-table-column prop="name" label="项目类型" width="180"></el-table-column>
-            <el-table-column prop="address" label="招标采购标题"></el-table-column>
+          <el-table
+            :data="tableData.slice((currpage-1)*pagesize,currpage*pagesize)"
+            style="width:100%;margin:0 auto;"
+          >
+            <el-table-column prop="date" label="日期" width="200"></el-table-column>
+            <el-table-column prop="name" label="项目类型" width="200"></el-table-column>
+            <el-table-column prop="address" label="招标采购标题" @cell-click="fun"></el-table-column>
           </el-table>
         </template>
       </div>
 
-      <el-pagination 
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currpage"
-      :page-size="pagesize"
-      :total="tableData.length"
-      background layout="prev, pager, next"></el-pagination>
+     <div class="page">
+        <el-pagination
+        style="text-align:center;"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currpage"
+        :page-size="pagesize"
+        :total="tableData.length"
+        background
+        layout="prev, pager, next"
+      ></el-pagination>
+     </div>
     </div>
   </div>
 </template>
@@ -86,182 +94,208 @@ export default {
         },
         {
           date: "2016-05-04",
-          name: "沥青",
-          address: "上海市普陀区金沙江路 1517 弄"
+          name: "招标",
+          address: "中共紫金县委办公室办公耗材采购采购计划"
         },
         {
           date: "2016-05-01",
-          name: "压缩",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "瑞文",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "蛮王",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "刀妹",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "预发",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "虚空",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
         {
           date: "2016-05-03",
-          name: "剑圣",
+          name: "招标",
           address: "上海市普陀区金沙江路 1516 弄"
         },
         {
           date: "2016-05-04",
-          name: "沥青",
-          address: "上海市普陀区金沙江路 1517 弄"
+          name: "招标",
+          address: "	中共紫金县委办公室办公耗材采购采购计划"
         },
         {
           date: "2016-05-01",
-          name: "压缩",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "瑞文",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "蛮王",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "刀妹",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "预发",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "虚空",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
         {
           date: "2016-05-03",
-          name: "剑圣",
+          name: "招标",
           address: "上海市普陀区金沙江路 1516 弄"
         },
         {
           date: "2016-05-04",
-          name: "沥青",
-          address: "上海市普陀区金沙江路 1517 弄"
+          name: "招标",
+          address: "	中共紫金县委办公室办公耗材采购采购计划"
         },
         {
           date: "2016-05-01",
-          name: "压缩",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "瑞文",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "蛮王",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "刀妹",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "预发",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "虚空",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
         {
           date: "2016-05-03",
-          name: "剑圣",
+          name: "招标",
           address: "上海市普陀区金沙江路 1516 弄"
         },
         {
           date: "2016-05-04",
-          name: "沥青",
-          address: "上海市普陀区金沙江路 1517 弄"
+          name: "招标",
+          address: "	中共紫金县委办公室办公耗材采购采购计划"
         },
         {
           date: "2016-05-01",
-          name: "压缩",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "瑞文",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "蛮王",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "刀妹",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "预发",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "虚空",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
         {
           date: "2016-05-03",
-          name: "剑圣",
+          name: "招标",
           address: "上海市普陀区金沙江路 1516 弄"
         },
         {
           date: "2016-05-04",
-          name: "沥青",
-          address: "上海市普陀区金沙江路 1517 弄"
+          name: "招标",
+          address: "	中共紫金县委办公室办公耗材采购采购计划"
         },
         {
           date: "2016-05-01",
-          name: "压缩",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "瑞文",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "蛮王",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "刀妹",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "预发",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
-         {
+        {
           date: "2016-05-01",
-          name: "虚空",
-          address: "上海市普陀区金沙江路 1519 弄"
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
         },
         {
           date: "2016-05-03",
-          name: "剑圣",
+          name: "招标",
           address: "上海市普陀区金沙江路 1516 弄"
         }
-      ],currentPage1:1,
-      pagesize:10, // 每页显示三条
-      currpage:1 // 默认开始页面
+      ],
+      currentPage1: 1,
+      pagesize: 10, // 每页显示三条
+      currpage: 1 // 默认开始页面
     };
   },
   methods: {
@@ -271,23 +305,36 @@ export default {
     timeclick(item) {
       this.time_id = item.id;
     },
-    handleSizeChange(val) { // 分页-每页条数
-      this.pagesize=val
+    handleSizeChange(val) {
+      // 分页-每页条数
+      this.pagesize = val;
     },
-    handleCurrentChange(val) {// 当前页
-      this.currpage=val
+    handleCurrentChange(val) {
+      // 当前页
+      this.currpage = val;
+    },
+    fun() {
+      console.log("a");
     }
   }
 };
 </script>
+
+
+
+
 <style lang="less" scoped>
 @import "../assets/style/base.less";
 
+.invitation {
+  width: 1366px;
+  margin: 0 auto
+}
 .nav {
   width: 90%;
   max-width: 1200px;
   height: 60px;
-  border: 1px solid #272822;
+  border: 1px solid #dddddd;
   margin: 0 auto;
   padding: 10px;
 
@@ -322,13 +369,37 @@ export default {
   }
 }
 
+.msg {
+  width: 90%;
+  max-width: 1200px;
+  text-align: center;
+  height: 20px;
+  line-height: 20px;
+  background: #fff8e5;
+  margin: 10px auto;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #dddddd;
+
+
+}
 .content {
   width: 90%;
-  height: 400px;
+  height: 600px;
   margin: 0 auto;
+  border: 1px solid #dddddd;
+  padding: 10px;
+  max-width: 1200px;
+  position: relative;
 
- el-table {
-   width: 50%;
- }
+  el-table {
+    width: 50%;
+  }
+
+  .page{
+    position: absolute;
+    bottom: 20px;
+   width: 100%;
+  }
 }
 </style>
