@@ -50,7 +50,7 @@
           </div>
           <div class="form-group">
             <p>
-              <span @click="getResiter">免费注册</span>
+              <span @click="getResiter">免费注册哦</span>
             </p>
           </div>
         </form>
