@@ -48,7 +48,22 @@ const routes = [
   {
     path: '/personalCenter',
     name: 'personalCenter',
-    component: () => import('../views/PersonalCenter.vue')
+    component: () => import( '../views/PersonalCenter.vue'),
+    children: [{
+      path: 'personaldata',
+      name: 'PersonalData',
+      component: () => import('../views/PersonalData.vue'),
+      meta: {
+        
+      }
+    },{
+      path: 'MyTender',
+      name: 'mytender',
+      component: () => import('../views/MyTender.vue'),
+      meta: {
+        
+      }
+    }]
   }
 ]
 const router = new VueRouter({

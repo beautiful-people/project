@@ -6,10 +6,8 @@
         <Sidenav></Sidenav>
       </el-aside>
       <!-- 主内容 -->
-      <el-main>
-        <!-- <router-view>
-
-        </router-view> -->
+      <el-main class="wrap">
+        <router-view></router-view>
       </el-main>
     </el-container>
     
@@ -34,7 +32,15 @@ export default {
 .box{
   margin: 0 auto;
   width: 1100px;
-  height: 500px;
   background: #eee;
+}
+.wrap{
+  width: 870px;
+  margin-left: 30px;
+  box-sizing: border-box;
+  min-height: 360px;
+  background: #fff;
+  padding: 50px;
+  border: 1px solid #ccc;
 }
 </style>
