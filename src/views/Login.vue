@@ -78,7 +78,7 @@
           </div>
           <div class="form-group">
             <input type="password" placeholder="请输入验证码" v-model="userpass" class="password" />
-            <button type="button">获取验证码</button>
+           <canvas id="canvas" width="100" height="30"></canvas>
 
             <i class="el-icon-lock logo"></i>
           </div>
@@ -97,9 +97,6 @@
 </template>
 <script>
 
-
-
-
 export default {
   name: "Login",
   data: function() {
@@ -107,7 +104,8 @@ export default {
       ind: 0,
       username: "",
       userpass: "",
-      userphone: ""
+      userphone: "",
+      tokens:sessionStorage.getItem('token')
     };
   },
   methods: {
@@ -116,6 +114,7 @@ export default {
     },
     getLogin() {
       console.log("登录");
+    
       this.axios
         .post("/login", {
           accName: this.username,
@@ -124,7 +123,8 @@ export default {
         {
         headers: {
            'content-type': 'application/json'  ,
-           "id":1
+           "id":1,
+           "token":this.tokens
         }
         })
         .then(res => {
@@ -133,13 +133,14 @@ export default {
             // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
             var token = res.data.data.token;
             sessionStorage.setItem("token", token);
+           
             // 获取参数（未登录时想访问的路由）
             var url = this.$route.query.redirect;
-            console.log(url);
 
             url = url ? url : "/";
             // 切换路由
             this.$router.replace(url);
+            // this.axios.post("/test")
           } else {
             console.log("登陆失败");
           }
