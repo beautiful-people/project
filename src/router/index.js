@@ -57,9 +57,35 @@ const routes = [
         
       }
     },{
-      path: 'MyTender',
-      name: 'mytender',
+      path: 'mytender',
+      name: 'MyTender',
       component: () => import('../views/MyTender.vue'),
+      children: [{
+        path: 'tenderInfor',
+        name: 'TenderInfor',
+        component: () => import('../views/TenderInfor.vue'),
+        meta: {
+          
+        }
+      }]
+    },{
+      path: 'launchbid',
+      name: 'LaunchBid',
+      component: () => import('../views/LaunchBid.vue'),
+      meta: {
+        
+      }
+    },{
+      path: 'information',
+      name: 'Information',
+      component: () => import('../views/Information.vue'),
+      meta: {
+        
+      }
+    },{
+      path: 'resetpassword',
+      name: 'ResetPassword',
+      component: () => import('../views/ResetPassword.vue'),
       meta: {
         
       }

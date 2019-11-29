@@ -40,7 +40,7 @@ export default {
   box-sizing: border-box;
   min-height: 360px;
   background: #fff;
-  padding: 50px;
+  padding: 10px 50px;
   border: 1px solid #ccc;
 }
 </style>
