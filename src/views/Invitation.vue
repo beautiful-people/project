@@ -36,12 +36,12 @@
       </div>
     </div>
 
-    <div class="msg">今日更新了{{this.tableData.length}}条招标消息</div>
+    <div class="msg">今日更新了{{this.inv_tableData.length}}条招标消息</div>
 
     <div class="content">
       <div style="width:100%;">
         <el-table
-          :data="tableData.slice((currpage-1)*pagesize,currpage*pagesize)"
+          :data="inv_tableData.slice((currpage-1)*pagesize,currpage*pagesize)"
           style="width: 100%"
         >
           <el-table-column label="日期" width="200">
@@ -76,7 +76,7 @@
           @current-change="handleCurrentChange"
           :current-page="currpage"
           :page-size="pagesize"
-          :total="tableData.length"
+          :total="inv_tableData.length"
           background
           layout="prev, pager, next"
         ></el-pagination>
@@ -86,7 +86,9 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
+  
   name: "invitation",
   data() {
     return {
@@ -103,217 +105,15 @@ export default {
         { id: 6, msg: "近一个月" },
         { id: 7, msg: "近三个月" }
       ],
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "招标",
-          address: "中共紫金县委办公室办公耗材采购采购计划"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "预发",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-03",
-          name: "招标",
-          address: "上海市普陀区金沙江路 1516 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "招标",
-          address: "	中共紫金县委办公室办公耗材采购采购计划"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "预发",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-03",
-          name: "招标",
-          address: "上海市普陀区金沙江路 1516 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "招标",
-          address: "	中共紫金县委办公室办公耗材采购采购计划"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "预发",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-03",
-          name: "招标",
-          address: "上海市普陀区金沙江路 1516 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "招标",
-          address: "	中共紫金县委办公室办公耗材采购采购计划"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "预发",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-03",
-          name: "招标",
-          address: "上海市普陀区金沙江路 1516 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "招标",
-          address: "	中共紫金县委办公室办公耗材采购采购计划"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "预发",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-03",
-          name: "招标",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
-      ],
       currentPage1: 1,
       pagesize: 10, // 每页显示三条
       currpage: 1 // 默认开始页面
     };
+  },
+  computed:{
+    ...mapState([
+      'inv_tableData'
+    ])
   },
   methods: {
     msgclick(item) {
