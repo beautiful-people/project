@@ -17,7 +17,10 @@
         <el-input v-model="formLabelAlign.userPhone"></el-input>
       </el-form-item>
       <el-form-item label="性别">
-        <el-input v-model="formLabelAlign.userSex"></el-input>
+        <el-radio-group v-model="formLabelAlign.userSex">
+          <el-radio label="男"></el-radio>
+          <el-radio label="女"></el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="出生年月">
         <el-input v-model="formLabelAlign.userBirthday"></el-input>
@@ -31,9 +34,12 @@
       <el-form-item label="电子邮件">
         <el-input v-model="formLabelAlign.userEmail"></el-input>
       </el-form-item>
-      <el-form-item label="详细地址">
-        <el-input v-model="formLabelAlign.Address"></el-input>
-      </el-form-item>
+      <div class="Btn">
+        <el-form-item>
+          <el-button class="confirmBtn" @click="onSubmit">保存修改</el-button>
+          <el-button>取消</el-button>
+        </el-form-item>
+      </div>
     </el-form>
   </div>
 </template>
@@ -44,12 +50,31 @@ export default {
     return {
       labelPosition: "right",
       formLabelAlign: {
-        name: ""
+        userName: '',
+        realName: '',
+        userPhone: '',
+        userSex: '',
+        userBirthday: '',
+        Telephone: '',
+        userQQ: '',
+        userEmail: ''
       }
     };
+  },
+  methods: {
+    onSubmit() {
+      console.log('submit!');
+    }
   }
 };
 </script>
 
 <style lang="less" scoped>
+  .Btn{
+    margin-left: 100px;
+    .confirmBtn{
+      background: #53C380;
+      color: #fff;
+    }
+  }
 </style>
