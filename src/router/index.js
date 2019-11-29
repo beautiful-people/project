@@ -10,6 +10,11 @@ const routes = [
     redirect: "/home", // 重定向
   },
   {
+    path: '/home',
+    name: 'home',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
