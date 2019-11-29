@@ -55,7 +55,7 @@
     </div>
     <!-- 导航 -->
     <div class="main-top">
-      <ul class="main-top-max">
+      <ul class="main-top-max" style="position: relative; top: 0px; z-index: 999; background: rgba(0, 0, 0, 0.6); margin: 0px auto;">
         <router-link to="/">首页</router-link>
         <router-link to="/construction">在线工地</router-link>
         <router-link to="/decoration">装修公司</router-link>
@@ -232,11 +232,11 @@ ul a {
 .main-top-max {
   line-height: 40px;
   font-size: 13px;
+  color: white;
 }
 .main-top {
   width: 100%;
   height: 40px;
-  background: rgb(255, 192, 203,0.5);
   float: left;
 }
 </style>

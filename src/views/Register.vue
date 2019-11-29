@@ -80,7 +80,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册" />
+            <input type="button" value="立即注册" @click="getBusiness"/>
           </div>
           <div class="button">
             <input type="button" value="账号密码注册" @click="inx=0 " />
@@ -124,7 +124,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册" />
+            <input type="button" value="立即注册" @click="getBusiness" />
           </div>
           <div class="button">
             <input type="button" value="手机注册" @click="inx=1" />
@@ -170,7 +170,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册" />
+            <input type="button" value="立即注册"  @click="getBusiness"/>
           </div>
           <div class="button">
             <input type="button" value="手机注册" @click="inx=0 " />
@@ -214,7 +214,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册" />
+            <input type="button" value="立即注册"  @click="getBusiness"/>
           </div>
           <div class="button">
             <input type="button" value="账号注册" @click="inx=1 " />
@@ -224,6 +224,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   name: "register",
@@ -245,6 +246,11 @@ export default {
       userTelphones: "",
       userPasses: "",
     };
+  },
+  methods:{
+    getBusiness(){
+      this.$router.push("/membership")
+    }
   }
 };
 </script>
