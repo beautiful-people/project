@@ -1,8 +1,45 @@
 <template>
   <div class="loginHead">
     <div class="login-img">
-          <img src="../../public/img/denlu.png"/>
+      <img src="../../public/img/denlu.png" />
+    </div>
+    <!-- 顶部搜索框 -->
+    <div class="main-top-header">
+      <div class="main-top-center">
+        <div class="main-top-header-logo">
+          <!-- LOGO图片 -->
+          <img src="img/index-img/logo.png" class="main-top-img" alt />
+          <!-- 切换定位 -->
+          <div class="main-top-location">
+            <!-- 定位 -->
+            <img src="img/index-img/land_01.png" width="19px" style="float:left;" height="23px" alt />
+            <div class="main-top-city">
+              <span>成都</span>
+              <div class="main-top-pulldown"></div>
+            </div>
+          </div>
+          <!-- 买得起的高端楼 -->
+          <img src="img/index-img/slogan.png" alt />
+        </div>
+        <!-- 搜索 -->
+        <div class="main-search">
+          <form action>
+            <input type="text" placeholder="搜索设计师、楼盘等信息" />
+            <!-- <el-input v-model="input" placeholder="搜索设计师、楼盘等信息"></el-input> -->
+            <input class="subsearch" type="image" src="img/index-img/search.jpg" />
+          </form>
+        </div>
+        <!-- 右侧联系 -->
+        <div class="main-top-call">
+          <img src="img/index-img/tel.png" alt />
+          <div class="main-top-phone">
+            <span style="font-size:18px;">24</span>小时咨询热线:
+            <br />
+            <span style="font-size:18px;">028-86618553</span>
+          </div>
+        </div>
       </div>
+    </div>
     <div class="login-bg clear">
       <ul>
         <li @click="ind=0 " :class="{'on':ind===0}">密码登录</li>
@@ -11,7 +48,7 @@
       <div v-show="ind===0" class="pass">
         <form>
           <div class="form-group">
-            <input type="text" placeholder="请输入账号" v-model="username"/>
+            <input type="text" placeholder="请输入账号" v-model="username" />
             <i class="el-icon-user logo"></i>
           </div>
           <div class="form-group">
@@ -24,7 +61,7 @@
             <span class="remove">忘记密码?</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即登录" @click="getLogin"/>
+            <input type="button" value="立即登录" @click="getLogin" />
           </div>
           <div class="form-group">
             <p>
@@ -36,11 +73,11 @@
       <div v-show="ind===1" class="phone">
         <form>
           <div class="form-group">
-            <input type="telephone" placeholder="请输入手机号" v-model="userphone"  />
+            <input type="telephone" placeholder="请输入手机号" v-model="userphone" />
             <i class="el-icon-user logo"></i>
           </div>
           <div class="form-group">
-            <input type="password" placeholder="请输入验证码" v-model="userpass" class="password"/>
+            <input type="password" placeholder="请输入验证码" v-model="userpass" class="password" />
             <button type="button">获取验证码</button>
 
             <i class="el-icon-lock logo"></i>
@@ -59,6 +96,10 @@
   </div>
 </template>
 <script>
+
+
+
+
 export default {
   name: "Login",
   data: function() {
@@ -66,43 +107,49 @@ export default {
       ind: 0,
       username: "",
       userpass: "",
-      userphone:""
+      userphone: ""
     };
   },
-    methods:{
-      getResiter(){
-        this.$router.replace('/register')
-      },
-getLogin(){
-    console.log("登录")
-      this.axios.post("/users/login", {
-        username: this.username,
-        userpass: this.userpass
-      })
-      .then((res) => {
-        console.log(res.data)
-        if(res.data.state == "200") {
-          // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
-          var token = res.data.token;
-          sessionStorage.setItem("token", token)
-          // 获取参数（未登录时想访问的路由）
-          var url = this.$route.query.redirect;
-          console.log(url)
-
-          url = url ? url : "/"
-          // 切换路由
-          this.$router.replace(url)
-        } else {
-          console.log("登陆失败")
+  methods: {
+    getResiter() {
+      this.$router.replace("/register");
+    },
+    getLogin() {
+      console.log("登录");
+      this.axios
+        .post("/login", {
+          accName: this.username,
+          accPwd: this.userpass
+        },
+        {
+        headers: {
+           'content-type': 'application/json'  ,
+           "id":1
         }
-      })
-      .catch(err=> {
-        console.log(err)
-      })
-}
-}
+        })
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == "200") {
+            // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
+            var token = res.data.data.token;
+            sessionStorage.setItem("token", token);
+            // 获取参数（未登录时想访问的路由）
+            var url = this.$route.query.redirect;
+            console.log(url);
 
-}
+            url = url ? url : "/";
+            // 切换路由
+            this.$router.replace(url);
+          } else {
+            console.log("登陆失败");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+};
 </script>
 <style lang="less" scoped>
 * {
@@ -119,24 +166,24 @@ getLogin(){
 }
 .loginHead {
   width: 100%;
-  height: 500px;
+  height: 700px;
   background-image: url(../../public/img/denglu-bg.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-.login-img {
+  .login-img {
     position: absolute;
-    top: 50px;
+    top: 120px;
     left: 250px;
     img {
-       width: 520px;
-    height: 520px;
+      width: 520px;
+      height: 520px;
     }
-}
+  }
   .login-bg {
     position: absolute;
-    top: 100px;
+    top: 200px;
     right: 180px;
     width: 300px;
     height: 320px;
@@ -236,7 +283,6 @@ getLogin(){
   .phone {
     form {
       .form-group {
-        
         height: 60px;
         line-height: 60px;
         position: relative;
@@ -285,19 +331,108 @@ getLogin(){
             box-shadow: 1px 1px 3px #10412b;
           }
         }
-         p {
+        p {
           float: right;
           margin-right: 10px;
           span {
             font-size: 14px;
             cursor: pointer;
             color: rgba(0, 0, 0, 0.26);
-            
           }
         }
       }
-     
     }
   }
+}
+.main-top-header {
+  width: 100%;
+  height: 103px;
+  background: #494949;
+  border-top: solid 1px rgb(206, 206, 206);
+}
+.main-top-center {
+  width: 1211px;
+  height: 100px;
+  // background: red;
+  margin: auto;
+  overflow: hidden;
+}
+.main-top-header-logo {
+  width: 500px;
+  height: 50px;
+  // background: aqua;
+  margin-top: 30px;
+  text-align: left;
+  float: left;
+}
+.main-top-img {
+  float: left;
+}
+.main-top-location {
+  width: 90px;
+  height: 40px;
+  margin-left: 30px;
+  margin-top: 10px;
+  margin-right: 38px;
+  float: left;
+  line-height: 20px;
+  overflow: hidden;
+}
+.main-top-city {
+  margin-left: 10px;
+  margin-top: 0px;
+  float: left;
+  overflow: hidden;
+  color: white;
+}
+.main-top-city .main-top-pulldown {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.main-top-pulldown {
+  width: 0px;
+  height: 0px;
+  float: right;
+  line-height: 50px;
+  border-top: 7px solid white;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+.main-search {
+  width: 435px;
+  height: 38px;
+  float: left;
+  margin-top: 35px;
+  margin-left: 40px;
+}
+.main-search input:nth-child(1) {
+  width: 415px;
+  height: 14px;
+  border-radius: 5px;
+  border: 0;
+  padding: 10px;
+  float: left;
+}
+.subsearch {
+  margin-right: 9px;
+  float: right;
+  margin-top: -27px;
+}
+.main-top-call {
+  width: 180px;
+  height: 46px;
+  margin-left: 30px;
+  float: right;
+  // background: red;
+  margin-top: 33px;
+  text-align: left;
+  float: left;
+}
+.main-top-phone {
+  float: right;
+  margin-right: 12px;
+  font-size: 16px;
+  color: white;
 }
 </style>
