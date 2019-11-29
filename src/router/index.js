@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -41,14 +40,65 @@ const routes = [
     component: () => import('../views/Invitation.vue')
   },
   {
+    path: '/invitation/invdetail',
+    name: 'invitation/invdetail',
+    component: () => import('../views/Invdetail.vue')
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('../views/Login.vue')
   },
   {
+    path: '/register',
+    name: 'register',
+    component: () => import('../views//Register.vue')
+  },
+  {
     path: '/personalCenter',
     name: 'personalCenter',
-    component: () => import('../views/PersonalCenter.vue')
+    component: () => import( '../views/PersonalCenter.vue'),
+    children: [{
+      path: 'personaldata',
+      name: 'PersonalData',
+      component: () => import('../views/PersonalData.vue'),
+      meta: {
+        
+      }
+    },{
+      path: 'mytender',
+      name: 'MyTender',
+      component: () => import('../views/MyTender.vue'),
+      children: [{
+        path: 'tenderInfor',
+        name: 'TenderInfor',
+        component: () => import('../views/TenderInfor.vue'),
+        meta: {
+          
+        }
+      }]
+    },{
+      path: 'launchbid',
+      name: 'LaunchBid',
+      component: () => import('../views/LaunchBid.vue'),
+      meta: {
+        
+      }
+    },{
+      path: 'information',
+      name: 'Information',
+      component: () => import('../views/Information.vue'),
+      meta: {
+        
+      }
+    },{
+      path: 'resetpassword',
+      name: 'ResetPassword',
+      component: () => import('../views/ResetPassword.vue'),
+      meta: {
+        
+      }
+    }]
   }
 ]
 const router = new VueRouter({

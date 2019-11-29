@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<style lang="less">
+<style lang="less" scoped>
 *{
   margin: 0;
   padding: 0;
@@ -17,6 +17,7 @@
   // text-align: center;
  /*  text-align: center; */
   color: #2c3e50;
+  background: #eee;
 }
 
 </style>
