@@ -1,18 +1,19 @@
 <template>
   <div class="home">
-    <p>这是首页</p>
+    <index></index>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+ import index from '@/components/index'
 
 export default {
   name: "home",
   components: {
-    // HelloWorld
+    index
   },
+  mag:'runsgo',
   data() {
     return {
       input: ""
@@ -20,7 +21,3 @@ export default {
   }
 };
 </script>
-
-<style lang="less" scoped>
-
-</style>
