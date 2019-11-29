@@ -332,7 +332,7 @@ export default {
     },
     fun() {
       console.log("a");
-      this.$router.replace('/invitation/detail')
+      this.$router.replace('/invitation/invdetail')
     }
   }
 };
