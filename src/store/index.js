@@ -3,8 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  state: {
+const invitation = { // invitation 网页的数据源
+  state:{
     inv_tableData: [
       {
         date: "2016-05-02",
@@ -213,10 +213,22 @@ export default new Vuex.Store({
       }
     ]
   },
-  mutations: {
-  },
-  actions: {
-  },
+  getters:{},
+  mutations:{},
+  actions:{}
+}
+
+
+
+
+export default new Vuex.Store({
+  // state: {
+  // },
+  // mutations: {
+  // },
+  // actions: {
+  // },
   modules: {
+    invitation
   }
 })

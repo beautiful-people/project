@@ -86,7 +86,6 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
 export default {
   
   name: "invitation",
@@ -111,9 +110,11 @@ export default {
     };
   },
   computed:{
-    ...mapState([
-      'inv_tableData'
-    ])
+   
+      inv_tableData() {
+        return this.$store.state.invitation.inv_tableData
+      }
+    
   },
   methods: {
     msgclick(item) {
