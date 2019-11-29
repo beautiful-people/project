@@ -1,9 +1,9 @@
 <template>
   <div class="invitation">
-    <div class="nav">
+    <div class="inv-nav">
       <div class="clearfix">
         <ul>
-          <li>信息类型:q12</li>
+          <li>信息类型:</li>
           <li
             v-for="item in msgs"
             :key="item.id"
@@ -50,7 +50,7 @@
               <span style="margin-left: 10px">{{ scope.row.date }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="项目类型" width="200">
+          <el-table-column label="项目状态" width="200">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
                 <p>标题: {{ scope.row.name }}</p>
@@ -348,7 +348,7 @@ export default {
   width: 1366px;
   margin: 0 auto;
 }
-.nav {
+.inv-nav {
   width: 90%;
   max-width: 1200px;
   height: 60px;
@@ -368,7 +368,7 @@ export default {
     font-size: 14px;
     cursor: pointer;
   }
-  ul li:hover {
+  ul li:not(1):hover {
     background: #4f94cd;
     color: white;
     font-weight: bold;
