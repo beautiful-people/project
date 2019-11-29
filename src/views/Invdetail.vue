@@ -58,7 +58,7 @@
           </el-form-item>
 
           <el-form-item label="装修定价:" :label-width="formLabelWidth">
-            <el-input v-model="form.zx_price" autocomplete="off"></el-input>如：全部8万元
+            <el-input v-model="form.zx_price" autocomplete="off"></el-input>如：300-500元/平米
           </el-form-item>
 
           <el-form-item label="报价说明:" :label-width="formLabelWidth">
