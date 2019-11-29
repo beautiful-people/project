@@ -7,51 +7,57 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    // name: 'home',
+    redirect: "/login", // 重定向
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
-    path: '/construction',
-    name: 'construction',
-    component: () => import( '../views/Construction.vue')
-  },
-  {
-    path: '/decoration',
-    name: 'decoration',
-    component: () => import( '../views/Decoration.vue')
-  },
-  {
-    path: '/decorationDesign',
-    name: 'decorationDesign',
-    component: () => import( '../views/DecorationDesign.vue')
-  },
-  {
-    path: '/design',
-    name: 'design',
-    component: () => import( '../views/Design.vue')
-  },
-  {
-    path: '/invitation',
-    name: 'invitation',
-    component: () => import( '../views/Invitation.vue')
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import( '../views/Login.vue')
-  },
-  {
-    path: '/personalCenter',
-    name: 'personalCenter',
-    component: () => import( '../views/PersonalCenter.vue')
+    path: '/home', // 路径
+    component: Home, // 渲染 Home 组件
+    children: [
+      {
+        path: '/about',
+        name: 'about',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+      },
+      {
+        path: '/construction',
+        name: 'construction',
+        component: () => import('../views/Construction.vue')
+      },
+      {
+        path: '/decoration',
+        name: 'decoration',
+        component: () => import('../views/Decoration.vue')
+      },
+      {
+        path: '/decorationDesign',
+        name: 'decorationDesign',
+        component: () => import('../views/DecorationDesign.vue')
+      },
+      {
+        path: '/design',
+        name: 'design',
+        component: () => import('../views/Design.vue')
+      },
+      {
+        path: '/invitation',
+        name: 'invitation',
+        component: () => import('../views/Invitation.vue')
+      },
+      {
+        path: '/login',
+        name: 'login',
+        component: () => import('../views/Login.vue')
+      },
+      {
+        path: '/personalCenter',
+        name: 'personalCenter',
+        component: () => import('../views/PersonalCenter.vue')
+      }
+    ]
   }
 ]
 
