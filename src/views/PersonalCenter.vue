@@ -35,6 +35,7 @@ export default {
   background: #eee;
 }
 .wrap{
+  text-align: left;
   width: 870px;
   margin-left: 30px;
   box-sizing: border-box;
