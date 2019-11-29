@@ -69,6 +69,8 @@
               v-model="form.bj_textarea"
               style="width:calc(100% -120px);"
             ></el-input>
+            <input type="checkbox" name="" id="">
+            已同意投标规则
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -82,6 +84,8 @@
 
 
 <script>
+
+
 export default {
   name: "invdetail",
 

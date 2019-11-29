@@ -1,5 +1,7 @@
 <template>
   <div class="invitation">
+    <index></index>
+
     <div class="inv-nav">
       <div class="clearfix">
         <ul>
@@ -7,7 +9,7 @@
           <li
             v-for="item in msgs"
             :key="item.id"
-            @click="msgclick(item)"
+            @click="msgclick(item.id)"
             :class="{on:msgs_id === item.id}"
           >
             <label :for="item.id">
@@ -24,7 +26,7 @@
           <li
             v-for="item in time"
             :key="item.id"
-            @click="timeclick(item)"
+            @click="timeclick(item.id)"
             :class="{on:time_id === item.id}"
           >
             <label :for="item.id">
@@ -86,6 +88,8 @@
 </template>
 
 <script>
+ import index from '@/components/index'
+
 export default {
   name: "invitation",
   data() {
@@ -98,10 +102,217 @@ export default {
         { id: 3, msg: "中标" }
       ],
       time: [
-        { id: 4, msg: "不限" },
-        { id: 5, msg: "近一周" },
-        { id: 6, msg: "近一个月" },
-        { id: 7, msg: "近三个月" }
+        { id: 0, msg: "不限" },
+        { id: 7, msg: "近一周" },
+        { id: 30, msg: "近一个月" },
+        { id: 90, msg: "近三个月" }
+      ],
+      inv_tableData: [
+        {
+          date: "2016-05-02",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-04",
+          name: "招标",
+          address: "中共紫金县委办公室办公耗材采购采购计划"
+        },
+        {
+          date: "2016-05-01",
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "预发",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-03",
+          name: "招标",
+          address: "上海市普陀区金沙江路 1516 弄"
+        },
+        {
+          date: "2016-05-04",
+          name: "招标",
+          address: "	中共紫金县委办公室办公耗材采购采购计划"
+        },
+        {
+          date: "2016-05-01",
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "预发",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-03",
+          name: "招标",
+          address: "上海市普陀区金沙江路 1516 弄"
+        },
+        {
+          date: "2016-05-04",
+          name: "招标",
+          address: "	中共紫金县委办公室办公耗材采购采购计划"
+        },
+        {
+          date: "2016-05-01",
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "预发",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-03",
+          name: "招标",
+          address: "上海市普陀区金沙江路 1516 弄"
+        },
+        {
+          date: "2016-05-04",
+          name: "招标",
+          address: "	中共紫金县委办公室办公耗材采购采购计划"
+        },
+        {
+          date: "2016-05-01",
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "预发",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-03",
+          name: "招标",
+          address: "上海市普陀区金沙江路 1516 弄"
+        },
+        {
+          date: "2016-05-04",
+          name: "招标",
+          address: "	中共紫金县委办公室办公耗材采购采购计划"
+        },
+        {
+          date: "2016-05-01",
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "招标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "预发",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-01",
+          name: "中标",
+          address:
+            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
+        },
+        {
+          date: "2016-05-03",
+          name: "招标",
+          address: "上海市普陀区金沙江路 1516 弄"
+        }
       ],
       tables: [],
       currentPage1: 1,
@@ -111,7 +322,10 @@ export default {
   },
   created() {
     this.axios
-      .post("/login")
+      .post("/findAll", {
+        msgs_id: this.msgs_id,
+        time_id:this.time_id
+      })
       .then(res => {
         if (res.data.code == 200) {
           console.log(res.data);
@@ -122,18 +336,48 @@ export default {
         console.log(err);
       });
   },
-  computed: {
-    inv_tableData() {
-      return this.$store.state.invitation.inv_tableData;
-    }
-  },
-
+  // computed: {
+  //   inv_tableData() {
+  //     return this.$store.state.invitation.inv_tableData;
+  //   }
+  // },
+components:{
+  index
+},
   methods: {
     msgclick(item) {
-      this.msgs_id = item.id;
+      this.msgs_id = item;
+
+      this.axios
+        .post("/tender/findAll", {
+          name: this.msgs_id
+        })
+        .then(res => {
+          if (res.data.code == 200) {
+            console.log(res.data);
+            this.tables = res.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     timeclick(item) {
-      this.time_id = item.id;
+      this.time_id = item;
+
+      this.axios
+        .post("/tender/findAll", {
+          name: this.msgs_id
+        })
+        .then(res => {
+          if (res.data.code == 200) {
+            console.log(res.data);
+            this.tables = res.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     handleSizeChange(val) {
       // 分页-每页条数
