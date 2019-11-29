@@ -53,8 +53,8 @@
           <el-table-column label="项目状态" width="200">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
-                <p>标题: {{ scope.row.name }}</p>
-                <p>到期时间:{{scope.row.date.substr(0, 8)}}{{ scope.row.date.substr(-2) + 3}}</p>
+                <p>状态: {{ scope.row.name }}</p>
+                <p>到期时间:{{scope.row.date.substr(0, 8)}}0{{ Number(scope.row.date.substr(-1)) + 3}}</p>
                 <div slot="reference" class="name-wrapper">
                   <el-tag size="medium">{{ scope.row.name }}</el-tag>
                 </div>
