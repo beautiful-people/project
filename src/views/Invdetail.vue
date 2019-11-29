@@ -14,17 +14,17 @@
         <tr>
           <td>招标编号：{{item.id}}</td>
           <td>发布时间：{{item.date}}</td>
-          <td>预计开工时间：{{item.begin}}</td>
-          <td>面积：{{item.size}}</td>
+          <td>动工时间：{{item.begin}}</td>
+          <td>结束时间：{{item.end}}</td>
         </tr>
         <tr>
-          <td>房屋现状</td>
+          <td>房屋面积：{{item.size}}</td>
           <td>装修预算：{{item.price}}</td>
           <td>审核人：{{item.people}}</td>
           <td style="color:red;">当前状态：{{item.state}}</td>
         </tr>
         <tr>
-          <td colspan="4">量房时间</td>
+          <td colspan="4">详细地址</td>
         </tr>
         <tr>
           <td colspan="4">
@@ -45,10 +45,37 @@
         </tr>
         <tr>
           <td colspan="4" style="text-align:center">
-            <button type="button">我要投标</button>
+            <el-button type="text" @click="dialogFormVisible = true">我要投标</el-button>
           </td>
         </tr>
       </table>
+      <!-- Form -->
+
+      <el-dialog title="提交投标信息" :visible.sync="dialogFormVisible">
+        <el-form :model="form" style="text-align: left;">
+          <el-form-item label="初步报价:" :label-width="formLabelWidth">
+            <el-input v-model="form.begin_price" autocomplete="off"></el-input>如：全部8万元
+          </el-form-item>
+
+          <el-form-item label="装修定价:" :label-width="formLabelWidth">
+            <el-input v-model="form.zx_price" autocomplete="off"></el-input>如：300-500元/平米
+          </el-form-item>
+
+          <el-form-item label="报价说明:" :label-width="formLabelWidth">
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 2, maxRows: 4}"
+              placeholder="请输入内容"
+              v-model="form.bj_textarea"
+              style="width:calc(100% -120px);"
+            ></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="cancel">取 消</el-button>
+          <el-button type="primary" @click="open">提交</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -60,12 +87,21 @@ export default {
 
   data() {
     return {
+      dialogFormVisible: false,
+      form: {
+        begin_price: "",
+        zx_price: "",
+        bj_textarea: ""
+      },
+      formLabelWidth: "120px",
+
       tableData: [
         {
           id: 1,
           date: "2016-05-02",
           name: "王小虎",
           begin: "2016-06-01",
+          end: "2016-07-04",
           address: "上海市普陀区金沙江路 1518 弄",
           size: "186(平方米)",
           price: "50万至100万",
@@ -76,6 +112,50 @@ export default {
         }
       ]
     };
+  },
+  created() {
+    this.axios
+      .post("/login")
+      .then(res => {
+        if (res.data.code == 200) {
+          console.log(res.data);
+          this.tables = res.data;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  methods: {
+    open() {
+      this.$confirm("你确定要参加这次投标吗, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.dialogFormVisible = false;
+          this.form.begin_price = "";
+          this.form.zx_price = "";
+          this.form.bj_textarea = "";
+          this.$message({
+            type: "success",
+            message: "投标成功!"
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消投标"
+          });
+        });
+    },
+    cancel() {
+      this.dialogFormVisible = false;
+      this.form.begin_price = "";
+      this.form.zx_price = "";
+      this.form.bj_textarea = "";
+    }
   }
 };
 </script>
@@ -83,8 +163,6 @@ export default {
 
 <style lang="less" scoped>
 .content {
- 
-
   width: 90%;
   height: 640px;
   margin: 10px auto;
