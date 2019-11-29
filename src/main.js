@@ -11,6 +11,7 @@ import VueAwesomeSwiper from "vue-awesome-swiper";
  
 import 'swiper/dist/css/swiper.css';
  
+import './assets/yanzhen.js'
 import {
   Pagination,
   Dialog,
