@@ -87,7 +87,6 @@
 
 <script>
 export default {
-  
   name: "invitation",
   data() {
     return {
@@ -104,18 +103,31 @@ export default {
         { id: 6, msg: "近一个月" },
         { id: 7, msg: "近三个月" }
       ],
+      tables: [],
       currentPage1: 1,
       pagesize: 10, // 每页显示三条
       currpage: 1 // 默认开始页面
     };
   },
-  computed:{
-   
-      inv_tableData() {
-        return this.$store.state.invitation.inv_tableData
-      }
-    
+  created() {
+    this.axios
+      .post("/login")
+      .then(res => {
+        if (res.data.code == 200) {
+          console.log(res.data);
+          this.tables = res.data;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
+  computed: {
+    inv_tableData() {
+      return this.$store.state.invitation.inv_tableData;
+    }
+  },
+
   methods: {
     msgclick(item) {
       this.msgs_id = item.id;
@@ -133,7 +145,7 @@ export default {
     },
     fun() {
       console.log("a");
-      this.$router.replace('/invitation/invdetail')
+      this.$router.replace("/invitation/invdetail");
     }
   }
 };
