@@ -7,9 +7,6 @@ import http from './utils/http'
 import vueAxios from 'vue-axios'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import VueAwesomeSwiper from "vue-awesome-swiper";
- 
-import 'swiper/dist/css/swiper.css';
  
 import './assets/yanzhen.js'
 import {
@@ -177,7 +174,6 @@ Vue.prototype.$prompt = MessageBox.prompt;
 Vue.prototype.$notify = Notification;
 Vue.prototype.$message = Message;
 
-Vue.use(VueAwesomeSwiper);
 
 
 
