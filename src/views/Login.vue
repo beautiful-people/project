@@ -78,7 +78,7 @@
           </div>
           <div class="form-group">
             <input type="password" placeholder="请输入验证码" v-model="userpass" class="password" />
-           <canvas id="canvas" width="100" height="30"></canvas>
+            <canvas id="canvas" width="80" height="30"></canvas>
 
             <i class="el-icon-lock logo"></i>
           </div>
@@ -116,7 +116,7 @@ export default {
       console.log("登录");
     
       this.axios
-        .post("/login", {
+        .post("http://172.16.6.58:8080/login", {
           accName: this.username,
           accPwd: this.userpass
         },
@@ -234,7 +234,9 @@ export default {
           top: 23px;
           left: 32px;
         }
-
+        canvas {
+         margin-right: -10px;
+        }
         input[type="button"] {
           width: 254px;
           height: 32px;
