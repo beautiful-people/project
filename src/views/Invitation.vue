@@ -1,6 +1,6 @@
 <template>
   <div class="invitation">
-    <index></index>
+    <!-- <index></index> -->
 
     <div class="inv-nav">
       <div class="clearfix">
@@ -38,34 +38,31 @@
       </div>
     </div>
 
-    <div class="msg">今日更新了{{this.inv_tableData.length}}条招标消息</div>
+    <div class="msg">今日更新了{{this.tables.length}}条招标消息</div>
 
     <div class="content">
       <div style="width:100%;">
-        <el-table
-          :data="inv_tableData.slice((currpage-1)*pagesize,currpage*pagesize)"
-          style="width: 100%"
-        >
+        <el-table :data="tables.slice((currpage-1)*pagesize,currpage*pagesize)" style="width: 100%">
           <el-table-column label="日期" width="200">
             <template slot-scope="scope">
               <i class="el-icon-time"></i>
-              <span style="margin-left: 10px">{{ scope.row.date }}</span>
+              <span style="margin-left: 10px">{{ scope.row.tenderEndTime }}</span>
             </template>
           </el-table-column>
           <el-table-column label="项目状态" width="200">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
-                <p>状态: {{ scope.row.name }}</p>
-                <p>到期时间:{{scope.row.date.substr(0, 8)}}0{{ Number(scope.row.date.substr(-1)) + 3}}</p>
+                <p>状态: {{ scope.row.state }}</p>
+                <p>到期时间:{{scope.row.tenderEndTime}}</p>
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium">{{ scope.row.name }}</el-tag>
+                  <el-tag size="medium">{{ scope.row.state }}</el-tag>
                 </div>
               </el-popover>
             </template>
           </el-table-column>
           <el-table-column label="招标采购标题">
             <template slot-scope="scope">
-              <el-button size="mini" @click="fun">{{scope.row.address}}</el-button>
+              <el-button size="mini" @click="fun(scope.row.tenderId)">{{scope.row.calusename}}</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -78,7 +75,7 @@
           @current-change="handleCurrentChange"
           :current-page="currpage"
           :page-size="pagesize"
-          :total="inv_tableData.length"
+          :total="tables.length"
           background
           layout="prev, pager, next"
         ></el-pagination>
@@ -88,14 +85,14 @@
 </template>
 
 <script>
- import index from '@/components/index'
+//  import index from '@/components/index'
 
 export default {
   name: "invitation",
   data() {
     return {
       msgs_id: 1,
-      time_id: 4,
+      time_id: 0,
       msgs: [
         { id: 1, msg: "全部" },
         { id: 2, msg: "招标" },
@@ -107,213 +104,6 @@ export default {
         { id: 30, msg: "近一个月" },
         { id: 90, msg: "近三个月" }
       ],
-      inv_tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "招标",
-          address: "中共紫金县委办公室办公耗材采购采购计划"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "预发",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-03",
-          name: "招标",
-          address: "上海市普陀区金沙江路 1516 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "招标",
-          address: "	中共紫金县委办公室办公耗材采购采购计划"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "预发",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-03",
-          name: "招标",
-          address: "上海市普陀区金沙江路 1516 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "招标",
-          address: "	中共紫金县委办公室办公耗材采购采购计划"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "预发",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-03",
-          name: "招标",
-          address: "上海市普陀区金沙江路 1516 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "招标",
-          address: "	中共紫金县委办公室办公耗材采购采购计划"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "预发",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-03",
-          name: "招标",
-          address: "上海市普陀区金沙江路 1516 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "招标",
-          address: "	中共紫金县委办公室办公耗材采购采购计划"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "招标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "预发",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-01",
-          name: "中标",
-          address:
-            "耀州区瑶曲镇下石节小学操场硬化及基础设施建设项目中标结果公示"
-        },
-        {
-          date: "2016-05-03",
-          name: "招标",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
-      ],
       tables: [],
       currentPage1: 1,
       pagesize: 10, // 每页显示三条
@@ -322,14 +112,14 @@ export default {
   },
   created() {
     this.axios
-      .post("/findAll", {
-        msgs_id: this.msgs_id,
-        time_id:this.time_id
+      .post("/tender/findAll", {
+        state: this.msgs_id,
+        chooseTime: this.time_id
       })
       .then(res => {
         if (res.data.code == 200) {
-          console.log(res.data);
-          this.tables = res.data;
+          console.log(res.data.data.tenders);
+          this.tables = res.data.data.tenders;
         }
       })
       .catch(err => {
@@ -341,21 +131,21 @@ export default {
   //     return this.$store.state.invitation.inv_tableData;
   //   }
   // },
-components:{
-  index
-},
+  components: {
+    // index
+  },
   methods: {
     msgclick(item) {
       this.msgs_id = item;
-
       this.axios
         .post("/tender/findAll", {
-          name: this.msgs_id
+          state: this.msgs_id,
+          chooseTime: this.time_id
         })
         .then(res => {
           if (res.data.code == 200) {
-            console.log(res.data);
-            this.tables = res.data;
+            console.log(res.data.data.tenders);
+            this.tables = res.data.data.tenders;
           }
         })
         .catch(err => {
@@ -367,12 +157,14 @@ components:{
 
       this.axios
         .post("/tender/findAll", {
-          name: this.msgs_id
+          state: this.msgs_id,
+          chooseTime: this.time_id
         })
         .then(res => {
           if (res.data.code == 200) {
-            console.log(res.data);
-            this.tables = res.data;
+            console.log(res.data.data.tenders);
+            this.tables = res.data.data.tenders;
+            
           }
         })
         .catch(err => {
@@ -387,8 +179,22 @@ components:{
       // 当前页
       this.currpage = val;
     },
-    fun() {
-      console.log("a");
+    fun(id) {
+
+      console.log(id)
+      this.axios
+        .post("/tender/findBidCount", {
+          tenderId:id
+        })
+        .then(res => {
+          if (res.data.code == 200) {
+            console.log(res.data.data.tender);
+        
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
       this.$router.replace("/invitation/invdetail");
     }
   }
