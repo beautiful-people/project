@@ -49,14 +49,18 @@
         <form v-show="inx===1">
           <div class="form-group">
             <div class="select">
-              <select>
-                <option>省份</option>
+              <select v-model="selected" @change="getCity">
+                <option
+                  v-for="item in provience"
+                  :key="item.id"
+                  :value="item.proId"
+                >{{item.proName}}</option>
               </select>
-              <select>
-                <option>城市</option>
+              <select v-model="selecteds" @change="getCountry">
+                <option v-for="item in city" :key="item.id" :value="item.cityId">{{item.cityName}}</option>
               </select>
-              <select>
-                <option>区/县</option>
+              <select v-model="selectedse">
+                <option v-for="item in country" :key="item.id">{{item.disName}}</option>
               </select>
             </div>
             <i class="el-icon-location-information logo city"></i>
@@ -80,7 +84,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册" @click="getBusiness"/>
+            <input type="button" value="立即注册" @click="getBusiness" />
           </div>
           <div class="button">
             <input type="button" value="账号密码注册" @click="inx=0 " />
@@ -89,14 +93,18 @@
         <form v-show="inx===0" class="users">
           <div class="form-group">
             <div class="select">
-              <select id="province">
-                <option>省份</option>
+              <select v-model="selected" @change="getCity">
+                <option
+                  v-for="item in provience"
+                  :key="item.id"
+                  :value="item.proId"
+                >{{item.proName}}</option>
               </select>
-              <select id="city">
-                <option>城市</option>
+              <select v-model="selecteds" @change="getCountry">
+                <option v-for="item in city" :key="item.id" :value="item.cityId">{{item.cityName}}</option>
               </select>
-              <select id="district">
-                <option>区/县</option>
+              <select v-model="selectedse">
+                <option v-for="item in country" :key="item.id">{{item.disName}}</option>
               </select>
             </div>
             <i class="el-icon-location-information logo city"></i>
@@ -115,7 +123,7 @@
           </div>
           <div class="form-group">
             <input type="password" placeholder="请输入验证码" v-model="security" class="password" />
-            <button type="button">获取验证码</button>
+            <canvas id="canvas" width="100" height="30"></canvas>
 
             <i class="el-icon-key logo"></i>
           </div>
@@ -139,14 +147,18 @@
           </div>
           <div class="form-group">
             <div class="select">
-              <select>
-                <option>省份</option>
+              <select v-model="selected" @change="getCity">
+                <option
+                  v-for="item in provience"
+                  :key="item.id"
+                  :value="item.proId"
+                >{{item.proName}}</option>
               </select>
-              <select>
-                <option>城市</option>
+              <select v-model="selecteds" @change="getCountry">
+                <option v-for="item in city" :key="item.id" :value="item.cityId">{{item.cityName}}</option>
               </select>
-              <select>
-                <option>区/县</option>
+              <select v-model="selectedse">
+                <option v-for="item in country" :key="item.id">{{item.disName}}</option>
               </select>
             </div>
             <i class="el-icon-location-information logo city"></i>
@@ -170,7 +182,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册"  @click="getBusiness"/>
+            <input type="button" value="立即注册" @click="getBusiness" />
           </div>
           <div class="button">
             <input type="button" value="手机注册" @click="inx=0 " />
@@ -182,15 +194,19 @@
             <span>已服务的家庭</span>
           </div>
           <div class="form-group">
-            <div class="select">
-              <select>
-                <option>省份</option>
+          <div class="select">
+              <select v-model="selected" @change="getCity">
+                <option
+                  v-for="item in provience"
+                  :key="item.id"
+                  :value="item.proId"
+                >{{item.proName}}</option>
               </select>
-              <select>
-                <option>城市</option>
+              <select v-model="selecteds" @change="getCountry">
+                <option v-for="item in city" :key="item.id" :value="item.cityId">{{item.cityName}}</option>
               </select>
-              <select>
-                <option>区/县</option>
+              <select v-model="selectedse">
+                <option v-for="item in country" :key="item.id">{{item.disName}}</option>
               </select>
             </div>
             <i class="el-icon-location-information logo city"></i>
@@ -214,7 +230,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册"  @click="getBusiness"/>
+            <input type="button" value="立即注册" @click="getBusiness" />
           </div>
           <div class="button">
             <input type="button" value="账号注册" @click="inx=1 " />
@@ -245,11 +261,94 @@ export default {
       userNames: "",
       userTelphones: "",
       userPasses: "",
+      provience: {},
+      city: {},
+      country: {},
+      selected: "",
+      selecteds: "",
+      selectedse: ""
     };
   },
-  methods:{
-    getBusiness(){
-      this.$router.push("/membership")
+  created() {
+    this.getProvience();
+  },
+  methods: {
+    getBusiness() {
+      var datas = [this.username, this.usertelphone, this.userpass];
+      sessionStorage.setItem("datas", datas);
+      this.$router.push("/membership");
+    },
+    getProvience() {
+      this.axios
+        .post(
+          "http://172.16.6.58:8080/datas/proData",
+          {},
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data.data.provinceList);
+          if (res.data.code == "200") {
+            this.provience = res.data.data.provinceList;
+            this.selected = this.provience.proId;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getCity() {
+      this.axios
+        .post(
+          "http://172.16.6.58:8080/datas/cityData",
+          {
+            proId: this.selected
+          },
+          {
+            headers: {
+              "content-type": "application/json",
+              proId: this.selected
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == "200") {
+            this.city = res.data.data.cityList;
+            this.selecteds = this.city.cityId;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getCountry() {
+      this.axios
+        .post(
+          "http://172.16.6.58:8080/datas/disData",
+          {
+            cityId: this.selecteds
+          },
+          {
+            headers: {
+              "content-type": "application/json",
+              cityId: this.selecteds
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == "200") {
+            this.country = res.data.data.disList;
+            this.selectedse = this.country.disId;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };

@@ -7,7 +7,7 @@
       <p>联系人：{{}}</p>
       <p>联系电话：{{}}</p>
       <p>装修面积：{{}}</p>
-      <router-link to="/personalCenter/mytender/tenderInfor">查看招标信息</router-link>
+      <router-link to="/personalCenter/tenderInfor">查看招标信息</router-link>
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@ export default {};
   display: none;
 }
 .lis {
+  text-align: left;
   width: 100%;
   height: 160px;
   position: relative;

@@ -89,6 +89,15 @@
           </div>
         </div>
         <div class="membership-main-one clear">
+          <span>行业库</span>
+          <div class="one-main">
+            <label for v-for="item in  hang" :key="item.id">
+              <input type="checkbox" @click="priceName=item.name"/>
+              {{item.tradeName}}
+            </label>
+          </div>
+        </div>
+        <div class="membership-main-one clear">
           <span>经营模式</span>
           <div class="one-main">
             <label for v-for="item in  businessmodel" :key="item.id">
@@ -146,7 +155,7 @@
           </div>
         </div>
         <div class="membership-main-button">
-          <button type="button">确认资料</button>
+          <button type="button" @click="getLogin">确认资料</button>
           <button type="button">重置</button>
         </div>
       </div>
@@ -320,6 +329,7 @@ export default {
           id: 3
         },
       ],
+      hang:{},
       freeServiceName:"",
       scopeBusinessName:"",
       priceName:"",
@@ -333,8 +343,42 @@ export default {
       Capital: "",
       MainProduct: "",
       BusinessPosition: "",
-      DetailedAddress: ""
+      DetailedAddress: "",
+      datas:sessionStorage.getItem("datas")
     };
+  },
+  created(){
+this.getHang();
+  },
+  methods:{
+    getLogin(){
+      console.log(this.datas)
+    },
+    getHang(){
+        this.axios
+        .post(
+          "/datas/tradeData",
+          {
+           
+          },
+          {
+            headers: {
+              "content-type": "application/json",
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == "200") {
+            this.hang = res.data.data.tradeList;
+           
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      }
+
   }
 };
 </script>

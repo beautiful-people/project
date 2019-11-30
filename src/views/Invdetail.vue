@@ -13,9 +13,9 @@
         </tr>
         <tr>
           <td>招标编号：{{item.id}}</td>
-          <td>发布时间：{{item.date}}</td>
-          <td>动工时间：{{item.begin}}</td>
-          <td>结束时间：{{item.end}}</td>
+          <td>招标开始时间：{{item.date}}</td>
+          <td>招标结束时间：{{item.begin}}</td>
+          <td>工期：{{item.end}}</td>
         </tr>
         <tr>
           <td>房屋面积：{{item.size}}</td>
@@ -24,7 +24,10 @@
           <td style="color:red;">当前状态：{{item.state}}</td>
         </tr>
         <tr>
-          <td colspan="4">详细地址</td>
+          <td>房屋现状：</td>
+          <td>联系方式：</td>
+          <td>户型结构：</td>
+          <td >详细地址</td>
         </tr>
         <tr>
           <td colspan="4">
@@ -51,14 +54,17 @@
       </table>
       <!-- Form -->
 
-      <el-dialog title="提交投标信息" :visible.sync="dialogFormVisible">
+      <el-dialog title="提交投标信息" :visible.sync="dialogFormVisible" width="30%">
         <el-form :model="form" style="text-align: left;">
+          
+  
           <el-form-item label="初步报价:" :label-width="formLabelWidth">
-            <el-input v-model="form.begin_price" autocomplete="off"></el-input>如：全部8万元
+            
+            <el-input v-model="form.begin_price" autocomplete="off" placeholder="如：全部8万元"></el-input>
           </el-form-item>
 
           <el-form-item label="装修定价:" :label-width="formLabelWidth">
-            <el-input v-model="form.zx_price" autocomplete="off"></el-input>如：300-500元/平米
+            <el-input v-model="form.zx_price" autocomplete="off" placeholder="如：300-500元/平米"></el-input>
           </el-form-item>
 
           <el-form-item label="报价说明:" :label-width="formLabelWidth">
@@ -69,6 +75,9 @@
               v-model="form.bj_textarea"
               style="width:calc(100% -120px);"
             ></el-input>
+            <input type="checkbox" name id="tbgz" checked />
+            <label for="tbgz">已同意投标承诺保证书</label>
+           
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
