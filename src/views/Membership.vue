@@ -47,7 +47,7 @@
           <span>免费服务</span>
           <div class="one-main">
             <label for v-for="item in freeService" :key="item.id">
-              <input type="checkbox" @click="freeServiceName=item.name"/>
+              <input type="checkbox" @click="freeServiceName=item.name" />
               {{item.name}}
             </label>
           </div>
@@ -71,10 +71,19 @@
           </div>
         </div>
         <div class="membership-main-one clear">
+          <span>服务区域</span>
+          <div class="one-main">
+            <label for v-for="item in country" :key="item.id">
+              <input type="checkbox" @click="coverageName=item.name" />
+              {{item.disName}}
+            </label>
+          </div>
+        </div>
+        <div class="membership-main-one clear">
           <span>业务范围</span>
           <div class="one-main">
             <label for v-for="item in scopeBusiness" :key="item.id">
-              <input type="checkbox" @click="scopeBusinessName=item.name"/>
+              <input type="checkbox" @click="scopeBusinessName=item.name" />
               {{item.name}}
             </label>
           </div>
@@ -83,7 +92,7 @@
           <span>承接价位</span>
           <div class="one-main">
             <label for v-for="item in  price" :key="item.id">
-              <input type="checkbox" @click="priceName=item.name"/>
+              <input type="checkbox" @click="priceName=item.name" />
               {{item.name}}
             </label>
           </div>
@@ -92,7 +101,7 @@
           <span>行业库</span>
           <div class="one-main">
             <label for v-for="item in  hang" :key="item.id">
-              <input type="checkbox" @click="priceName=item.name"/>
+              <input type="checkbox" @click=" libraryName=item.name" />
               {{item.tradeName}}
             </label>
           </div>
@@ -101,7 +110,7 @@
           <span>经营模式</span>
           <div class="one-main">
             <label for v-for="item in  businessmodel" :key="item.id">
-              <input type="checkbox" @click="businessmodelName=item.name"/>
+              <input type="checkbox" @click="businessmodelName=item.name" />
               {{item.name}}
             </label>
           </div>
@@ -110,7 +119,7 @@
           <span>商家类型</span>
           <div class="one-main">
             <label for v-for="item in  businesstype" :key="item.id">
-              <input type="checkbox" @click="businesstypeName=item.name"/>
+              <input type="checkbox" @click="businesstypeName=item.name" />
               {{item.name}}
             </label>
           </div>
@@ -137,7 +146,7 @@
           <span>商家性质</span>
           <div class="one-main">
             <label for v-for="item in  businessnature" :key="item.id">
-              <input type="radio" @click="businessnatureName=item.name"/>
+              <input type="radio" @click="businessnatureName=item.name" />
               {{item.name}}
             </label>
           </div>
@@ -316,26 +325,27 @@ export default {
           name: "企业单位",
           id: 0
         },
-         {
+        {
           name: "个体经营",
           id: 1
         },
-         {
+        {
           name: "事业单位或社会团体",
           id: 2
         },
-         {
+        {
           name: "未经工商注册，个人",
           id: 3
-        },
+        }
       ],
-      hang:{},
-      freeServiceName:"",
-      scopeBusinessName:"",
-      priceName:"",
-      businessmodelName:"",
-      businesstypeName:"",
-      businessnatureName:"",
+      hang: {},
+      coun: {},
+      freeServiceName: "",
+      scopeBusinessName: "",
+      priceName: "",
+      businessmodelName: "",
+      businesstypeName: "",
+      businessnatureName: "",
       textarea: "",
       Businessname: "",
       Business: "",
@@ -344,26 +354,93 @@ export default {
       MainProduct: "",
       BusinessPosition: "",
       DetailedAddress: "",
-      datas:sessionStorage.getItem("datas")
+      coverageName: "",
+      libraryName: "",
+      country: sessionStorage.getItem("countrys")
     };
   },
-  created(){
-this.getHang();
+  created() {
+    this.getHang();
+    this.getcity();
   },
-  methods:{
-    getLogin(){
-      console.log(this.datas)
-    },
-    getHang(){
-        this.axios
+  methods: {
+    getLogin() {
+      this.axios
         .post(
-          "/datas/tradeData",
+          "http://172.16.6.58:8080/register",
           {
            
-          },
+              merchant:{
+                merFreeserve: this.freeServiceName,
+                merCoverage: this.scopeBusinessName,
+                merPrice: this.priceName,
+                merPattern: this.businessmodelName,
+                merType: this.businesstypeName,
+                merNature: this.businessnatureName,
+                merSynopsis: this.textarea,
+                merName: this.Businessname,
+                merAbbr: this.Business,
+                merAptitude: this.Aptitude,
+                merAsset: this.Capital,
+                merProServe: this.MainProduct,
+                merDuty: this.BusinessPosition,
+                merAddress: this.DetailedAddress,
+                merServeArea: this.coverageName,
+                merIndustry: this.libraryName,
+              },
+              power:3,
+              account:{
+                 merFreeserve: this.freeServiceName,
+                  merCoverage: this.scopeBusinessName,
+              }
+            },
+          
           {
             headers: {
               "content-type": "application/json",
+              "data": {
+              merchant:{
+                merFreeserve: this.freeServiceName,
+                merCoverage: this.scopeBusinessName,
+                merPrice: this.priceName,
+                merPattern: this.businessmodelName,
+                merType: this.businesstypeName,
+                merNature: this.businessnatureName,
+                merSynopsis: this.textarea,
+                merName: this.Businessname,
+                merAbbr: this.Business,
+                merAptitude: this.Aptitude,
+                merAsset: this.Capital,
+                merProServe: this.MainProduct,
+                merDuty: this.BusinessPosition,
+                merAddress: this.DetailedAddress,
+                merServeArea: this.coverageName,
+                merIndustry: this.libraryName,
+              },
+              power:1,
+              account:{
+                 merFreeserve: this.freeServiceName,
+                  merCoverage: this.scopeBusinessName,
+              }
+            }
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getHang() {
+      this.axios
+        .post(
+          "http://172.16.6.58:8080/datas/tradeData",
+          {},
+          {
+            headers: {
+              "content-type": "application/json"
             }
           }
         )
@@ -371,14 +448,35 @@ this.getHang();
           console.log(res.data);
           if (res.data.code == "200") {
             this.hang = res.data.data.tradeList;
-           
           }
         })
         .catch(err => {
           console.log(err);
         });
-      }
-
+    },
+    getcity() {
+      this.axios
+        .post(
+          "http://172.16.6.58:8080/datas/disData",
+          {
+            cityId: this.country
+          },
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == "200") {
+            this.country = res.data.data.disList;
+          }
+        })
+        .catch(err => {
+          console.log(err);                                                                                                                                                                  
+        });
+    }
   }
 };
 </script>

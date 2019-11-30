@@ -84,7 +84,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册" @click="getBusiness" />
+            <input type="button" value="立即注册" @click="getBusiness" :power="power"/>
           </div>
           <div class="button">
             <input type="button" value="账号密码注册" @click="inx=0 " />
@@ -132,7 +132,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册" @click="getBusiness" />
+            <input type="button" value="立即注册" @click="getBusiness" :power="power"/>
           </div>
           <div class="button">
             <input type="button" value="手机注册" @click="inx=1" />
@@ -148,6 +148,9 @@
           <div class="form-group">
             <div class="select">
               <select v-model="selected" @change="getCity">
+                <option  v-for="item in provience"
+                  :key="item.id"
+                  :value="item.proId">省</option>
                 <option
                   v-for="item in provience"
                   :key="item.id"
@@ -266,7 +269,8 @@ export default {
       country: {},
       selected: "",
       selecteds: "",
-      selectedse: ""
+      selectedse: "",
+      power:1
     };
   },
   created() {
@@ -274,8 +278,6 @@ export default {
   },
   methods: {
     getBusiness() {
-      var datas = [this.username, this.usertelphone, this.userpass];
-      sessionStorage.setItem("datas", datas);
       this.$router.push("/membership");
     },
     getProvience() {
@@ -293,7 +295,10 @@ export default {
           console.log(res.data.data.provinceList);
           if (res.data.code == "200") {
             this.provience = res.data.data.provinceList;
-            this.selected = this.provience.proId;
+           
+            console.log(typeof this.provience.proId);
+            this.selected = this.provience[0].proId;
+            
           }
         })
         .catch(err => {
@@ -318,7 +323,8 @@ export default {
           console.log(res.data);
           if (res.data.code == "200") {
             this.city = res.data.data.cityList;
-            this.selecteds = this.city.cityId;
+         
+            this.selecteds = Number(this.city[0].cityId);
           }
         })
         .catch(err => {
@@ -342,8 +348,10 @@ export default {
         .then(res => {
           console.log(res.data);
           if (res.data.code == "200") {
+              var countrys =this.selecteds;
+           sessionStorage.setItem("countrys",countrys)
             this.country = res.data.data.disList;
-            this.selectedse = this.country.disId;
+            this.selectedse = Number(this.country[0].disId);
           }
         })
         .catch(err => {

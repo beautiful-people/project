@@ -127,7 +127,7 @@
         </el-carousel>
       </div>
     </div>
-    
+    <!-- 精选美图 -->
     <div class="home-superstars">
       <div class="home-supheader">
         <h2>精 <span> / </span>  选 <span> / </span>  美 <span> / </span> 图 </h2>
@@ -177,11 +177,48 @@
       </div>
     </div>
 
-    
-    <div class="home-superstars">
-      <div class="home-supheader">
-        <h2>精 <span> / </span>  品 <span> / </span>  主 <span> / </span>  题</h2>
-        <div class="home-style">国内外优质、具有创意的家居装修设计案例图片</div>
+    <!-- 家居风格 -->
+    <div class="home-householdstyle">
+      <div class="home-household">
+        <h2>家 <span> / </span> 居 <span> / </span>  风 <span> / </span>  格</h2>
+        <div class="home-style">审美和爱好的不同，营造特有的装饰风格</div>
+      </div>
+      <div class="household-list">
+        <!-- 家居风格左侧 -->
+        <div class="household-list-left">
+          <img src="img/index-img/thetopby/xxgt_01.jpg" alt="">
+          <div class="household-left-div">
+            <div class="one"></div>
+            <div class="sac">New Well</div>
+            <div class="two"></div>
+          </div>
+        </div>
+        <div class="household-list-right">
+          <div class="household-right-img">
+            <img src="img/index-img/thetopby/xxgt_02.jpg" alt="">
+            <div class="household-span">地中海风格</div>
+          </div>
+          <div class="household-right-img">
+            <img src="img/index-img/thetopby/xxgt_03.jpg" alt="">
+            <div class="household-span">田园风格</div>
+          </div>
+          <div class="household-right-img">
+            <img src="img/index-img/thetopby/xxgt_04.jpg" alt="">
+            <div class="household-span">美式风格</div>
+          </div>
+          <div class="household-right-img">
+            <img src="img/index-img/thetopby/xxgt_05.jpg" alt="">
+            <div class="household-span">法式风格</div>
+          </div>
+          <div class="household-right-img">
+            <img src="img/index-img/thetopby/xxgt_06.jpg" alt="">
+            <div class="household-span">欧式风格</div>
+          </div>
+          <div class="household-right-img">
+            <img src="img/index-img/thetopby/xxgt_07.jpg" alt="">
+            <div class="household-span">新中式风格</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -200,6 +237,117 @@ export default {
 </script>
 
 <style lang="less" scoped>
+// 家居风格
+.home-householdstyle{
+    width: 1200px;
+    height: 600px;
+    padding-top: 230px;
+    margin: auto;
+    
+    .household-list{
+      width: 1200px;
+      height: 506px;
+      background: rebeccapurple;
+      margin-bottom: 20px;
+      .household-list-left{
+        width:320px;
+        height: 506px;
+        float: left;
+        background: pink;
+        .household-left-div:hover .one{
+            border: 93px solid transparent; 
+            border-bottom: 93px solid rgba(250, 71, 30,0.8);
+        }
+        .household-left-div:hover .two{
+            border: 93px solid transparent;
+            border-top: 93px solid rgba(250, 71, 30,0.8);
+        }
+        .household-left-div{
+          float: left;
+          margin-left: 67px;
+          margin-top: -440px;
+          z-index: 5;
+          position: relative;
+          .sac{
+            width: 186px;
+            // position: relative;
+            float: left;
+            font-size: 30px;
+            margin-top: -15px;
+            color: white;
+          }
+          .one {
+            border: 93px solid transparent;
+            width: 0;
+            border-bottom: 93px solid rgba(250, 71, 30,0.6);
+            }
+          .two {
+            border: 93px solid transparent;
+            width: 0;
+            border-top: 93px solid rgba(250, 71, 30,0.6);
+          }
+        }
+        
+      }
+      .household-list-right{
+        width: 880px;
+        height: 506px;
+        float: left;
+        background: rgb(151, 4, 28);
+        .household-right-img:hover{
+          box-shadow: 1px 1px 5px rgb(126, 126, 126);
+        }
+        
+        .household-right-img:hover .household-span{
+            font-size: 18px;
+          }
+        .household-right-img{
+          width: 273px;
+          height: 243px;
+          margin-left: 20px;
+          background: skyblue;
+          margin-bottom: 20px;
+          position: relative;
+          float: left;
+          img{
+            width: 273px;
+            height: 243px;
+          }
+          .household-span{
+            width: 100%;
+            height: 40px;
+            color: white;
+            background: rgba(52,52,52,.6);
+            z-index: 10;
+            margin-top: -44px;
+            line-height: 40px;
+            position: absolute;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+    .home-household{
+      height: 100px;
+      width: 100%;
+      padding: 45px 0 35px 0;
+      .home-style{
+      width: 360px;
+      background: #e9e9e9;
+      margin:20px auto;
+      padding: 4px;
+      font-size: 12px;
+      }
+      .home-mosthold{
+        width: 120px;
+        background: #e9e9e9;
+        margin:20px auto;
+        padding: 4px;
+        font-size: 12px;
+      }
+    }
+}
+
 // 风格设计：
 .home-superstars{
   width: 1200px;
