@@ -1,45 +1,23 @@
 <template>
   <div>
     <h3>修改密码</h3>
-    <el-form
-      :inline="true"
-      :label-position="labelPosition"
-      label-width="150px"
-      :model="formLabelAlign"
-    >
-      <el-form-item label="用户名">
-        <el-input v-model="formLabelAlign.userName"></el-input>
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-form-item label="验证码" prop="code">
+        <el-input v-model.number="ruleForm.code"></el-input>
       </el-form-item>
-      <el-form-item label="真实姓名">
-        <el-input v-model="formLabelAlign.realName"></el-input>
+
+      <el-form-item label="密码" prop="pass">
+        <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="手机号码">
-        <el-input v-model="formLabelAlign.userPhone"></el-input>
+
+      <el-form-item label="确认密码" prop="checkPass">
+        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="性别">
-        <el-radio-group v-model="formLabelAlign.userSex">
-          <el-radio label="男"></el-radio>
-          <el-radio label="女"></el-radio>
-        </el-radio-group>
+  
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
-      <el-form-item label="出生年月">
-        <el-input v-model="formLabelAlign.userBirthday"></el-input>
-      </el-form-item>
-      <el-form-item label="座机电话">
-        <el-input v-model="formLabelAlign.Telephone"></el-input>
-      </el-form-item>
-      <el-form-item label="QQ号码">
-        <el-input v-model="formLabelAlign.userQQ"></el-input>
-      </el-form-item>
-      <el-form-item label="电子邮件">
-        <el-input v-model="formLabelAlign.userEmail"></el-input>
-      </el-form-item>
-      <div class="Btn">
-        <el-form-item>
-          <el-button class="confirmBtn" @click="onSubmit">保存修改</el-button>
-          <el-button>取消</el-button>
-        </el-form-item>
-      </div>
     </el-form>
   </div>
 </template>
@@ -47,24 +25,70 @@
 <script>
 export default {
   data() {
+    var checkCode = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('验证码不能为空'));
+      }
+    };
+    var validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'));
+      } else {
+        if (this.ruleForm.checkPass !== '') {
+          this.$refs.ruleForm.validateField('checkPass');
+        }
+        callback();
+      }
+    };
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'));
+      } else if (value !== this.ruleForm.pass) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    };
     return {
-      labelPosition: "right",
-      formLabelAlign: {
-        userName: '',
-        realName: '',
-        userPhone: '',
-        userSex: '',
-        userBirthday: '',
-        Telephone: '',
-        userQQ: '',
-        userEmail: ''
+      ruleForm: {
+        pass: '',
+        checkPass: '',
+        code: ''
+      },
+      rules: {
+        pass: [
+          { validator: validatePass, trigger: 'blur' }
+        ],
+        checkPass: [
+          { validator: validatePass2, trigger: 'blur' }
+        ],
+        code: [
+          { validator: checkCode, trigger: 'blur' }
+        ]
       }
     };
   },
   methods: {
-    onSubmit() {
-      console.log('submit!');
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!');
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
   }
 }
 </script>
+
+<style lang="less" scoped>
+  el-form{
+    width: 40%;
+    text-align: center;
+  }
+</style>
