@@ -235,7 +235,7 @@ export default {
           left: 32px;
         }
         canvas {
-         margin-right: -10px;
+         margin-right: 10px;
         }
         input[type="button"] {
           width: 254px;
