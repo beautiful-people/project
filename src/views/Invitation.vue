@@ -42,20 +42,22 @@
 
     <div class="content">
       <div style="width:100%;">
-        <el-table :data="tables.slice((currpage-1)*pagesize,currpage*pagesize)" style="width: 100%">
+        <el-table :data="tables" style="width: 100%">
           <el-table-column label="日期" width="200">
             <template slot-scope="scope">
               <i class="el-icon-time"></i>
-              <span style="margin-left: 10px">{{ scope.row.tenderEndTime }}</span>
+              <span style="margin-left: 10px">{{ getTime(scope.row.startTime) }}</span>
             </template>
           </el-table-column>
           <el-table-column label="项目状态" width="200">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
-                <p>状态: {{ scope.row.state }}</p>
-                <p>到期时间:{{scope.row.tenderEndTime}}</p>
+                <p>发布人: {{ scope.row.linkMan }}</p>
+                <p>联系方式: {{ scope.row.phone }}</p>
+
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium">{{ scope.row.state }}</el-tag>
+                  <el-tag size="medium" v-if="scope.row.state == 2">中标</el-tag>
+                  <el-tag size="medium" v-else-if="scope.row.state == 3">招标</el-tag>
                 </div>
               </el-popover>
             </template>
@@ -75,7 +77,7 @@
           @current-change="handleCurrentChange"
           :current-page="currpage"
           :page-size="pagesize"
-          :total="tables.length"
+          :total="totalCount"
           background
           layout="prev, pager, next"
         ></el-pagination>
@@ -105,21 +107,25 @@ export default {
         { id: 90, msg: "近三个月" }
       ],
       tables: [],
-      currentPage1: 1,
+
       pagesize: 10, // 每页显示三条
-      currpage: 1 // 默认开始页面
+      currpage: 1, // 默认开始页面
+      totalCount: 0
     };
   },
   created() {
     this.axios
       .post("/tender/findAll", {
         state: this.msgs_id,
-        chooseTime: this.time_id
+        chooseTime: this.time_id,
+        currentPage: this.currpage,
+        pageSize: this.pagesize
       })
       .then(res => {
         if (res.data.code == 200) {
-          console.log(res.data.data.tenders);
+          console.log(res.data);
           this.tables = res.data.data.tenders;
+          this.totalCount = res.data.data.totalCount;
         }
       })
       .catch(err => {
@@ -164,7 +170,6 @@ export default {
           if (res.data.code == 200) {
             console.log(res.data.data.tenders);
             this.tables = res.data.data.tenders;
-            
           }
         })
         .catch(err => {
@@ -178,24 +183,75 @@ export default {
     handleCurrentChange(val) {
       // 当前页
       this.currpage = val;
-    },
-    fun(id) {
 
-      console.log(id)
       this.axios
-        .post("/tender/findBidCount", {
-          tenderId:id
+        .post("/tender/findAll", {
+          currentPage: this.currpage,
+          pageSize: this.pagesize,
+          state: this.msgs_id,
+          chooseTime: this.time_id
         })
         .then(res => {
           if (res.data.code == 200) {
-            console.log(res.data.data.tender);
-        
+            console.log(res.data.data.tenders);
+            this.tables = res.data.data.tenders;
+            console.log(this.tables);
+            this.totalCount = res.data.data.totalCount;
           }
         })
         .catch(err => {
           console.log(err);
         });
-      this.$router.replace("/invitation/invdetail");
+      console.log(val);
+    },
+    fun(id) {
+      // 请求数据
+
+      console.log(id);
+
+      this.$router.push("/invitation/invdetail?" + id);
+    },
+
+    getTime(time) {
+      /**
+       * 时间对象的格式化;
+       */
+      Date.prototype.format = function(format) {
+        /*
+         * eg:format="YYYY-MM-dd hh:mm:ss";
+         */
+        var o = {
+          "M+": this.getMonth() + 1, // month
+          "d+": this.getDate(), // day
+          "h+": this.getHours(), // hour
+          "m+": this.getMinutes(), // minute
+          "s+": this.getSeconds(), // second
+          "q+": Math.floor((this.getMonth() + 3) / 3), // quarter
+          S: this.getMilliseconds() // millisecond
+        };
+        if (/(y+)/.test(format)) {
+          format = format.replace(
+            RegExp.$1,
+            (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+          );
+        }
+        for (var k in o) {
+          if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(
+              RegExp.$1,
+              RegExp.$1.length == 1
+                ? o[k]
+                : ("00" + o[k]).substr(("" + o[k]).length)
+            );
+          }
+        }
+        return format;
+      };
+
+      var jsDate = new Date(time).toLocaleDateString();
+      var date = jsDate.split("/");
+      var times = date.join("-");
+      return times
     }
   }
 };

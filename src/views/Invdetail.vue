@@ -3,37 +3,36 @@
     <div class="content">
       <table
         class="tab"
-        v-for="(item,index) in tableData"
-        :key="index"
         cellspacing="0"
         cellpadding="0"
       >
         <tr>
-          <th colspan="4" style="font-size:40px;color:black;text-align:center">{{item.address}}</th>
+          <th colspan="4" style="font-size:40px;color:black;text-align:center">{{tableData.calusename}}</th>
         </tr>
         <tr>
-          <td>招标编号：{{item.id}}</td>
-          <td>招标开始时间：{{item.date}}</td>
-          <td>招标结束时间：{{item.begin}}</td>
-          <td>工期：{{item.end}}</td>
+          <td>招标编号：{{tableData.tenderNum}}</td>
+          <td>招标开始时间：{{tableData.tenderStartTime}}</td>
+          <td>招标结束时间：{{tableData.tenderEndTime}}</td>
+          <td>工期：{{tableData.timeForProject}}</td>
         </tr>
         <tr>
-          <td>房屋面积：{{item.size}}</td>
-          <td>装修预算：{{item.price}}</td>
-          <td>审核人：{{item.people}}</td>
-          <td style="color:red;">当前状态：{{item.state}}</td>
+          <td>房屋面积：{{tableData.area}}</td>
+          <td>装修预算：{{tableData.decorationBudget}}</td>
+          <td>审核人：管理员</td>
+          <td style="color:red;" v-if="tableData.state == 2">当前状态：中标</td>
+          <td style="color:red;" v-else-if="tableData.state == 3">当前状态：招标</td>
         </tr>
         <tr>
-          <td>房屋现状：</td>
-          <td>联系方式：</td>
-          <td>户型结构：</td>
-          <td >详细地址</td>
+          <td>房屋现状：{{tableData.housingSituation}}</td>
+          <td>联系方式：{{tableData.phone}}</td>
+          <td>户型结构：{{tableData.familyStructure}}</td>
+          <td>详细地址{{tableData.location}}</td>
         </tr>
         <tr>
           <td colspan="4">
             装修招标详细要求：
             <br />
-            {{item.claim}}
+            {{tableData.fitmentRequest}}
           </td>
         </tr>
         <tr>
@@ -46,9 +45,9 @@
             </span>
           </td>
         </tr>
-        <tr>
+        <tr v-if="tableData.state == 3">
           <td colspan="4" style="text-align:center">
-            <el-button type="text" @click="dialogFormVisible = true">我要投标</el-button>
+            <el-button type="text" @click="dialogFormVisible = true" >我要投标</el-button>
           </td>
         </tr>
       </table>
@@ -56,10 +55,7 @@
 
       <el-dialog title="提交投标信息" :visible.sync="dialogFormVisible" width="30%">
         <el-form :model="form" style="text-align: left;">
-          
-  
           <el-form-item label="初步报价:" :label-width="formLabelWidth">
-            
             <el-input v-model="form.begin_price" autocomplete="off" placeholder="如：全部8万元"></el-input>
           </el-form-item>
 
@@ -77,7 +73,6 @@
             ></el-input>
             <input type="checkbox" name id="tbgz" checked />
             <label for="tbgz">已同意投标承诺保证书</label>
-           
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -103,36 +98,24 @@ export default {
         bj_textarea: ""
       },
       formLabelWidth: "120px",
-
-      tableData: [
-        {
-          id: 1,
-          date: "2016-05-02",
-          name: "王小虎",
-          begin: "2016-06-01",
-          end: "2016-07-04",
-          address: "上海市普陀区金沙江路 1518 弄",
-          size: "186(平方米)",
-          price: "50万至100万",
-          people: "管理员",
-          state: "招标中",
-          claim:
-            "我注重的是：高端设计，叠墅，地下室是90，轻奢风格，不超过100万之类，小孩子婚房，环保材料，明年拿房，隔壁有样板间，可以带设计师去看看……"
-        }
-      ]
+      tenderId: location.search.substr(1),
+      tableData: []
     };
   },
   created() {
     this.axios
-      .post("/login")
+      .post("/tender/findBidCount", {
+        tenderId: this.tenderId
+      })
       .then(res => {
         if (res.data.code == 200) {
-          console.log(res.data);
-          this.tables = res.data;
+          // console.log(res.data.data.tender);
+          this.tableData = res.data.data.tender
+          console.log(this.tableData)
         }
       })
       .catch(err => {
-        console.log(err);
+        console.log(err,this.tenderId);
       });
   },
   methods: {
