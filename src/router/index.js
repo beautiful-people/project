@@ -79,20 +79,11 @@ const routes = [
       path: 'mytender',
       name: 'MyTender',
       component: () => import('../views/MyTender.vue'),
-      children: [{
-        path: 'tenderInfor',
-        name: 'TenderInfor',
-        component: () => import('../views/TenderInfor.vue'),
-        meta: {
-          
-        }
-      }]
     },{
       path: 'launchbid',
       name: 'LaunchBid',
       component: () => import('../views/LaunchBid.vue'),
       meta: {
-        
       }
     },{
       path: 'information',
@@ -105,6 +96,13 @@ const routes = [
       path: 'resetpassword',
       name: 'ResetPassword',
       component: () => import('../views/ResetPassword.vue'),
+      meta: {
+        
+      }
+    },{
+      path: 'tenderInfor',
+      name: 'TenderInfor',
+      component: () => import('../views/TenderInfor.vue'),
       meta: {
         
       }
