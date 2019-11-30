@@ -1,18 +1,17 @@
 <template>
   <div id="invdetail">
     <div class="content">
-      <table
-        class="tab"
-        cellspacing="0"
-        cellpadding="0"
-      >
+      <table class="tab" cellspacing="0" cellpadding="0">
         <tr>
-          <th colspan="4" style="font-size:40px;color:black;text-align:center">{{tableData.calusename}}</th>
+          <th
+            colspan="4"
+            style="font-size:40px;color:black;text-align:center"
+          >{{tableData.calusename}}</th>
         </tr>
         <tr>
           <td>招标编号：{{tableData.tenderNum}}</td>
-          <td>招标开始时间：{{tableData.tenderStartTime}}</td>
-          <td>招标结束时间：{{tableData.tenderEndTime}}</td>
+          <td>招标开始时间：{{getTime(tableData.tenderStartTime)}}</td>
+          <td>招标结束时间：{{getTime(tableData.tenderEndTime)}}</td>
           <td>工期：{{tableData.timeForProject}}</td>
         </tr>
         <tr>
@@ -26,7 +25,7 @@
           <td>房屋现状：{{tableData.housingSituation}}</td>
           <td>联系方式：{{tableData.phone}}</td>
           <td>户型结构：{{tableData.familyStructure}}</td>
-          <td>详细地址{{tableData.location}}</td>
+          <td>详细地址：{{tableData.location}}</td>
         </tr>
         <tr>
           <td colspan="4">
@@ -47,32 +46,51 @@
         </tr>
         <tr v-if="tableData.state == 3">
           <td colspan="4" style="text-align:center">
-            <el-button type="text" @click="dialogFormVisible = true" >我要投标</el-button>
+            <el-button type="text" @click="dialogFormVisible = true">我要投标</el-button>
           </td>
         </tr>
       </table>
       <!-- Form -->
 
       <el-dialog title="提交投标信息" :visible.sync="dialogFormVisible" width="30%">
-        <el-form :model="form" style="text-align: left;">
+        <el-form :model="form" style="text-align: left;margin-left:-2%;">
+          <el-form-item style="text-align:center;">
+            <el-checkbox checked v-model="form.freeBudget">免费上门量房做预算</el-checkbox>
+            <el-checkbox checked v-model="form.freeDesign">免费设计</el-checkbox>
+          </el-form-item>
           <el-form-item label="初步报价:" :label-width="formLabelWidth">
-            <el-input v-model="form.begin_price" autocomplete="off" placeholder="如：全部8万元"></el-input>
+            <el-input
+              v-model="form.initialOffer"
+              autocomplete="off"
+              id="cbbj"
+             
+              placeholder="如：全部8万元"
+              style="width:60%;margin-right:20px;"
+            ></el-input>
+            <span style="color:red;">单位：万元</span>
           </el-form-item>
 
-          <el-form-item label="装修定价:" :label-width="formLabelWidth">
-            <el-input v-model="form.zx_price" autocomplete="off" placeholder="如：300-500元/平米"></el-input>
-          </el-form-item>
+          <!-- <el-form-item label="装修定价:" :label-width="formLabelWidth">
+            <el-input
+              v-model="form.zx_price"
+              autocomplete="off"
+              placeholder="如：300-500元/平米"
+              style="width:60%;margin-right:20px;"
+            ></el-input>
+          </el-form-item>-->
 
           <el-form-item label="报价说明:" :label-width="formLabelWidth">
             <el-input
               type="textarea"
               :autosize="{ minRows: 2, maxRows: 4}"
               placeholder="请输入内容"
-              v-model="form.bj_textarea"
-              style="width:calc(100% -120px);"
+              v-model="form.quoteExplain"
+              style="width:60%;"
             ></el-input>
-            <input type="checkbox" name id="tbgz" checked />
-            <label for="tbgz">已同意投标承诺保证书</label>
+
+            <el-form-item>
+              <el-checkbox checked>已同意投标承诺保证书</el-checkbox>
+            </el-form-item>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -93,9 +111,11 @@ export default {
     return {
       dialogFormVisible: false,
       form: {
-        begin_price: "",
-        zx_price: "",
-        bj_textarea: ""
+        initialOffer: "",
+        quoteExplain: "",
+        freeBudget: "",
+        freeDesign: "",
+        tenderId: this.tenderId
       },
       formLabelWidth: "120px",
       tenderId: location.search.substr(1),
@@ -110,12 +130,12 @@ export default {
       .then(res => {
         if (res.data.code == 200) {
           // console.log(res.data.data.tender);
-          this.tableData = res.data.data.tender
-          console.log(this.tableData)
+          this.tableData = res.data.data.tender;
+          console.log(this.tableData);
         }
       })
       .catch(err => {
-        console.log(err,this.tenderId);
+        console.log(err, this.tenderId);
       });
   },
   methods: {
@@ -126,10 +146,30 @@ export default {
         type: "warning"
       })
         .then(() => {
+          this.axios
+            .post("/bid/insertBid", { // 投标请求
+              tenderId:this.tenderId,
+              merId:0,
+              freeBudget:this.form.freeBudget,
+              freeDesign:this.form.freeDesign,
+              initialOffer:this.form.initialOffer,
+              quoteExplain:this.form.quoteExplain
+
+            })
+            .then(res => {
+              if (res.data.code == 200) {
+              
+               console.log(this.form.freeBudget)
+      
+              }
+            })
+            .catch(err => {
+              console.log(err, this.tenderId);
+            });
+
           this.dialogFormVisible = false;
           this.form.begin_price = "";
-          this.form.zx_price = "";
-          this.form.bj_textarea = "";
+          this.form.quoteExplain = "";
           this.$message({
             type: "success",
             message: "投标成功!"
@@ -145,8 +185,54 @@ export default {
     cancel() {
       this.dialogFormVisible = false;
       this.form.begin_price = "";
-      this.form.zx_price = "";
-      this.form.bj_textarea = "";
+      this.form.quoteExplain = "";
+    },
+
+    getTime(time) {
+      /**
+       * 时间对象的格式化;
+       */
+      Date.prototype.format = function(format) {
+        /*
+         * eg:format="YYYY-MM-dd hh:mm:ss";
+         */
+        var o = {
+          "M+": this.getMonth() + 1, // month
+          "d+": this.getDate(), // day
+          "h+": this.getHours(), // hour
+          "m+": this.getMinutes(), // minute
+          "s+": this.getSeconds(), // second
+          "q+": Math.floor((this.getMonth() + 3) / 3), // quarter
+          S: this.getMilliseconds() // millisecond
+        };
+        if (/(y+)/.test(format)) {
+          format = format.replace(
+            RegExp.$1,
+            (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+          );
+        }
+        for (var k in o) {
+          if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(
+              RegExp.$1,
+              RegExp.$1.length == 1
+                ? o[k]
+                : ("00" + o[k]).substr(("" + o[k]).length)
+            );
+          }
+        }
+        return format;
+      };
+
+      var jsDate = new Date(time).toLocaleDateString();
+      var date = jsDate.split("/");
+      var times = date.join("-");
+      return times;
+    },
+    reg(val) {
+      // 正则
+      var re = /\S/;
+      re.test(val);
     }
   }
 };

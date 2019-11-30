@@ -131,7 +131,7 @@ export default {
           console.log(res.data);
           if (res.data.code == "200") {
             // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
-            var token = res.data.data.token;
+            var token = res.data.data.account;
             sessionStorage.setItem("token", token);
            
             // 获取参数（未登录时想访问的路由）
