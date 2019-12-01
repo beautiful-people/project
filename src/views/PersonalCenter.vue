@@ -24,7 +24,10 @@ export default {
   },
   components: {
     Sidenav
-  }
+  },
+  // Vue.http.interceptors.push((request, next) => {
+  //   	request.headers.set('lanId', ‘100’);
+  //  })
 }
 </script>
 
