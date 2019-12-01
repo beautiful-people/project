@@ -50,14 +50,7 @@ export default {
     return {
       labelPosition: "right",
       formLabelAlign: {
-        userName: '',
-        realName: '',
-        userPhone: '',
-        userSex: '',
-        userBirthday: '',
-        Telephone: '',
-        userQQ: '',
-        userEmail: ''
+        
       }
     };
   },
@@ -65,7 +58,19 @@ export default {
     onSubmit() {
       console.log('submit!');
     }
-  }
+  },
+  created () {
+    this.axios.post('/', {
+      userId: sessionStorage.getItem('userId')
+    }) // 后台请求地址
+    .then(res => {
+      console.log('获取用户信息：', res.data)
+      this.formLabelAlign = res.data.data
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
 };
 </script>
 
