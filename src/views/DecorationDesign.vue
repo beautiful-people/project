@@ -3,40 +3,109 @@
     <div class="inv-nav">
       <div class="clearfix">
         <ul>
-          <li>信息类型:</li>
+          <li>户型:</li>
           <li
-            v-for="item in hx"
+            v-for="item in houseType"
             :key="item.h_id"
-            @click="msgclick(item.h_id)"
-            :class="{on:hx_id === item.h_id}"
+            @click="houseTypeClick(item.h_id)"
+            :class="{on:h_id === item.h_id}"
           >
             <label :for="item.h_id">
-              <input type="radio" name="hx" :id="item.h_id" />
+              <input type="radio" name="houseType" :id="item.h_id" />
               {{item.text}}
             </label>
           </li>
         </ul>
       </div>
 
-      <!-- <div class="clearfix">
+      <div class="clearfix">
         <ul>
-          <li>选择时间:</li>
+          <li>面积:</li>
           <li
-            v-for="item in time"
-            :key="item.id"
-            @click="timeclick(item.id)"
-            :class="{on:time_id === item.id}"
+            v-for="item in area"
+            :key="item.a_id"
+            @click="areaClick(item.a_id)"
+            :class="{on:a_id === item.a_id}"
           >
-            <label :for="item.id">
-              <input type="radio" name="time" :id="item.id" />
-              {{item.msg}}
+            <label :for="item.a_id">
+              <input type="radio" name="area" :id="item.a_id" />
+              {{item.text}}
             </label>
           </li>
         </ul>
-      </div> -->
+      </div>
 
+      <div class="clearfix">
+        <ul>
+          <li>总价:</li>
+          <li
+            v-for="item in price"
+            :key="item.p_id"
+            @click="priceClick(item.p_id)"
+            :class="{on:p_id === item.p_id}"
+          >
+            <label :for="item.p_id">
+              <input type="radio" name="price" :id="item.p_id" />
+              {{item.text}}
+            </label>
+          </li>
+        </ul>
+      </div>
 
+      <div class="clearfix">
+        <ul>
+          <li>风格:</li>
+          <li
+            v-for="item in styles"
+            :key="item.s_id"
+            @click="stylesClick(item.s_id)"
+            :class="{on:s_id === item.s_id}"
+          >
+            <label :for="item.s_id">
+              <input type="radio" name="styles" :id="item.s_id" />
+              {{item.text}}
+            </label>
+          </li>
+        </ul>
+      </div>
     </div>
+
+    <div class="msg">
+      为你找到了
+      <span style="color:#f76d4e;font-size:20px;">&nbsp;6327 &nbsp;</span>个适合的装修方案
+    </div>
+
+    <div class="content">
+      <div class="box" v-for="(item,index) in boxtext" :key="index">
+        <div class="box-left">
+          {{index}}
+          <img src alt />
+        </div>
+        <div class="box-right">
+          <div class="rig-top"></div>
+          <div class="rig-bottom"></div>
+        </div>
+
+        <p style="font-weight:bold;font-size:14px;">{{item.title}}</p>
+        <p>设计者：{{item.projector}}</p>
+        <p>
+          风格：{{item.title}}&nbsp;&nbsp;
+          户型：{{item.styles}}&nbsp;&nbsp;
+          面积：{{item.area}}&nbsp;&nbsp;
+          造价：{{item.price}}&nbsp;&nbsp;
+          小区：{{item.address}}
+        </p>
+        <p>提供的服务：暂无</p>
+        <p>
+          发布时间：
+          <span style="color:#f76d4e;font-size:14px;">{{item.time}}</span>
+        </p>
+
+        <button type="button" class="btn">我要询价</button>
+      </div>
+    </div>
+
+    <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
   </div>
 </template>
 
@@ -46,8 +115,8 @@ export default {
 
   data() {
     return {
-      hx_id: 0,
-      hx: [
+      h_id: 0,
+      houseType: [
         { h_id: 0, text: "全部" },
         { h_id: 1, text: "一居室" },
         { h_id: 2, text: "二居室" },
@@ -55,81 +124,256 @@ export default {
         { h_id: 4, text: "四居室" },
         { h_id: 5, text: "五居室" },
         { h_id: 6, text: "六居室" }
+      ],
+      a_id: 7,
+      area: [
+        { a_id: 7, text: "全部" },
+        { a_id: 8, text: "40㎡以下" },
+        { a_id: 9, text: "41㎡到60㎡" },
+        { a_id: 10, text: "61㎡到90㎡" },
+        { a_id: 11, text: "91㎡到120㎡" },
+        { a_id: 12, text: "121㎡到150㎡" }
+      ],
+      p_id: 13,
+      price: [
+        { p_id: 13, text: "1-5万" },
+        { p_id: 14, text: "5-10万" },
+        { p_id: 15, text: "10-20万" }
+      ],
+      s_id: 16,
+      styles: [
+        { s_id: 16, text: "东欧" },
+        { s_id: 17, text: "北欧" },
+        { s_id: 18, text: "南欧" }
+      ],
+      boxtext: [
+        {
+          title: "文化产品体验中心",
+          projector: "北京瑞祥嘉怡装饰有限公司第一分公司",
+          styles: "现代",
+          houseType: "其他",
+          area: "1000㎡",
+          price: "20万元",
+          time: "2019-11-27",
+          address: "文化产品体验中心"
+        },
+        {
+          title: "文化产品体验中心",
+          projector: "北京瑞祥嘉怡装饰有限公司第一分公司",
+          styles: "现代",
+          houseType: "其他",
+          area: "1000㎡",
+          price: "20万元",
+          time: "2019-11-27",
+          address: "文化产品体验中心"
+        },
+        {
+          title: "文化产品体验中心",
+          projector: "北京瑞祥嘉怡装饰有限公司第一分公司",
+          styles: "现代",
+          houseType: "其他",
+          area: "1000㎡",
+          price: "20万元",
+          time: "2019-11-27",
+          address: "文化产品体验中心"
+        },
+        {
+          title: "文化产品体验中心",
+          projector: "北京瑞祥嘉怡装饰有限公司第一分公司",
+          styles: "现代",
+          houseType: "其他",
+          area: "1000㎡",
+          price: "20万元",
+          time: "2019-11-27",
+          address: "文化产品体验中心"
+        },
+        {
+          title: "文化产品体验中心",
+          projector: "北京瑞祥嘉怡装饰有限公司第一分公司",
+          styles: "现代",
+          houseType: "其他",
+          area: "1000㎡",
+          price: "20万元",
+          time: "2019-11-27",
+          address: "文化产品体验中心"
+        },
+        {
+          title: "文化产品体验中心",
+          projector: "北京瑞祥嘉怡装饰有限公司第一分公司",
+          styles: "现代",
+          houseType: "其他",
+          area: "1000㎡",
+          price: "20万元",
+          time: "2019-11-27",
+          address: "文化产品体验中心"
+        }
       ]
     };
   },
-  methods:{
-      msgclick(item) {
-      this.hx_id = item;
+  methods: {
+    houseTypeClick(item) {
+      // 户型的点击事件
+      this.h_id = item;
 
-      this.axios
-        .post("/tender/findAll", {
-          name: this.hx_id
-        })
-        .then(res => {
-          if (res.data.code == 200) {
-            console.log(res.data);
-            this.tables = res.data;
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      // this.axios
+      //   .post("/tender/findAll", {
+      //     name: this.hx_id
+      //   })
+      //   .then(res => {
+      //     if (res.data.code == 200) {
+      //       console.log(res.data);
+      //       this.tables = res.data;
+      //     }
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   });
     },
+    areaClick(item) {
+      this.a_id = item;
+    },
+    priceClick(item) {
+      this.p_id = item;
+    },
+    stylesClick(item) {
+      this.s_id = item;
+    }
   }
 };
 </script>
 
 <style lang="less" scoped>
+@import "../assets/style/base.less";
+
 * {
   margin: 0;
   padding: 0;
 }
 .decorationdesign {
   width: 1366px;
+  height: 1800px;
   margin: 0 auto;
-  height: 500px;
+
   // background: yellow;
-  // border: 1px solid black;
-}
+  border: 1px solid black;
 
-.inv-nav {
-  width: 90%;
-  max-width: 1200px;
-  height: 60px;
-  border: 1px solid #dddddd;
-  margin: 0 auto;
-  padding: 10px;
-  color: #5291d7;
+  .inv-nav {
+    width: 90%;
+    max-width: 1200px;
+    height: 120px;
+    border: 1px solid #dddddd;
+    margin: 0 auto;
+    padding: 10px;
+    color: black;
+    background: #f8f8f8;
 
-  ul,
-  li {
-    list-style: none;
+    ul,
+    li {
+      list-style: none;
+    }
+    ul li {
+      float: left;
+      margin: 3px 5px;
+      padding: 2px 4px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    ul li:not(:first-child):hover {
+      background: #f76d4e;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    label {
+      cursor: pointer;
+    }
+    input[type="radio"] {
+      display: none;
+    }
+    .on {
+      background: #f76d4e;
+      color: white;
+      font-weight: bold;
+    }
   }
-  ul li {
-    float: left;
-    margin: 3px 5px;
-    padding: 2px 4px;
+  .msg {
+    width: 90%;
+    max-width: 1200px;
+    text-align: left;
+    height: 20px;
+    line-height: 20px;
+    background: #f8f8f8;
+    margin: 10px auto;
+    padding: 10px;
     font-size: 14px;
-    cursor: pointer;
-  }
-  ul li:not(1):hover {
-    background: #4f94cd;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+    border: 1px solid #dddddd;
   }
 
-  label {
-    cursor: pointer;
-  }
-  input[type="radio"] {
-    display: none;
-  }
-  .on {
-    background: #4f94cd;
-    color: white;
-    font-weight: bold;
+  .content {
+    width: 90%;
+    max-width: 1200px;
+    height: 1250px;
+    border: 1px solid #dddddd;
+    margin: 0 auto;
+    padding-left: 15px;
+    color: black;
+    background: #ddd;
+    text-align: left;
+
+    p {
+      margin: 5px 0px;
+      font-size: 12px;
+    }
+
+    .box {
+      width: 585px;
+      height: 400px;
+      background: white;
+      float: left;
+      margin: 10px 10px 0px 0px;
+      position: relative;
+
+      .box-left {
+        width: 325px;
+        height: 280px;
+        // margin-right: 10px;
+        float: left;
+        background: aqua;
+      }
+      .box-right {
+        width: 250px;
+        height: 280px;
+        float: left;
+        margin-left: 10px;
+        background: black;
+
+        .rig-top {
+          width: 100%;
+          height: 135px;
+          margin-bottom: 10px;
+          background: #f76d4e;
+        }
+        .rig-bottom {
+          width: 100%;
+          height: 135px;
+
+          background: lawngreen;
+        }
+      }
+    }
+    .btn {
+      width: 120px;
+      height: 45px;
+      background: #f76d4e;
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   }
 }
 </style>

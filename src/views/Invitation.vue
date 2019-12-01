@@ -287,7 +287,7 @@ export default {
     font-size: 14px;
     cursor: pointer;
   }
-  ul li:not(1):hover {
+  ul li:not(:first-child):hover {
     background: #4f94cd;
     color: white;
     font-weight: bold;
