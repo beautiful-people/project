@@ -42,7 +42,7 @@
     <el-table-column
       prop="initialOffer"
       label="报价"
-      width="300">
+      width="100">
     </el-table-column>
     <el-table-column
       prop="quoteExplain"
@@ -90,11 +90,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .lis p:nth-of-type(odd) {
-    width: 50%;
-    float: left;
+
+  .lis{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    p{
+      width: 360px;
+    }
   }
-  .lis p:nth-of-type(even) {
-    width: 50%;
-  }
+
 </style>
