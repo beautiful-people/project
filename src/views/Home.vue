@@ -232,6 +232,11 @@ export default {
   name: "home",
   components: {
     index
+  },
+  data:function(){
+    return {
+      msg:sessionStorage.getItem("name")
+    }
   }
 };
 </script>

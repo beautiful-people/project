@@ -53,14 +53,14 @@
                 <option
                   v-for="item in provience"
                   :key="item.id"
-                  :value="item.proId"
+                  :value="item.proId" :labal="item.proName"
                 >{{item.proName}}</option>
               </select>
               <select v-model="selecteds" @change="getCountry">
                 <option v-for="item in city" :key="item.id" :value="item.cityId">{{item.cityName}}</option>
               </select>
               <select v-model="selectedse">
-                <option v-for="item in country" :key="item.id">{{item.disName}}</option>
+                <option v-for="item in country" :key="item.id" :value="item.disId">{{item.disName}}</option>
               </select>
             </div>
             <i class="el-icon-location-information logo city"></i>
@@ -70,12 +70,13 @@
             <i class="el-icon-user logo"></i>
           </div>
           <div class="form-group">
-            <input type="telephone" placeholder="手机号码" v-model="userTelphone" />
+            <input type="telephone" placeholder="手机号码" v-model="userTelphone" @change="phones(userTelphone)"/>
             <i class="el-icon-phone logo"></i>
           </div>
+           
           <div class="form-group">
-            <input type="password" placeholder="请输入验证码" v-model="userPass" class="password" />
-            <button type="button">获取验证码</button>
+            <input type="password" placeholder="请输入验证码" v-model="userPass" class="password" id="tt"/>
+            <button type="button" @click="getcode">获取验证码</button>
 
             <i class="el-icon-key logo"></i>
           </div>
@@ -84,7 +85,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册" @click="getBusiness" :power="power"/>
+            <el-button type="success" :plain="true" @click=" getBus" class="loginbtn">立即注册</el-button>
           </div>
           <div class="button">
             <input type="button" value="账号密码注册" @click="inx=0 " />
@@ -104,8 +105,9 @@
                 <option v-for="item in city" :key="item.id" :value="item.cityId">{{item.cityName}}</option>
               </select>
               <select v-model="selectedse">
-                <option v-for="item in country" :key="item.id">{{item.disName}}</option>
+                <option v-for="item in country" :key="item.id" :value="item.disId">{{item.disName}}</option>
               </select>
+            
             </div>
             <i class="el-icon-location-information logo city"></i>
           </div>
@@ -118,12 +120,16 @@
             <i class="el-icon-lock logo"></i>
           </div>
           <div class="form-group">
-            <input type="telephone" placeholder="联系方式" v-model="usertelphone" />
+            <input type="telephone" placeholder="联系方式" v-model="usertelphone" @change="phones(usertelphone)"/>
             <i class="el-icon-mobile-phone logo"></i>
           </div>
+          <div>
+            <input type="text" v-model="textss" style="border:none; display:none" ref="textes" class="text"></div> 
           <div class="form-group">
             <input type="password" placeholder="请输入验证码" v-model="security" class="password" />
-            <canvas id="canvas" width="100" height="30"></canvas>
+            <div @click="refreshCode" class="btn">
+              <SIdentify  :identifyCode="identifyCode" ></SIdentify>
+            </div>
 
             <i class="el-icon-key logo"></i>
           </div>
@@ -132,7 +138,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册" @click="getBusiness" :power="power"/>
+             <el-button type="success" :plain="true" @click=" getBusiness" class="loginbtn">立即注册</el-button>
           </div>
           <div class="button">
             <input type="button" value="手机注册" @click="inx=1" />
@@ -148,9 +154,6 @@
           <div class="form-group">
             <div class="select">
               <select v-model="selected" @change="getCity">
-                <option  v-for="item in provience"
-                  :key="item.id"
-                  :value="item.proId">省</option>
                 <option
                   v-for="item in provience"
                   :key="item.id"
@@ -161,7 +164,7 @@
                 <option v-for="item in city" :key="item.id" :value="item.cityId">{{item.cityName}}</option>
               </select>
               <select v-model="selectedse">
-                <option v-for="item in country" :key="item.id">{{item.disName}}</option>
+                <option v-for="item in country" :key="item.id" :value="item.disId">{{item.disName}}</option>
               </select>
             </div>
             <i class="el-icon-location-information logo city"></i>
@@ -171,11 +174,13 @@
             <i class="el-icon-user logo"></i>
           </div>
           <div class="form-group">
-            <input type="telephone" placeholder="手机号码" v-model="usertelphones" />
+            <input type="telephone" placeholder="手机号码" v-model="usertelphones" @change="phones(usertelphones)"/>
             <i class="el-icon-phone logo"></i>
           </div>
+          <div>
+            <input type="text" v-model="texts" style="border:none; display:none" ref="textes" class="text" ></div> 
           <div class="form-group">
-            <input type="password" placeholder="请输入验证码" v-model="userpasses" class="password" />
+            <input type="password" placeholder="请输入验证码" v-model="userpasses" class="password" id="tt"/>
             <button type="button">获取验证码</button>
 
             <i class="el-icon-lock logo"></i>
@@ -209,22 +214,22 @@
                 <option v-for="item in city" :key="item.id" :value="item.cityId">{{item.cityName}}</option>
               </select>
               <select v-model="selectedse">
-                <option v-for="item in country" :key="item.id">{{item.disName}}</option>
+                <option v-for="item in country" :key="item.id" :value="item.disId">{{item.disName}}</option>
               </select>
             </div>
             <i class="el-icon-location-information logo city"></i>
           </div>
           <div class="form-group">
-            <input type="text" placeholder="用户名" v-model="userNames" />
+            <input type="text" placeholder="账号名" v-model="userNames" />
             <i class="el-icon-user logo"></i>
           </div>
           <div class="form-group">
             <input type="text" placeholder="密码" v-model="userTelphones" />
-            <i class="el-icon-phone logo"></i>
+            <i class="el-icon-lock logo"></i>
           </div>
           <div class="form-group">
-            <input type="password" placeholder="请输入验证码" v-model="userPasses" class="password" />
-            <button type="button">获取验证码</button>
+            <input type="password" placeholder="请输入验证码" v-model="userPasses" class="password" id="tt"/>
+            <button type="button" @click="getcodes">获取验证码</button>
 
             <i class="el-icon-lock logo"></i>
           </div>
@@ -233,7 +238,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册" @click="getBusiness" />
+             <el-button type="success" :plain="true" @click="  getUser" class="loginbtn">立即注册</el-button>
           </div>
           <div class="button">
             <input type="button" value="账号注册" @click="inx=1 " />
@@ -245,8 +250,12 @@
 </template>
 
 <script>
+import SIdentify from "@/components/SIdentify.vue";
 export default {
   name: "register",
+   components: {
+    SIdentify
+  },
   data: function() {
     return {
       ind: 0,
@@ -270,15 +279,98 @@ export default {
       selected: "",
       selecteds: "",
       selectedse: "",
-      power:1
+      power:1,
+      texts:"",
+      textss:"",
+      textsss:"",
+      proId:"",
+      identifyCodes: "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ", // 验证码字符的集合
+      identifyCode: "",
+      userphones:false
     };
   },
   created() {
     this.getProvience();
+    
+  },
+  mounted(){
+    this.identifyCode = "";
+    this.makeCode(this.identifyCodes, 4);
+   
   },
   methods: {
     getBusiness() {
-      this.$router.push("/membership");
+      
+      this.axios
+        .post(
+          "http://172.16.6.58:8080/regAccount",
+          {
+            account:{
+              accName:this.username,
+              accPwd:this.userpass,
+              
+            },
+           phone:this.usertelphone,
+             proId:this.selected,
+            cityId:this.selecteds,
+            disId:this.selectedse,
+            power:3
+           
+          },
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == "200") {
+           this.open();
+           this.$router.push("/membership");
+            
+          } else if (res.data.code == "404"){
+              this.open4();
+          } else if(res.data.code == "400"){
+            this.open5();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getBus(){
+      this.axios
+        .post(
+          "http://172.16.6.58:8080/regPhone",
+          {
+           code:this.userPass,
+           phone:this.userTelphone,
+             proId:this.selected,
+            cityId:this.selecteds,
+            disId:this.selectedse,
+            power:3
+           
+          },
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == "200") {
+           this.open();
+           this.$router.push("/membership");
+            
+          } else if (res.data.code == "404"){
+              this.open4();
+          } 
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     getProvience() {
       this.axios
@@ -351,14 +443,150 @@ export default {
               var countrys =this.selecteds;
            sessionStorage.setItem("countrys",countrys)
             this.country = res.data.data.disList;
-            this.selectedse = Number(this.country[0].disId);
+            this.selectedse = this.country.disName;
           }
         })
         .catch(err => {
           console.log(err);
         });
-    }
-  }
+    },
+    getUser(){
+      this.axios
+        .post(
+          "http://172.16.6.58:8080/regAccount",
+          {
+            account:{
+              accName:this.userNames,
+              accPwd:this.userTelphones,
+              
+            },
+             proId:this.selected,
+            cityId:this.selecteds,
+            disId:this.selectedse,
+            power:2
+           
+          },
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if(res.data.code==200){
+
+                this.open1();
+                this.$router.push("/login");
+          }  else if(res.data.code==400){
+              this.open5();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getcode(){
+      this.axios
+        .post(
+          "http://172.16.6.58:8080/phoneCode",
+          {
+            phone:this.userTelphone
+          },
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+
+
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getcodes(){
+      this.axios
+        .post(
+          "http://172.16.6.58:8080/regCode",
+          {
+          },
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+
+
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    phones: function (value) {
+          var pat = /^1[3456789]\d{9}$/;
+      console.log(pat.test(value));
+      if (pat.test(value)) {
+        this.userphones=true;
+        console.log("正确的手机格式");
+      } else {
+
+      this.open7()
+        
+      }
+    },
+     open() {
+        this.$message({
+          message: '恭喜你，注册成功 ! 请继续完善资料',
+          type: 'success'
+        });
+    },
+     open1() {
+        this.$message({
+          message: '恭喜你，注册成功 ! ',
+          type: 'success'
+        });
+    },
+    open2() {
+         this.$message.error('账户已存在');
+        this.userNameS=""
+    },
+    open4() {
+         this.$message.error('手机号已存在');
+        this.usertelphone=""
+    },
+    open5() {
+         this.$message.error('用户名已存在');
+       this.userNames="",
+      this.userTelphones=""
+    },
+     open7() {
+         this.$message.error('请输入正确的手机格式');
+         this.userpass="";
+    },
+    randomNum(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    },
+    refreshCode() {
+      this.identifyCode = "";
+      this.makeCode(this.identifyCodes, 4);
+      console.log("当前验证码==", this.identifyCode);
+    },
+    makeCode(o, l) {
+      for (let i = 0; i < l; i++) {
+        this.identifyCode += this.identifyCodes[
+          this.randomNum(0, this.identifyCodes.length)
+        ];
+      }
+    },
+  },
+ 
 };
 </script>
 <style lang="less" scoped>
@@ -396,7 +624,7 @@ export default {
     top: 120px;
     right: 100px;
     width: 300px;
-    height: 510px;
+    height: 540px;
     border: 1px solid rgba(0, 0, 0, 0.075);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.075);
     background-color: white;
@@ -423,8 +651,8 @@ export default {
   .user {
     form {
       .form-group {
-        height: 60px;
-        line-height: 60px;
+        height: 65px;
+        line-height: 65px;
         position: relative;
         span {
           color: orangered;
@@ -461,12 +689,22 @@ export default {
           outline: none;
         }
         input[type="password"] {
+          width: 125px;
+         margin-right:55px;
+          display: inline-block;
+          
+        }
+        #tt {
           width: 155px;
+          margin-right:0px;
+          margin-left: 10px;
+          
         }
         span {
           display: inline-block;
         }
-        button {
+         button {
+          display: inline-block;
           margin-left: 5px;
           width: 80px;
           height: 32px;
@@ -475,6 +713,26 @@ export default {
           background-color: rgba(255, 166, 0, 0.767);
           font-size: 12px;
           color: white;
+        }
+        .btn {
+          display: inline-block;
+          margin-left:-20px;
+          width: 75px;
+          height: 32px;
+          outline: none;
+          border: none;
+          background-color: rgba(255, 166, 0, 0.767);
+          font-size: 12px;
+          color: white;
+        }
+         .loginbtn {
+          width: 254px;
+          height: 32px;
+          color: #fff;
+          border: none;
+          outline: none;
+          background-color: orangered;
+          margin-left: 17px;
         }
         .logo {
           position: absolute;
@@ -510,6 +768,16 @@ export default {
           }
         }
       }
+        .text {
+          color: red;
+          font-size: 12px;
+          width: 150px;
+          display: inline-block;
+          padding-left:40px;
+          height: 12px;
+          padding-top: -80px;
+         
+        }
       p {
         input {
           display: inline-block;

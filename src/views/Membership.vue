@@ -46,7 +46,7 @@
         <div class="membership-main-one clear">
           <span>免费服务</span>
           <div class="one-main">
-            <label for v-for="item in freeService" :key="item.id">
+            <label for v-for="item in freeService" :key="item.id" >
               <input type="checkbox" @click="freeServiceName=item.name" />
               {{item.name}}
             </label>
@@ -74,7 +74,7 @@
           <span>服务区域</span>
           <div class="one-main">
             <label for v-for="item in country" :key="item.id">
-              <input type="checkbox" @click="coverageName=item.name" />
+              <input type="checkbox" @click="coverageName=item.disName" />
               {{item.disName}}
             </label>
           </div>
@@ -101,7 +101,7 @@
           <span>行业库</span>
           <div class="one-main">
             <label for v-for="item in  hang" :key="item.id">
-              <input type="checkbox" @click=" libraryName=item.name" />
+              <input type="checkbox" @click=" libraryName=item.tradeName" />
               {{item.tradeName}}
             </label>
           </div>
@@ -164,8 +164,8 @@
           </div>
         </div>
         <div class="membership-main-button">
-          <button type="button" @click="getLogin">确认资料</button>
-          <button type="button">重置</button>
+          <el-button type="success" :plain="true" @click=" getLogin" class="loginbtn">确认资料</el-button>
+          <button type="button" @click="reset">重置</button>
         </div>
       </div>
     </div>
@@ -341,7 +341,7 @@ export default {
       hang: {},
       coun: {},
       freeServiceName: "",
-      scopeBusinessName: "",
+      scopeBusinessName:"",
       priceName: "",
       businessmodelName: "",
       businesstypeName: "",
@@ -364,10 +364,28 @@ export default {
     this.getcity();
   },
   methods: {
+    reset(){
+       this.freeServiceName= "",
+      this.scopeBusinessName= ""
+      this.priceName= "",
+      this.businessmodelName= "",
+      this.businesstypeName= "",
+      this.businessnatureName= "",
+      this.textarea= "",
+      this.Businessname= "",
+      this.Business= "",
+      this.Aptitude= "",
+      this.Capital= "",
+      this.MainProduct= "",
+      this.BusinessPosition= "",
+      this.DetailedAddress= "",
+      this.coverageName= "",
+      this.libraryName= ""
+    },
     getLogin() {
       this.axios
         .post(
-          "http://172.16.6.58:8080/register",
+          "http://172.16.6.58:8080/regMerchant",
           {
            
               merchant:{
@@ -388,11 +406,7 @@ export default {
                 merServeArea: this.coverageName,
                 merIndustry: this.libraryName,
               },
-              power:3,
-              account:{
-                 merFreeserve: this.freeServiceName,
-                  merCoverage: this.scopeBusinessName,
-              }
+  
             },
           
           {
@@ -417,17 +431,16 @@ export default {
                 merServeArea: this.coverageName,
                 merIndustry: this.libraryName,
               },
-              power:1,
-              account:{
-                 merFreeserve: this.freeServiceName,
-                  merCoverage: this.scopeBusinessName,
-              }
             }
             }
           }
         )
         .then(res => {
           console.log(res.data);
+          if(res.data.code==200){
+            this.open();
+            this.$router.replace("/login");
+          }
         })
         .catch(err => {
           console.log(err);
@@ -476,7 +489,13 @@ export default {
         .catch(err => {
           console.log(err);                                                                                                                                                                  
         });
-    }
+    },
+      open() {
+        this.$message({
+          message: '恭喜你完善资料成功！',
+          type: 'success'
+        });
+    },
   }
 };
 </script>
@@ -498,7 +517,7 @@ export default {
   height: 600px;
   .membership-head {
     width: 100%;
-    height: 1300px;
+    height: 1500px;
     background-image: url(../../public/img/denglu-bg.png);
     background-position: center;
     background-repeat: no-repeat;
@@ -506,7 +525,7 @@ export default {
     position: relative;
     .membership-main {
       width: 700px;
-      height: 1290px;
+      height: 1490px;
       position: absolute;
       top: 50px;
       left: 0;

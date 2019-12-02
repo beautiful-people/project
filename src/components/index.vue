@@ -3,15 +3,15 @@
     <!-- 文本包含个人信息 -->
     <div class="main-Stick">
       <ul class="main-Stick-leftul">
-        <li>欢迎 {{msg}} 的到来！</li>
+        <li >欢迎 {{this.msg}} 的到来！</li>
         <li class="main-leftul-text">9年来打造专业装修平台，已为4,208,329位用户提供了优质装修服务！</li>
       </ul>
       <ul class="main-Stick-rightul">
         <li><img src="img/index-img/qq.png" class="main-Stick-img" alt=""> 在线咨询</li>
         <li><img src="img/index-img/tel.png" class="main-Stick-img" alt=""> <span>400-123-169</span></li>
         <li><img src="img/index-img/geren.png" class="main-Stick-img" alt=""> 进入会员中心</li>
-        <li><img src="img/index-img/login.png" class="main-Stick-img" > 登录</li>
-        <li><img src="img/index-img/regist.png" class="main-Stick-img" > 注册</li>
+        <li><img src="img/index-img/login.png" class="main-Stick-img" @click="getlogin"> 登录</li>
+        <li><img src="img/index-img/regist.png" class="main-Stick-img" @click="getregister"> 注册</li>
         <li><img src="img/index-img/quit.png" class="main-Stick-img" > 退出</li>
       </ul>
     </div>
@@ -76,8 +76,17 @@ export default {
   name: "index",
   data() {
     return {
-      input: ""
+      input: "",
+      msg:sessionStorage.getItem("name")
     };
+  },
+  methods:{
+    getlogin(){
+       this.$router.replace("/login");
+    },
+     getregister(){
+       this.$router.replace("/register");
+    },
   }
 };
 </script>

@@ -12,12 +12,45 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
+    // children:[
+      
+    //     {
+    //       path: '',
+    //       name: 'home',
+    //       component: () => import('../views/Home.vue'),
+    //       meta: {
+    //         auth: true
+    //       }
+    //     },
+    //     {
+    //       path: '/login',
+    //       name: 'login',
+    //       component: () => import('../views/Login.vue'),
+    //       meta: {
+    //         auth: true
+    //       }
+    //     },
+    //     {
+    //       path: '/register',
+    //       name: 'register',
+    //       component: () => import('../views/Register.vue'),
+    //       meta: {
+    //         auth: true
+    //       }
+    //     },
+      
+    // ]
   },
   {
     path: '/about',
     name: 'about',
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/fpw',
+    name: 'fpw',
+    component: () => import(/* webpackChunkName: "about" */ '../views/FPW.vue')
   },
   {
     path: '/construction',

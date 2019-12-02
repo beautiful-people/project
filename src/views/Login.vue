@@ -58,10 +58,10 @@
           <p class="clear">
             <input type="radio" />
             <span>保存密码</span>
-            <span class="remove">忘记密码?</span>
+            <span class="remove" @click="getfpw">忘记密码?</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即登录" @click="getLogin" />
+            <el-button type="success" :plain="true" @click=" getLogin" class="loginbtn">立即登录</el-button>
           </div>
           <div class="form-group">
             <p>
@@ -73,17 +73,21 @@
       <div v-show="ind===1" class="phone">
         <form>
           <div class="form-group">
-            <input type="telephone" placeholder="请输入手机号" v-model="userphone" />
-            <i class="el-icon-user logo"></i>
+            <input
+              type="telephone"
+              placeholder="请输入手机号"
+              v-model="userphone"
+              @change="phone(userphone)"
+            />
+            <i class="el-icon-mobile logo"></i>
           </div>
           <div class="form-group">
-            <input type="password" placeholder="请输入验证码" v-model="userpass" class="password" />
-            <canvas id="canvas" width="80" height="30"></canvas>
-
-            <i class="el-icon-lock logo"></i>
+            <input type="password" placeholder="请输入验证码" v-model="code" class="password" />
+            <button type="button" @click="getCode">获取验证码</button>
+            <i class="el-icon-key logo"></i>
           </div>
           <div class="form-group">
-            <input type="button" value="立即登录" />
+            <el-button type="success" :plain="true" @click=" getPhone" class="loginbtn">立即登录</el-button>
           </div>
           <div class="form-group">
             <p>
@@ -96,7 +100,6 @@
   </div>
 </template>
 <script>
-
 export default {
   name: "Login",
   data: function() {
@@ -105,50 +108,167 @@ export default {
       username: "",
       userpass: "",
       userphone: "",
-      tokens:sessionStorage.getItem('token')
+      tokens: sessionStorage.getItem("token"),
+      texts: "",
+      code: "",
+      userphones:false
     };
   },
   methods: {
     getResiter() {
       this.$router.replace("/register");
     },
+    getfpw(){
+    this.$router.replace("/fpw");
+    },
     getLogin() {
       console.log("登录");
-    
+
       this.axios
-        .post("http://172.16.6.58:8080/login", {
-          accName: this.username,
-          accPwd: this.userpass
-        },
-        {
-        headers: {
-           'content-type': 'application/json'  ,
-           "id":1,
-           "token":this.tokens
-        }
+        .post(
+          "http://172.16.6.58:8080/login/loginAcc",
+          {
+            accName: this.username,
+            accPwd: this.userpass
+          },
+          {
+            headers: {
+              "content-type": "application/json",
+              id: 1,
+              token: this.tokens
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == "200") {
+            // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
+            var token = res.data.data.account;
+            var name = res.data.data.accountName;
+            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("name",name)
+            // 获取参数（未登录时想访问的路由）
+            var url = this.$route.query.redirect;
+            this.open2();
+            url = url ? url : "/home";
+          
+            // 切换路由
+            this.$router.replace(url);
+            // this.axios.post("/test")
+           
+          } else if(res.data.code == "404"){
+            this.open6();
+          }
+            else {
+             this.open3();
+          }
         })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getCode() {
+     setTimeout(() =>{
+        this.axios
+        .post(
+          "http://172.16.6.58:8080/login/phoneCode",
+          {
+            phone: this.userphone
+          },
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+     },6000)
+    },
+    getPhone() {
+      this.axios
+        .post(
+          "http://172.16.6.58:8080/login/loginPhone",
+          {
+            phone: this.userphone,
+            code: this.code
+          },
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
         .then(res => {
           console.log(res.data);
           if (res.data.code == "200") {
             // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
             var token = res.data.data.account;
             sessionStorage.setItem("token", token);
-           
+
             // 获取参数（未登录时想访问的路由）
             var url = this.$route.query.redirect;
-
+          this.open2();
             url = url ? url : "/home";
             // 切换路由
             this.$router.replace(url);
             // this.axios.post("/test")
-          } else {
-            console.log("登陆失败");
+          } else if(res.data.code == "404"){
+              this.open5();
+          }
+            else {
+            this.open4();
           }
         })
         .catch(err => {
           console.log(err);
         });
-    }
+    },
+    phone: function(value) {
+      var pat = /^1[3456789]\d{9}$/;
+      console.log(pat.test(value));
+      if (pat.test(value)) {
+        this.userphones=true;
+        console.log("正确的手机格式");
+      } else {
+
+      this.open7()
+        
+      }
+    },
+    open2() {
+        this.$message({
+          message: '恭喜你，登陆成功',
+          type: 'success'
+        });
+    },
+    open3() {
+         this.$message.error('账号或者密码错误');
+         this.username="";
+         this.userpass="";
+    },
+    open4() {
+         this.$message.error('验证码错误');
+         this.username="";
+         this.userpass="";
+    },
+    open5() {
+         this.$message.error('手机号码不存在');
+         this.userphone="",
+         this.code="";
+    },
+    open6() {
+         this.$message.error('密码错误');
+         this.userpass="";
+    },
+     open7() {
+         this.$message.error('请输入正确的手机格式');
+         this.userpass="";
+    },
   }
 };
 </script>
@@ -235,7 +355,16 @@ export default {
           left: 32px;
         }
         canvas {
-         margin-right: 10px;
+          margin-right: 10px;
+        }
+        .loginbtn {
+          width: 254px;
+          height: 32px;
+          color: #fff;
+          border: none;
+          outline: none;
+          background-color: orangered;
+          margin-left: 17px;
         }
         input[type="button"] {
           width: 254px;
@@ -286,8 +415,8 @@ export default {
   .phone {
     form {
       .form-group {
-        height: 60px;
-        line-height: 60px;
+        height: 65px;
+        line-height: 65px;
         position: relative;
 
         input[type="telephone"],
@@ -299,9 +428,22 @@ export default {
           border: 1px solid rgba(0, 0, 0, 0.274);
           box-shadow: 0 0 3px rgba(0, 0, 0, 0.274);
           text-indent: 18px;
+          margin-top: 5px;
         }
         input[type="password"] {
           width: 155px;
+        }
+ .loginbtn {
+          width: 254px;
+          height: 32px;
+          color: #fff;
+          border: none;
+          outline: none;
+          background-color: orangered;
+          margin-left: 17px;
+        }
+        canvas {
+          margin-left: 10px;
         }
         span {
           display: inline-block;
@@ -343,6 +485,15 @@ export default {
             color: rgba(0, 0, 0, 0.26);
           }
         }
+      }
+      .text {
+        color: red;
+        font-size: 12px;
+        width: 150px;
+        display: inline-block;
+        padding-left: 40px;
+        height: 10px;
+        padding-top: -100px;
       }
     }
   }
