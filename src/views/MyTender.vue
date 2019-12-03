@@ -1,49 +1,92 @@
 <template>
   <div>
-    <div class="noLis"><p>暂无招标信息</p></div>
-    <div class="lis"  v-for="(item ,index) in newList" :key="index">
-      <p>{{item.area}}平米装修招标</p>
+    <div class="noLis">
+      <p>暂无招标信息</p>
+    </div>
+    <div class="lis" v-for="(item, index) in newList" :key="index">
+      <h3>{{item.area}}平米装修招标</h3>
       <p>招标编号：{{item.tenderNum}}</p>
       <p>联系电话：{{item.phone}}</p>
       <p>装修面积：{{item.area}}</p>
-      <button @click="getTenderId(item.tenderId)">an</button>
+      <button @click="getTenderId(item.tenderId)" class="btn">查看详情</button>
       <!-- <router-link to="/personalCenter/tenderInfor" @click='getTenderId(item.tenderId)'>查看招标信息</router-link> -->
     </div>
+    <!-- 分页 -->
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-size="pagesize"
+      :total="totalCount"
+    ></el-pagination>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      newList:"",
-      tnderId:""
-    }
+      newList: "",
+      tnderId: "",
+      totalPage: 0,
+      currentPage: 1,
+      pagesize: 2,
+      totalCount: 0
+    };
   },
-  created () {
-    this.axios.post('/showTenderInfo', {
-      accId: 1/* sessionStorage.getItem('userId') */,
-      accPower: 2
-    }) // 后台请求地址
+  created() {
+    this.axios
+    .post("/showTenderInfo", {
+      currentPage: 1,
+      pageSize: this.pagesize
+    })
     .then(res => {
-      console.log('获取用户信息：', res.data.data.tenders)
+      console.log("获取用户信息：", res.data.data.tenders);
       this.newList = res.data.data.tenders;
+      this.totalPage = res.data.data.page.totalPage;
+      this.totalCount = res.data.data.page.totalCount;
+      console.log("总条数", res.data.data);
+      console.log("总页数：", this.totalPage);
     })
     .catch(err => {
-      console.log(err)
-    })
+      console.log(err);
+    });
   },
   methods: {
-    getTenderId(oldTenderId) {      
-      this.tenderId = sessionStorage.setItem("tenderId",oldTenderId);
-      this.$router.push("/personalCenter/tenderInfor")
-    } 
+    getTenderId(oldTenderId) {
+      this.tenderId = sessionStorage.setItem("tenderId", oldTenderId);
+      this.$router.push("/personalCenter/tenderInfor");
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      this.axios
+      .post("/showTenderInfo", {
+        currentPage: val, //当前页
+        pageSize: this.pagesize
+      }) // 后台请求地址
+      .then(res => {
+        console.log("获取用户信息：", res.data.data.tenders);
+        this.newList = res.data.data.tenders;
+        this.currentPage = val;
+        this.totalPage = res.data.data.page.totalPage;
+        console.log(res.data.data.page);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    },
+    handleSizeChange(val) {
+      // 分页-每页条数
+      this.pagesize = val;
+    }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.noLis{
+.noLis {
   display: none;
 }
 .lis {
@@ -58,16 +101,16 @@ export default {
   p:first-child {
     color: #333;
   }
-  a {
+  .btn {
     font-size: 16px;
-    color: #888;
-    text-decoration: none;
+    color: #fff;
+    background: #47a1fc;
+    border-radius: 3px;
+    outline: none;
+    border: none;
     position: absolute;
     right: 40px;
     bottom: 10px;
-  }
-  a:hover {
-    color: #53c380;
   }
 }
 </style>
