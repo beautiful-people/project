@@ -51,20 +51,20 @@
             <i class="el-icon-user logo"></i>
           </div>
           <div class="form-group">
-            <input type="telephone" placeholder="请输入手机号码" v-model="phone" x />
+            <input type="telephone" placeholder="请输入手机号码" v-model="phone"  />
             <i class="el-icon-mobile logo"></i>
           </div>
           <div class="form-group">
-            <input type="password" placeholder="请输入验证码" v-model="code" class="password" />
+            <input type="password" placeholder="请输入验证码" v-model="code"  />
             <button type="button" @click="getcodes">获取验证码</button>
             <i class="el-icon-key logo"></i>
           </div>
           <div class="form-group">
-            <input type="text" placeholder="请输入新密码" v-model="userpass" />
+            <input type="password" placeholder="请输入新密码" v-model="userpass" id="password" />
             <i class="el-icon-lock logo"></i>
           </div>
           <div class="form-group">
-            <input type="text" placeholder="再次输入密码" v-model="userpass" />
+            <input type="password" placeholder="再次输入密码" v-model="pass" id="passwords" />
             <i class="el-icon-lock logo"></i>
           </div>
 
@@ -84,17 +84,51 @@ export default {
       userpass: "",
       phone: "",
       code: "",
-      username: ""
+      username: "",
+      pass: ""
     };
   },
   methods: {
     getcodes() {
-      setTimeout(() => {
+      if (this.phone == "") {
+        this.$message.error("请先输入手机号");
+      } else {
+        setTimeout(() => {
+          this.axios
+            .post(
+              "/login/phoneCode",
+              {
+                phone: this.phone
+              },
+              {
+                headers: {
+                  "content-type": "application/json"
+                }
+              }
+            )
+            .then(res => {
+              console.log(res.data);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }, 6000);
+      }
+    },
+    getLogins() {
+      if (this.userpass != this.pass) {
+        this.$message.error("两次密码不一致");
+      } else {
         this.axios
           .post(
-            "http://172.16.6.58:8080/login/phoneCode",
+            "/login/forgetPwd",
             {
-              phone: this.phone
+              code: this.code,
+              phone: this.phone,
+              account: {
+                accName: this.username,
+                accPwd: this.pass
+              }
             },
             {
               headers: {
@@ -104,41 +138,15 @@ export default {
           )
           .then(res => {
             console.log(res.data);
+            if (res.data.code == 200) {
+              this.open2();
+              this.$router.replace("/login");
+            }
           })
           .catch(err => {
             console.log(err);
           });
-      }, 6000);
-    },
-    getLogins() {
-      this.axios
-        .post(
-          "http://172.16.6.58:8080/login/forgetPwd",
-          {
-            code: this.code,
-            phone:this.phone,
-            account: {
-
-              accName: this.username,
-              accPwd: this.userpass
-            }
-          },
-          {
-            headers: {
-              "content-type": "application/json"
-            }
-          }
-        )
-        .then(res => {
-          console.log(res.data);
-          if (res.data.code == 200) {
-            this.open2();
-            this.$router.replace("/login");
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      }
     },
     open2() {
       this.$message({
@@ -170,6 +178,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+  text-align: center;
   .login-img {
     position: absolute;
     top: 120px;
@@ -226,10 +235,16 @@ export default {
           text-indent: 18px;
           margin-top: 5px;
         }
+        #password {
+          width: 240px;
+        }
+        #passwords {
+          width: 240px;
+        }
         input[type="password"] {
           width: 155px;
         }
-
+       
         canvas {
           margin-left: 10px;
         }

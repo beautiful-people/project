@@ -75,7 +75,7 @@
           </div>
            
           <div class="form-group">
-            <input type="password" placeholder="请输入验证码" v-model="userPass" class="password" id="tt"/>
+            <input type="password" placeholder="请输入验证码" v-model="userPass" class="password" id="ttes"/>
             <button type="button" @click="getcode">获取验证码</button>
 
             <i class="el-icon-key logo"></i>
@@ -126,7 +126,7 @@
           <div>
             <input type="text" v-model="textss" style="border:none; display:none" ref="textes" class="text"></div> 
           <div class="form-group">
-            <input type="password" placeholder="请输入验证码" v-model="security" class="password" />
+            <input type="password" placeholder="请输入验证码" v-model="security" id="password" />
             <div @click="refreshCode" class="btn">
               <SIdentify  :identifyCode="identifyCode" ></SIdentify>
             </div>
@@ -177,10 +177,8 @@
             <input type="telephone" placeholder="手机号码" v-model="usertelphones" @change="phones(usertelphones)"/>
             <i class="el-icon-phone logo"></i>
           </div>
-          <div>
-            <input type="text" v-model="texts" style="border:none; display:none" ref="textes" class="text" ></div> 
           <div class="form-group">
-            <input type="password" placeholder="请输入验证码" v-model="userpasses" class="password" id="tt"/>
+            <input type="password" placeholder="请输入验证码" v-model="userpasses" class="password" id="tts"/>
             <button type="button">获取验证码</button>
 
             <i class="el-icon-lock logo"></i>
@@ -190,7 +188,7 @@
             <span>我已同意《装信通服务条款和声明》</span>
           </p>
           <div class="form-group">
-            <input type="button" value="立即注册" @click="getBusiness" />
+            <input type="button" value="立即注册" @click="getuser" />
           </div>
           <div class="button">
             <input type="button" value="手机注册" @click="inx=0 " />
@@ -229,7 +227,7 @@
           </div>
           <div class="form-group">
             <input type="password" placeholder="请输入验证码" v-model="userPasses" class="password" id="tt"/>
-            <button type="button" @click="getcodes">获取验证码</button>
+            <span @click="getcodes" class="code"> {{this.code}}</span>
 
             <i class="el-icon-lock logo"></i>
           </div>
@@ -260,6 +258,7 @@ export default {
     return {
       ind: 0,
       username: "",
+      code:"获取验证码",
       usertelphone: "",
       userpass: "",
       inx: 0,
@@ -300,10 +299,12 @@ export default {
   },
   methods: {
     getBusiness() {
-      
-      this.axios
+      if(this.selected==""||this.username==""||this.userpass==""||this.usertelphone==""||this.selecteds==""||this.selectedse==""){
+         this.$message.error('不能为空');
+      }else {
+         this.axios
         .post(
-          "http://172.16.6.58:8080/regAccount",
+          "/regAccount",
           {
             account:{
               accName:this.username,
@@ -338,11 +339,13 @@ export default {
         .catch(err => {
           console.log(err);
         });
+      }
+     
     },
     getBus(){
       this.axios
         .post(
-          "http://172.16.6.58:8080/regPhone",
+          "/regPhone",
           {
            code:this.userPass,
            phone:this.userTelphone,
@@ -372,10 +375,43 @@ export default {
           console.log(err);
         });
     },
+    getuser(){
+      this.axios
+        .post(
+          "/regPhone",
+          {
+           code:this.userpasses,
+           phone:this.usertelphones,
+             proId:this.selected,
+            cityId:this.selecteds,
+            disId:this.selectedse,
+            power:2
+           
+          },
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == "200") {
+           this.open();
+           this.$router.push("/login");
+            
+          } else if (res.data.code == "404"){
+              this.open4();
+          } 
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     getProvience() {
       this.axios
         .post(
-          "http://172.16.6.58:8080/datas/proData",
+          "/datas/proData",
           {},
           {
             headers: {
@@ -400,7 +436,7 @@ export default {
     getCity() {
       this.axios
         .post(
-          "http://172.16.6.58:8080/datas/cityData",
+          "/datas/cityData",
           {
             proId: this.selected
           },
@@ -426,7 +462,7 @@ export default {
     getCountry() {
       this.axios
         .post(
-          "http://172.16.6.58:8080/datas/disData",
+          "/datas/disData",
           {
             cityId: this.selecteds
           },
@@ -453,7 +489,7 @@ export default {
     getUser(){
       this.axios
         .post(
-          "http://172.16.6.58:8080/regAccount",
+          "/regAccount",
           {
             account:{
               accName:this.userNames,
@@ -489,7 +525,7 @@ export default {
     getcode(){
       this.axios
         .post(
-          "http://172.16.6.58:8080/phoneCode",
+          "/phoneCode",
           {
             phone:this.userTelphone
           },
@@ -511,7 +547,7 @@ export default {
     getcodes(){
       this.axios
         .post(
-          "http://172.16.6.58:8080/regCode",
+          "/regCode",
           {
           },
           {
@@ -522,7 +558,7 @@ export default {
         )
         .then(res => {
           console.log(res.data);
-
+          this.code=res.data.data.vcode
 
         })
         .catch(err => {
@@ -610,6 +646,8 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+  text-align: center;
+  
   .register-img {
     position: absolute;
     top: 120px;
@@ -685,16 +723,35 @@ export default {
           border: 1px solid rgba(0, 0, 0, 0.274);
           box-shadow: 0 0 3px rgba(0, 0, 0, 0.274);
           text-indent: 18px;
-          background-color: rgb(247, 241, 241);
+          background-color: rgba(247, 241, 241, 0.37);
           outline: none;
         }
         input[type="password"] {
           width: 125px;
-         margin-right:55px;
           display: inline-block;
           
+          
+        }
+        #password {
+          width: 135px;
+          height: 28px;
+          margin-right:100px;
+          position: relative;
         }
         #tt {
+          width: 135px;
+          height: 28px;
+          margin-right:100px;
+          position: relative;
+          
+        }
+        #tts {
+          width: 155px;
+          margin-right:0px;
+          margin-left: 10px;
+          
+        }
+         #ttes {
           width: 155px;
           margin-right:0px;
           margin-left: 10px;
@@ -706,17 +763,6 @@ export default {
          button {
           display: inline-block;
           margin-left: 5px;
-          width: 80px;
-          height: 32px;
-          outline: none;
-          border: none;
-          background-color: rgba(255, 166, 0, 0.767);
-          font-size: 12px;
-          color: white;
-        }
-        .btn {
-          display: inline-block;
-          margin-left:-20px;
           width: 75px;
           height: 32px;
           outline: none;
@@ -724,6 +770,31 @@ export default {
           background-color: rgba(255, 166, 0, 0.767);
           font-size: 12px;
           color: white;
+        }
+        .code {
+          display: inline-block;
+          width: 90px;
+          height: 38px;
+          position: absolute;
+          top:13px;
+          right: 20px;
+         line-height: 38px;
+         font-size: 16px;
+         background-color: rgba(255, 166, 0, 0.767);
+         color: white;
+        }
+        .btn {
+          display: inline-block;
+          width: 75px;
+          height: 32px;
+          outline: none;
+          border: none;
+          background-color: rgba(255, 166, 0, 0.767);
+          font-size: 12px;
+          color: white;
+          position: absolute;
+          top:12px;
+          right:40px;
         }
          .loginbtn {
           width: 254px;
@@ -736,7 +807,7 @@ export default {
         }
         .logo {
           position: absolute;
-          top: 23px;
+          top: 25px;
           left: 32px;
           color: orangered;
         }

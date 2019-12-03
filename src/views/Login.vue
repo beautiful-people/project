@@ -52,7 +52,7 @@
             <i class="el-icon-user logo"></i>
           </div>
           <div class="form-group">
-            <input type="password" placeholder="请输入密码" v-model="userpass" />
+            <input type="password" placeholder="请输入密码" v-model="userpass" @blur="pan"/>
             <i class="el-icon-lock logo"></i>
           </div>
           <p class="clear">
@@ -111,22 +111,22 @@ export default {
       tokens: sessionStorage.getItem("token"),
       texts: "",
       code: "",
-      userphones:false
+      userphones: false
     };
   },
   methods: {
     getResiter() {
       this.$router.replace("/register");
     },
-    getfpw(){
-    this.$router.replace("/fpw");
+    getfpw() {
+      this.$router.replace("/fpw");
     },
     getLogin() {
       console.log("登录");
 
       this.axios
         .post(
-          "http://172.16.6.58:8080/login/loginAcc",
+          "/login/loginAcc",
           {
             accName: this.username,
             accPwd: this.userpass
@@ -145,22 +145,24 @@ export default {
             // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
             var token = res.data.data.account;
             var name = res.data.data.accountName;
+            var power = res.data.data.power;
+            var accId = res.data.data.accountId;
             sessionStorage.setItem("token", token);
-            sessionStorage.setItem("name",name)
+            sessionStorage.setItem("name", name);
+            sessionStorage.setItem("power", power);
+            sessionStorage.setItem("accId", accId);
             // 获取参数（未登录时想访问的路由）
             var url = this.$route.query.redirect;
             this.open2();
             url = url ? url : "/home";
-          
+
             // 切换路由
             this.$router.replace(url);
             // this.axios.post("/test")
-           
-          } else if(res.data.code == "404"){
+          } else if (res.data.code == "404") {
             this.open6();
-          }
-            else {
-             this.open3();
+          } else {
+            this.open3();
           }
         })
         .catch(err => {
@@ -168,31 +170,35 @@ export default {
         });
     },
     getCode() {
-     setTimeout(() =>{
-        this.axios
-        .post(
-          "http://172.16.6.58:8080/login/phoneCode",
-          {
-            phone: this.userphone
-          },
-          {
-            headers: {
-              "content-type": "application/json"
-            }
-          }
-        )
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-     },6000)
+      if (this.userphone == "") {
+        this.open8();
+      } else {
+        setTimeout(() => {
+          this.axios
+            .post(
+              "/login/phoneCode",
+              {
+                phone: this.userphone
+              },
+              {
+                headers: {
+                  "content-type": "application/json"
+                }
+              }
+            )
+            .then(res => {
+              console.log(res.data);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }, 6000);
+      }
     },
     getPhone() {
       this.axios
         .post(
-          "http://172.16.6.58:8080/login/loginPhone",
+          "/login/loginPhone",
           {
             phone: this.userphone,
             code: this.code
@@ -212,15 +218,14 @@ export default {
 
             // 获取参数（未登录时想访问的路由）
             var url = this.$route.query.redirect;
-          this.open2();
+            this.open2();
             url = url ? url : "/home";
             // 切换路由
             this.$router.replace(url);
             // this.axios.post("/test")
-          } else if(res.data.code == "404"){
-              this.open5();
-          }
-            else {
+          } else if (res.data.code == "404") {
+            this.open5();
+          } else {
             this.open4();
           }
         })
@@ -232,43 +237,48 @@ export default {
       var pat = /^1[3456789]\d{9}$/;
       console.log(pat.test(value));
       if (pat.test(value)) {
-        this.userphones=true;
+        this.userphones = true;
         console.log("正确的手机格式");
       } else {
-
-      this.open7()
-        
+        this.open7();
+      }
+    },
+    pan(){
+      if(this.userpass==""){
+           this.$message.error("请先输入账号");
       }
     },
     open2() {
-        this.$message({
-          message: '恭喜你，登陆成功',
-          type: 'success'
-        });
+      this.$message({
+        message: "恭喜你，登陆成功",
+        type: "success"
+      });
     },
     open3() {
-         this.$message.error('账号或者密码错误');
-         this.username="";
-         this.userpass="";
+      this.$message.error("账号或者密码错误");
+      this.username = "";
+      this.userpass = "";
     },
     open4() {
-         this.$message.error('验证码错误');
-         this.username="";
-         this.userpass="";
+      this.$message.error("验证码错误");
+      this.username = "";
+      this.userpass = "";
     },
     open5() {
-         this.$message.error('手机号码不存在');
-         this.userphone="",
-         this.code="";
+      this.$message.error("手机号码不存在");
+      (this.userphone = ""), (this.code = "");
     },
     open6() {
-         this.$message.error('密码错误');
-         this.userpass="";
+      this.$message.error("密码错误");
+      this.userpass = "";
     },
-     open7() {
-         this.$message.error('请输入正确的手机格式');
-         this.userpass="";
+    open7() {
+      this.$message.error("请输入正确的手机格式");
+      this.userpass = "";
     },
+    open8() {
+      this.$message.error("请先输入手机号");
+    }
   }
 };
 </script>
@@ -293,6 +303,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+  text-align: center;
   .login-img {
     position: absolute;
     top: 120px;
@@ -433,7 +444,7 @@ export default {
         input[type="password"] {
           width: 155px;
         }
- .loginbtn {
+        .loginbtn {
           width: 254px;
           height: 32px;
           color: #fff;
