@@ -115,7 +115,9 @@ ul a {
   text-decoration: none;
   color: #333;
 }
-
+.index {
+  text-align: center;
+}
 .main-Stick {
   width: 90%;
   height: 30px;

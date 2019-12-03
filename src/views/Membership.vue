@@ -385,7 +385,7 @@ export default {
     getLogin() {
       this.axios
         .post(
-          "http://172.16.6.58:8080/regMerchant",
+          "/regMerchant",
           {
            
               merchant:{
@@ -449,7 +449,7 @@ export default {
     getHang() {
       this.axios
         .post(
-          "http://172.16.6.58:8080/datas/tradeData",
+          "/datas/tradeData",
           {},
           {
             headers: {
@@ -470,7 +470,7 @@ export default {
     getcity() {
       this.axios
         .post(
-          "http://172.16.6.58:8080/datas/disData",
+          "/datas/disData",
           {
             cityId: this.country
           },
@@ -515,6 +515,7 @@ export default {
 .membership {
   width: 100%;
   height: 600px;
+  text-align: center;
   .membership-head {
     width: 100%;
     height: 1500px;
