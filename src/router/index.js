@@ -67,11 +67,7 @@ const routes = [
     name: 'decorationDesign',
     component: () => import('../views/DecorationDesign.vue')
   },
-  {
-    path: '/design',
-    name: 'design',
-    component: () => import('../views/Design.vue')
-  },
+ 
   {
     path: '/invitation',
     name: 'invitation',
