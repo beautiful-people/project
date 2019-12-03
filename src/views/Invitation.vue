@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="msg">今日更新了{{this.tables.length}}条招标消息</div>
+    <div class="msg">当前更新了 <span style="color:red;">{{this.tables.length}}</span> 条招标消息</div>
 
     <div class="content">
       <div style="width:100%;">
@@ -56,8 +56,8 @@
                 <p>联系方式: {{ scope.row.phone }}</p>
 
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" v-if="scope.row.state == 2">中标</el-tag>
-                  <el-tag size="medium" v-else-if="scope.row.state == 3">招标</el-tag>
+                  <el-tag size="medium" v-if="scope.row.state == 2">招标</el-tag>
+                  <el-tag size="medium" v-else-if="scope.row.state == 3">中标</el-tag>
                 </div>
               </el-popover>
             </template>
@@ -146,7 +146,9 @@ export default {
       this.axios
         .post("/tender/findAll", {
           state: this.msgs_id,
-          chooseTime: this.time_id
+          chooseTime: this.time_id,
+          currentPage: this.currpage,
+          pageSize: this.pagesize
         })
         .then(res => {
           if (res.data.code == 200) {
@@ -164,7 +166,9 @@ export default {
       this.axios
         .post("/tender/findAll", {
           state: this.msgs_id,
-          chooseTime: this.time_id
+          chooseTime: this.time_id,
+          currentPage: this.currpage,
+          pageSize: this.pagesize
         })
         .then(res => {
           if (res.data.code == 200) {
@@ -251,7 +255,7 @@ export default {
       var jsDate = new Date(time).toLocaleDateString();
       var date = jsDate.split("/");
       var times = date.join("-");
-      return times
+      return times;
     }
   }
 };

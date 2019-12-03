@@ -72,6 +72,8 @@ const routes = [
     name: 'design',
     component: () => import('../views/Design.vue')
   },
+ 
+  
   {
     path: '/invitation',
     name: 'invitation',
