@@ -64,7 +64,8 @@
           :current-page.sync="currentPage"
           :page-size="5"
           layout="prev, pager, next, jumper"
-          :total="totalPage" class="pag"
+          :total="totalPage"
+          class="pag"
         >
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
@@ -109,7 +110,7 @@ export default {
       Linelist: {},
       currentPage: 1 /* 当前页码 */,
       totalPage: 0,
-      pageSize:4
+      pageSize: 4
     };
   },
   created() {
@@ -121,8 +122,10 @@ export default {
         .post(
           "/selectOnlineWorkerspage",
           {
-              currentPage: this.currentPage,//当前页
-              pageSize:this.pageSize//每页显示的条数
+            currentPage: this.currentPage, //当前页
+            pageSize: this.pageSize, //每页显示的条数
+            caluseState:0,
+            state:0
           },
 
           {
@@ -135,35 +138,36 @@ export default {
           console.log(res.data);
           if (res.data.code == 200) {
             this.Linelist = res.data.data.tenders;
-            this.totalPage=res.data.data.totalPage;
+            this.totalPage = res.data.data.totalCount;
           }
         })
         .catch(err => {
           console.log(err);
         });
     },
-    handleSizeChange(val) {/* 每页多少条数据 */
-        console.log(`每页 ${val} 条`);
+    handleSizeChange(val) {
+      /* 每页多少条数据 */
+      console.log(`每页 ${val} 条`);
     },
-    handleCurrentChange() {/* 获取当前页码 */
-        this.axios
+    handleCurrentChange() {
+      /* 获取当前页码 */
+      this.axios
         .post("/selectOnlineWorkerspage", {
-          currentPage: this.currentPage,//当前页
-          pageSize:this.pageSize//每页显示的条数
+          currentPage: this.currentPage, //当前页
+          pageSize: this.pageSize, //每页显示的条数
+          caluseState: "0"
         })
         .then(res => {
           console.log(res.data);
           if (res.data.code == 200) {
             this.Linelist = res.data.data.tenders;
-            this.totalPage=res.data.data.totalPage;
-
+           this.totalPage = res.data.data.totalCount;
           }
         })
         .catch(err => {
           console.log(err);
         });
-
-  }
+    }
   }
 };
 </script>
@@ -275,13 +279,12 @@ export default {
           margin-left: 20px;
         }
       }
-     
     }
   }
-   .pag {
-        position: absolute;
-        bottom: 20px;
-        right: 30px;
-      }
+  .pag {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+  }
 }
 </style>
