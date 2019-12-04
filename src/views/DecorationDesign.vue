@@ -1,5 +1,7 @@
 <template>
   <div class="decorationdesign">
+
+    <index></index>
     <div class="inv-nav">
       <div class="clearfix">
         <ul>
@@ -124,6 +126,8 @@
 </template>
 
 <script>
+ import index from '@/components/index'
+
 export default {
   name: "decorationDesign",
 
@@ -231,6 +235,9 @@ export default {
       
     };
   },
+  components:{
+    index
+  },
   methods: {
     handleSizeChange(val) {
       // 分页-每页条数
@@ -305,7 +312,7 @@ export default {
   margin: 0 auto;
 
   // background: yellow;
-  border: 1px solid black;
+  // border: 1px solid black;
 
   .inv-nav {
     width: 90%;
