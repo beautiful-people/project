@@ -99,21 +99,21 @@
         </el-table-column>
         <el-table-column
           label="招标状态"
-          prop="state" width="120px" @click="getDeail">
+          prop="state" width="120px" >
         </el-table-column>
-        <!-- <el-table-column
+        <el-table-column
           fixed="right"
           label="操作"
           width="120">
-          <template slot-scope="scope">
+          <template >
             <el-button
-              @click.native.prevent="deleteRow(scope.$index, tableData)"
+              @click.native.prevent="getDeail"
               type="text"
               size="small">
-              移除
+              修改
             </el-button>
           </template>
-        </el-table-column> -->
+        </el-table-column>
       </el-table>
        <el-pagination
           background
@@ -275,8 +275,8 @@ export default {
       this.ind=2,
       this.getline2()
     },
-    getDeail(){
-
+    getDeail(){                    
+        this.$router.replace("/details");
     },
     getline1() {
       this.axios
