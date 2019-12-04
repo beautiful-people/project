@@ -73,7 +73,7 @@
       <div class="page">
         <el-pagination
           style="text-align:center;"
-          @size-change="handleSizeChange"
+          @size-change="handleSizeChanghandleCurrentChangee"
           @current-change="handleCurrentChange"
           :current-page="currpage"
           :page-size="pagesize"

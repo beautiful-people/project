@@ -55,30 +55,33 @@ export default {
   methods: {
     onSubmit(tel) {
       // 验证是否为手机号
-      isPhoneAvailable (tel);
-      function isPhoneAvailable (tel) {
+ 
+      
         var telReg = /^[1][3,4,5,7,8][0-9]{9}$/;
         if (!telReg.test(tel)) {
           alert("请输入正确的手机号码");
         } else {
-          console.log(tel);
+          // console.log("修改后手机号：",tel);
           this.axios.post('/changeUserPhone', {
-            userId: sessionStorage.getItem('userId'),
-            userPhone: tel/* sessionStorage.getItem('userId') */
+            accId: 1,
+            // sessionStorage.getItem('userId'),
+            userPhone: tel
           }) // 后台请求地址
           .then(res => {
-            console.log('：', res.data.code)
+            console.log('这里：', res.data.code)
           })
           .catch(err => {
             console.log(err)
           })
         }
       } 
-    }
+    
   },
   created () {
     this.axios.post('/showUserInfo', {
-      userId: sessionStorage.getItem('accountId')/* sessionStorage.getItem('userId') */
+      accId: 1
+      // userId: sessionStorage.getItem('userId'),
+      /* sessionStorage.getItem('userId') */
     }) // 后台请求地址
     .then(res => {
       console.log('获取用户信息：', res.data.data.users)

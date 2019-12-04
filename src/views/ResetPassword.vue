@@ -2,9 +2,6 @@
   <div>
     <h3>修改密码</h3>
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="验证码" prop="code">
-        <el-input v-model.number="ruleForm.code"></el-input>
-      </el-form-item>
 
       <el-form-item label="密码" prop="pass">
         <el-input type="password" v-model="ruleForm.pass" autocomplete="off" show-password></el-input>
