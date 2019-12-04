@@ -203,7 +203,7 @@ export default {
       this.axios
       .post("/winBid", {
         tenderId: sessionStorage.getItem('tenderId'),
-        accId: sessionStorage.getItem('accId')
+        accId: 1
         // this.res.data.data.bids[0].merchant.accId
       }) // 后台请求地址
       .then(res => {
