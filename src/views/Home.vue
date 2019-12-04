@@ -235,14 +235,58 @@ export default {
   },
   data:function(){
     return {
-      msg:sessionStorage.getItem("name")
+      msg:sessionStorage.getItem("name"),
+      list:{}
     }
+  },
+  created() {
+    // this.qinqiu();
+    
+      this.axios.post("/findUser")//在括号中，需要请求数据需要在("/",{})括号中需要的请求。
+      .then(res=>{
+        console.log("请求成功",res);
+      this.list= res.data.data.list[0];
+
+      })
+      .cath(err=>{
+        console.log("请求失败",err);
+      })
+
+  },
+  methods:{
+    // qinqiu1(){
+    //   this.axios.post("/findUser")//在括号中，需要请求数据需要在("/",{})括号中需要的请求。
+    //   .then(res=>{
+    //     console.log("请求成功",res);
+    //   this.list= res.data.data.list[0];
+
+    //   })
+    //   .cath(err=>{
+    //     console.log("请求失败",err);
+    //   })
+    // },
+    // qinqiu2(){
+    //   this.axios.post("/")//在括号中，需要请求数据需要在("/",{})括号中需要的请求。
+    //   .then(res=>{
+    //     console.log("请求成功",res);
+    //   this.list= res.data.data.list[0];
+
+    //   })
+    //   .cath(err=>{
+    //     console.log("请求失败",err);
+    //   })
+    // }
   }
 };
 </script>
 
 <style lang="less" scoped>
 // 家居风格
+
+.home{
+  text-align: center;
+}
+
 .home-householdstyle{
     width: 1200px;
     height: 600px;
@@ -252,13 +296,13 @@ export default {
     .household-list{
       width: 1200px;
       height: 506px;
-      background: rebeccapurple;
+      // background: rebeccapurple;
       margin-bottom: 20px;
       .household-list-left{
         width:320px;
         height: 506px;
         float: left;
-        background: pink;
+        // background: pink;
         .household-left-div:hover .one{
             border: 93px solid transparent; 
             border-bottom: 93px solid rgba(250, 71, 30,0.8);
@@ -298,7 +342,7 @@ export default {
         width: 880px;
         height: 506px;
         float: left;
-        background: rgb(151, 4, 28);
+        // background: rgb(151, 4, 28);
         .household-right-img:hover{
           box-shadow: 1px 1px 5px rgb(126, 126, 126);
         }
@@ -391,7 +435,7 @@ export default {
       }
       .max{
         width: 100%;
-        background: red;
+        // background: red;
         height: 30px;
       }
       h3 {
