@@ -1,6 +1,6 @@
 <template>
   <div class="sideNav">
-    <p>个人中心</p>
+    <p>商家中心</p>
     <div v-if="showSin">
       <router-link to="/personalCenter/personaldata">个人资料</router-link>
       <router-link to="/personalCenter/mytender">我的招标</router-link>

@@ -44,18 +44,19 @@
         <el-table-column label="商家名称" prop="merchant.merName"></el-table-column>
         <el-table-column label="报价" prop="initialOffer"></el-table-column>
         <el-table-column label="操作" prop="operation" align="center">
-          <template>
+          <template slot-scope="scope">
             <el-button
               :class="{active: isActive}"
               size="mini"
               class="cancel"
               type="primary"
-              @click="handleDelete()"
+              @click="handleDelete(scope.$index, bidList)"
             >允许中标</el-button>
           </template>
         </el-table-column>
       </el-table>
     </template>
+
 
     <!-- 分页 -->
     <el-pagination 
@@ -100,7 +101,7 @@ export default {
         // console.log("获取商家信息：", res.data.data.bids);
         // 获取商家名称
         this.tmerName = res.data.data.bids[0].bids[0].merchant.merName;
-        // console.log("商家",res.data.data)
+        console.log("商家accID：",res.data.data)
         // console.log(res.data.data.bids);
         // console.log("获取用户信息：", res.data.data.tenders);
         this.totalPage = res.data.data.page.totalCount;
@@ -199,19 +200,43 @@ export default {
       // 分页-每页条数
       this.pagesize = val;
     },
-    handleDelete() {
-      this.axios
-      .post("/winBid", {
-        tenderId: sessionStorage.getItem('tenderId'),
-        accId: sessionStorage.getItem('accId')
-        // this.res.data.data.bids[0].merchant.accId
-      }) // 后台请求地址
-      .then(res => {
-        console.log("商家Id", res)
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    handleDelete(index, rows) {
+      if(this.newList.state == 1) {
+        this.$message({
+          message: '此标正在审核中'
+        });
+      } else if (this.newList.state == 3) {
+        this.$message({
+          message: '此标已被商家成功招中',
+          type: 'warning'
+        })
+      } else if (this.newList.state == 4) {
+        this.$message.error('招标失败');
+      } else {
+        this.axios
+        .post("/winBid", {
+          tenderId: sessionStorage.getItem('tenderId'),
+          accId: rows[index].merchant.accId
+          // this.bidList[0].merchant.accId
+          // this.res.data.data.bids[0].merchant.accId
+        }) // 后台请求地址
+        .then(res => {
+          console.log(index, rows[index].merchant.accId);
+          if(res.data.code == 400) {
+            this.$message.error('此标已过期');
+          } else if(res.data.code == 200) {
+            this.$message({
+              message: '恭喜中标，已成功发送消息给商家',
+              type: 'success'
+            });
+            this.$router.push({ path: '/personalCenter/Mytender' })
+          }
+          // console.log("商家Id：",this.bidList[0].merchant.accId);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      }
     }
   }
 };

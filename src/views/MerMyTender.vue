@@ -39,9 +39,10 @@ export default {
   },
   created() {
     this.axios
-    .post("/showTenderInfo", {
+    .post("/showTender", {
       currentPage: 1,
-      pageSize: this.pagesize
+      pageSize: this.pagesize,
+      token: sessionStorage.getItem("token")
     })
     .then(res => {
       console.log("获取用户信息：", res.data.data.tenders);
@@ -58,12 +59,12 @@ export default {
   methods: {
     getTenderId(oldTenderId) {
       this.tenderId = sessionStorage.setItem("tenderId", oldTenderId);
-      this.$router.push("/personalCenter/tenderInfor");
+      this.$router.push("/personalCenter/MerTenderInfor");
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
       this.axios
-      .post("/showTenderInfo", {
+      .post("/showTender", {
         currentPage: val, //当前页
         pageSize: this.pagesize
       }) // 后台请求地址
