@@ -167,16 +167,20 @@
       </div>
     </div>
   </div>
+  <footerr></footerr>
   </div>
+  
 </template>
 
 <script>
  import index from '@/components/index'
+ import footerr from '@/components/Footer.vue'
 
 export default {
   name: "home",
   components: {
-    index
+    index,
+    footerr
   },
   data:function(){
     return {
