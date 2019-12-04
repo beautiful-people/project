@@ -1,5 +1,5 @@
 <template>
-  <div class="index">
+  <div class="index clearfix">
     <!-- 文本包含个人信息 -->
     <div class="main-Stick">
       <ul class="main-Stick-leftul">
@@ -10,8 +10,7 @@
         <li><img src="img/index-img/qq.png" class="main-Stick-img" alt=""> 在线咨询</li>
         <li><img src="img/index-img/tel.png" class="main-Stick-img" alt=""> <span>400-123-169</span></li>
         <li><img src="img/index-img/geren.png" class="main-Stick-img" alt=""> 进入会员中心</li>
-        <li><img src="img/index-img/login.png" class="main-Stick-img" @click="getlogin"> 登录</li>
-        <li><img src="img/index-img/regist.png" class="main-Stick-img" @click="getregister"> 注册</li>
+        <li @click="back"><img src="img/index-img/login.png" class="main-Stick-img" > 请先登录或者注册</li>
         <li><img src="img/index-img/quit.png" class="main-Stick-img" > 退出</li>
       </ul>
     </div>
@@ -60,8 +59,8 @@
         <router-link to="/construction">在线工地</router-link>
         <router-link to="/decoration">装修公司</router-link>
         <router-link to="/decorationDesign">装修设计</router-link>
-        <router-link to="/design">设计报价</router-link>
-        <router-link to="/invitation">{{msg}}</router-link>
+        <router-link to="/Invitation">投标中心</router-link>
+        
       </ul>
     </div>
 
@@ -81,17 +80,17 @@ export default {
     };
   },
   methods:{
-    getlogin(){
+   back(){
+      console.log("123")
        this.$router.replace("/login");
-    },
-     getregister(){
-       this.$router.replace("/register");
     },
   }
 };
 </script>
 
 <style lang="less" scoped>
+@import "../assets/style/base.less";
+
 *{
   margin: 0;
   padding: 0;
@@ -117,6 +116,7 @@ ul a {
 }
 .index {
   text-align: center;
+  margin-bottom: 10px;
 }
 .main-Stick {
   width: 90%;

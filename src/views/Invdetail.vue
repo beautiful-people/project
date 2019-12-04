@@ -1,5 +1,7 @@
 <template>
   <div id="invdetail">
+
+    <index></index>
     <div class="content">
       <table class="tab" cellspacing="0" cellpadding="0">
         <tr>
@@ -100,6 +102,9 @@
 
 
 <script>
+
+import index from '@/components/index'
+
 export default {
   name: "invdetail",
 
@@ -121,6 +126,9 @@ export default {
       reg: false,
       check: false
     };
+  },
+  components:{
+    index
   },
   created() {
     this.axios

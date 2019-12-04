@@ -1,5 +1,6 @@
 <template>
   <div class="decorationdesign">
+    <index></index>
     <div class="inv-nav">
       <div class="clearfix">
         <ul>
@@ -11,7 +12,7 @@
             :class="{on:h_id === item.h_id}"
           >
             <label :for="item.h_id">
-              <input type="radio" name="houseType" :id="item.h_id" />
+              <input type="radio" name="houseType" :id="item.text" />
               {{item.text}}
             </label>
           </li>
@@ -28,7 +29,7 @@
             :class="{on:a_id === item.a_id}"
           >
             <label :for="item.a_id">
-              <input type="radio" name="area" :id="item.a_id" />
+              <input type="radio" name="area" :id="item.text" />
               {{item.text}}
             </label>
           </li>
@@ -45,7 +46,7 @@
             :class="{on:p_id === item.p_id}"
           >
             <label :for="item.p_id">
-              <input type="radio" name="price" :id="item.p_id" />
+              <input type="radio" name="price" :id="item.text" />
               {{item.text}}
             </label>
           </li>
@@ -62,7 +63,7 @@
             :class="{on:s_id === item.s_id}"
           >
             <label :for="item.s_id">
-              <input type="radio" name="styles" :id="item.s_id" />
+              <input type="radio" name="styles" :id="item.text" />
               {{item.text}}
             </label>
           </li>
@@ -77,16 +78,19 @@
 
     <div class="content">
       <div class="box" v-for="(item,index) in boxtext" :key="index">
-        <div class="box-left">
+        <div class="box-left" @click="getin(index)">
           {{index}}
           <img src alt />
         </div>
         <div class="box-right">
-          <div class="rig-top"></div>
-          <div class="rig-bottom"></div>
+          <div class="rig-top" @click="getin(index)"></div>
+          <div class="rig-bottom" @click="getin(index)"></div>
         </div>
 
-        <p style="font-weight:bold;font-size:14px;">{{item.title}}</p>
+        <p
+          style="font-weight:bold;font-size:14px;cursor: pointer;"
+          @click="getin(index)"
+        >{{item.title}}</p>
         <p>
           设计者：
           <a href>{{item.projector}}</a>
@@ -105,8 +109,6 @@
         </p>
 
         <!-- Form -->
-
-       
       </div>
     </div>
 
@@ -124,6 +126,8 @@
 </template>
 
 <script>
+import index from "@/components/index";
+
 export default {
   name: "decorationDesign",
 
@@ -132,9 +136,7 @@ export default {
       pagesize: 3, // 每页显示三条
       currpage: 1, // 默认开始页面
       totalCount: 10, // 总页数
- 
-    
-     
+
       h_id: 0,
       houseType: [
         { h_id: 0, text: "全部" },
@@ -142,29 +144,45 @@ export default {
         { h_id: 2, text: "二居室" },
         { h_id: 3, text: "三居室" },
         { h_id: 4, text: "四居室" },
-        { h_id: 5, text: "五居室" },
-        { h_id: 6, text: "六居室" }
+        { h_id: 5, text: "复式" },
+        { h_id: 6, text: "跃层" },
+        { h_id: 7, text: "别墅" }
       ],
-      a_id: 7,
+      a_id: 0,
       area: [
-        { a_id: 7, text: "全部" },
-        { a_id: 8, text: "40㎡以下" },
-        { a_id: 9, text: "41㎡到60㎡" },
-        { a_id: 10, text: "61㎡到90㎡" },
-        { a_id: 11, text: "91㎡到120㎡" },
-        { a_id: 12, text: "121㎡到150㎡" }
+        { a_id: 0, text: "全部" },
+        { a_id: 1, text: "40㎡以下" },
+        { a_id: 2, text: "41㎡到60㎡" },
+        { a_id: 3, text: "61㎡到90㎡" },
+        { a_id: 4, text: "91㎡到120㎡" },
+        { a_id: 5, text: "121㎡到150㎡" },
+        { a_id: 6, text: "151㎡到200㎡" },
+        { a_id: 7, text: "200㎡以上" }
       ],
-      p_id: 13,
+      p_id: 0,
       price: [
-        { p_id: 13, text: "1-5万" },
-        { p_id: 14, text: "5-10万" },
-        { p_id: 15, text: "10-20万" }
+        { p_id: 0, text: "全部" },
+        { p_id: 1, text: "1-5万" },
+        { p_id: 2, text: "5-10万" },
+        { p_id: 3, text: "10-20万" },
+        { p_id: 4, text: "20-30万" },
+        { p_id: 5, text: "30-50万" },
+        { p_id: 6, text: "50-100万" },
+        { p_id: 7, text: "100-200万" },
+        { p_id: 8, text: "200万以" }
       ],
-      s_id: 16,
+      s_id: 0,
       styles: [
-        { s_id: 16, text: "东欧" },
-        { s_id: 17, text: "北欧" },
-        { s_id: 18, text: "南欧" }
+        { s_id: 0, text: "全部" },
+        { s_id: 1, text: "中式" },
+        { s_id: 2, text: "欧式" },
+        { s_id: 3, text: "美式" },
+        { s_id: 4, text: "现代" },
+        { s_id: 5, text: "古典" },
+        { s_id: 6, text: "田园" },
+        { s_id: 7, text: "地中海" },
+        { s_id: 8, text: "混搭" },
+        { s_id: 9, text: "东南亚" }
       ],
       boxtext: [
         {
@@ -227,9 +245,11 @@ export default {
           time: "2019-11-27",
           address: "文化产品体验中心"
         }
-      ],
-      
+      ]
     };
+  },
+  components: {
+    index
   },
   methods: {
     handleSizeChange(val) {
@@ -264,30 +284,36 @@ export default {
       // 户型的点击事件
       this.h_id = item;
 
-      // this.axios
-      //   .post("/tender/findAll", {
-      //     name: this.hx_id
-      //   })
-      //   .then(res => {
-      //     if (res.data.code == 200) {
-      //       console.log(res.data);
-      //       this.tables = res.data;
-      //     }
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
+      this.axios
+        .post("/tender/findAll", {
+          roomType:this.houseType.text
+        })
+        .then(res => {
+          if (res.data.code == 200) {
+            console.log(res.data);
+            this.tables = res.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
-    areaClick(item) { // 面积点击事件
+    areaClick(item) {
+      // 面积点击事件
       this.a_id = item;
     },
-    priceClick(item) { // 总价点击事件
+    priceClick(item) {
+      // 总价点击事件
       this.p_id = item;
     },
-    stylesClick(item) {// 风格点击事件
+    stylesClick(item) {
+      // 风格点击事件
       this.s_id = item;
     },
-  
+    getin(i) {
+      console.log(i);
+      this.$router.push("/design?" + i);
+    }
   }
 };
 </script>
@@ -305,7 +331,7 @@ export default {
   margin: 0 auto;
 
   // background: yellow;
-  border: 1px solid black;
+  // border: 1px solid black;
 
   .inv-nav {
     width: 90%;
@@ -391,6 +417,7 @@ export default {
         // margin-right: 10px;
         float: left;
         background: aqua;
+        cursor: pointer;
       }
       .box-right {
         width: 250px;
@@ -404,11 +431,12 @@ export default {
           height: 135px;
           margin-bottom: 10px;
           background: #f76d4e;
+          cursor: pointer;
         }
         .rig-bottom {
           width: 100%;
           height: 135px;
-
+          cursor: pointer;
           background: lawngreen;
         }
       }

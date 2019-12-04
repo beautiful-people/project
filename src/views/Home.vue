@@ -180,6 +180,7 @@ export default {
   },
   data:function(){
     return {
+     
       msg:sessionStorage.getItem("name"),
       list:{},
       mainimg:{},

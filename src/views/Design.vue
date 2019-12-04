@@ -1,5 +1,6 @@
 <template>
   <div class="design">
+    <index></index>
   <el-carousel :interval="5000" arrow="always" height='450px'  style="width:700px;margin:0 auto" >
     <el-carousel-item v-for="item in 4" :key="item" >
       <h3>{{ item }}</h3>
@@ -9,15 +10,22 @@
 </template>
 
 <script>
+
+ import index from '@/components/index'
+
 export default {
-  name: "design"
+  name: "design",
+  components:{
+    index
+  }
 };
 </script>
+
 
 <style lang="less" scoped>
 .design {
   width: 1366px;
-  height: 1800px;
+  height: 700px;
   margin: 0 auto;
  text-align: center;
 
