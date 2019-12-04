@@ -153,9 +153,9 @@ export default {
           console.log(res.data);
           if (res.data.code == "200") {
             // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
-            this.token=res.data.data.account;
+            this.token=res.data.data.token;
             this.accid=res.data.data.accountId;
-            var token = res.data.data.account;
+            var token = res.data.data.token;
             var name = res.data.data.accountName;
             var power = res.data.data.power;
             var accId = res.data.data.accountId;
@@ -217,7 +217,9 @@ export default {
           },
           {
             headers: {
-              "content-type": "application/json"
+              "content-type": "application/json",
+               "token": this.tokens,
+              "accountId":this.accid
             }
           }
         )
@@ -225,9 +227,14 @@ export default {
           console.log(res.data);
           if (res.data.code == "200") {
             // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
-            var token = res.data.data.account;
+             var token = res.data.data.token;
+            var name = res.data.data.accountName;
+            var power = res.data.data.power;
+            var accId = res.data.data.accountId;
             sessionStorage.setItem("token", token);
-
+             sessionStorage.setItem("name", name);
+            sessionStorage.setItem("power", power);
+            sessionStorage.setItem("accId", accId);
             // 获取参数（未登录时想访问的路由）
             var url = this.$route.query.redirect;
             this.open2();
