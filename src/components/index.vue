@@ -251,6 +251,6 @@ ul a {
 .main-top {
   width: 100%;
   height: 40px;
-  float: left;
+  // float: left;
 }
 </style>
