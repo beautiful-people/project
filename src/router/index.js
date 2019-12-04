@@ -189,6 +189,14 @@ const routes = [
         
       }
     }
+    ,{
+      path: 'MerTranscript',
+      name: 'MerTranscript',
+      component: () => import('../views/MerTranscript.vue'),
+      meta: {
+        
+      }
+    }
   ]
   }
 ]

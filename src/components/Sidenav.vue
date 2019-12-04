@@ -12,7 +12,9 @@
       <router-link to="/personalCenter/Merpersonaldata">个人资料</router-link>
       <router-link to="/personalCenter/Mermytender">我的招标</router-link>
       <router-link to="/personalCenter/Merlaunchbid">发布竞标</router-link>
+      <router-link to="/personalCenter/MerTranscript">竞标记录</router-link>
       <router-link to="/personalCenter/Merinformation">站内信息</router-link>
+
     </div>
   </div>
 </template>

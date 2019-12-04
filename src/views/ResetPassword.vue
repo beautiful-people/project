@@ -66,8 +66,8 @@ export default {
           // 修改的密码
           this.axios
           .post("/changeUserPwd", {
-            accId: 1,
-            accPwd: this.ruleForm.pass
+            accPwd: this.ruleForm.pass,
+            token: sessionStorage.getItem("token")
             // accPwd: this.ruleForm.pass
           }) // 后台请求地址
           .then(res => {

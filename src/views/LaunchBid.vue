@@ -223,15 +223,9 @@ export default {
             tenderEndTime: this.ruleForm.tenderEndTime,
             decorationBudget: this.ruleForm.decorationBudget,
             fitmentRequest: this.ruleForm.fitmentRequest,
-            compayRequest: this.ruleForm.compayRequest
+            compayRequest: this.ruleForm.compayRequest,
+            token: sessionStorage.getItem("token")
           })
-          // this.axios({
-          //   url: "http://172.16.6.60:8080/releaseTender",
-          //   method: "post",
-          //   data: `tender=${this.ruleForm}`,
-          //   header: { "content-type": "application/x-www-form-urlencoded"}
-          // })
-          
           .then(res => {
             console.log(res);
             if(res.data.code == 200) {
