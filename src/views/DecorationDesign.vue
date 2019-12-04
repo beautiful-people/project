@@ -73,39 +73,45 @@
 
     <div class="msg">
       为你找到了
-      <span style="color:#f76d4e;font-size:20px;">&nbsp;6327 &nbsp;</span>个适合的装修方案
+      <span style="color:#f76d4e;font-size:20px;">&nbsp;{{boxtext.length}} &nbsp;</span>个适合的装修方案
     </div>
 
     <div class="content">
       <div class="box" v-for="(item,index) in boxtext" :key="index">
-        <div class="box-left" @click="getin(index)">
-          {{index}}
-          <img src alt />
+        <div class="box-left" @click="getin(item.schemeId)">
+         <img :src="item.deimglist[0].imgPath" style="width:325px;height:280px;" alt="">
+          
         </div>
         <div class="box-right">
-          <div class="rig-top" @click="getin(index)"></div>
-          <div class="rig-bottom" @click="getin(index)"></div>
+          <div class="rig-top" @click="getin(item.schemeId)">
+         <img :src="item.deimglist[1].imgPath" style="width:100%;height:135px;" alt="">
+
+          </div>
+          <div class="rig-bottom" @click="getin(item.schemeId)">
+         <img :src="item.deimglist[2].imgPath" style="width:100%;height:135px;" alt="">
+
+          </div>
         </div>
 
         <p
           style="font-weight:bold;font-size:14px;cursor: pointer;"
-          @click="getin(index)"
-        >{{item.title}}</p>
+          @click="getin(item.schemeId)"
+        >{{item.schemeName}}</p>
         <p>
           设计者：
-          <a href>{{item.projector}}</a>
+          <a href>{{item.merchantmany.merName}}</a>
         </p>
         <p>
-          风格：{{item.title}}&nbsp;&nbsp;
-          户型：{{item.styles}}&nbsp;&nbsp;
-          面积：{{item.area}}&nbsp;&nbsp;
-          造价：{{item.price}}&nbsp;&nbsp;
-          小区：{{item.address}}
+          风格：{{item.roomStyle}}&nbsp;&nbsp;
+          户型：{{item.roomType}}&nbsp;&nbsp;
+          面积：{{item.roomArea}}㎡&nbsp;&nbsp;
+          造价：{{item.roomCost}}&nbsp;&nbsp;
+          小区：{{item.quarters}}
         </p>
         <p>提供的服务：暂无</p>
         <p>
           发布时间：
-          <span style="color:#f76d4e;font-size:14px;">{{item.time}}</span>
+          <span style="color:#f76d4e;font-size:14px;">{{getTime(item.releaseTime)}}</span>
         </p>
 
         <!-- Form -->
@@ -133,7 +139,7 @@ export default {
 
   data() {
     return {
-      pagesize: 3, // 每页显示三条
+      pagesize: 4, // 每页显示三条
       currpage: 1, // 默认开始页面
       totalCount: 10, // 总页数
 
@@ -184,72 +190,28 @@ export default {
         { s_id: 8, text: "混搭" },
         { s_id: 9, text: "东南亚" }
       ],
-      boxtext: [
-        {
-          title: "文化产品体验中心",
-          projector: "北京瑞祥嘉怡装饰有限公司第一分公司",
-          styles: "现代",
-          houseType: "其他",
-          area: "1000㎡",
-          price: "20万元",
-          time: "2019-11-27",
-          address: "文化产品体验中心"
-        },
-        {
-          title: "文化产品体验中心",
-          projector: "北京瑞祥嘉怡装饰有限公司第一分公司",
-          styles: "现代",
-          houseType: "其他",
-          area: "1000㎡",
-          price: "20万元",
-          time: "2019-11-27",
-          address: "文化产品体验中心"
-        },
-        {
-          title: "文化产品体验中心",
-          projector: "北京瑞祥嘉怡装饰有限公司第一分公司",
-          styles: "现代",
-          houseType: "其他",
-          area: "1000㎡",
-          price: "20万元",
-          time: "2019-11-27",
-          address: "文化产品体验中心"
-        },
-        {
-          title: "文化产品体验中心",
-          projector: "北京瑞祥嘉怡装饰有限公司第一分公司",
-          styles: "现代",
-          houseType: "其他",
-          area: "1000㎡",
-          price: "20万元",
-          time: "2019-11-27",
-          address: "文化产品体验中心"
-        },
-        {
-          title: "文化产品体验中心",
-          projector: "北京瑞祥嘉怡装饰有限公司第一分公司",
-          styles: "现代",
-          houseType: "其他",
-          area: "1000㎡",
-          price: "20万元",
-          time: "2019-11-27",
-          address: "文化产品体验中心"
-        },
-        {
-          title: "文化产品体验中心",
-          projector: "北京瑞祥嘉怡装饰有限公司第一分公司",
-          styles: "现代",
-          houseType: "其他",
-          area: "1000㎡",
-          price: "20万元",
-          time: "2019-11-27",
-          address: "文化产品体验中心"
-        }
-      ]
+      boxtext: []
     };
   },
   components: {
     index
+  },
+  created() {
+    this.axios
+      .post("/selectdecordByrandom", {
+        currentPage: 1,
+        pageSize: this.pagesize
+      })
+      .then(res => {
+        if (res.data.code == 200) {
+          console.log(res.data.data);
+          this.totalCount = res.data.data.totolCount;
+          this.boxtext = res.data.data.schemeOfmerVoList;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   methods: {
     handleSizeChange(val) {
@@ -260,38 +222,40 @@ export default {
       // 当前页
       this.currpage = val;
 
-      // this.axios
-      //   .post("/tender/findAll", {
-      //     currentPage: this.currpage,
-      //     pageSize: this.pagesize,
-      //     state: this.msgs_id,
-      //     chooseTime: this.time_id
-      //   })
-      //   .then(res => {
-      //     if (res.data.code == 200) {
-      //       console.log(res.data.data.tenders);
-      //       this.tables = res.data.data.tenders;
-      //       console.log(this.tables);
-      //       this.totalCount = res.data.data.totalCount;
-      //     }
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
+      console.log(this.currpage)
+      this.axios
+        .post("/selectdecordByrandom", {
+          currentPage: this.currpage,
+          pageSize: this.pagesize,
+          
+        })
+        .then(res => {
+          if (res.data.code == 200) {
+            console.log(res.data.data.totolCount);
+            this.boxtext = res.data.data.schemeOfmerVoList;
+            console.log(this.boxtext);
+            this.totalCount = res.data.data.totolCount;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
       console.log(val);
     },
     houseTypeClick(item) {
       // 户型的点击事件
       this.h_id = item;
-
+      console.log(this.boxtext)
       this.axios
-        .post("/tender/findAll", {
-          roomType: this.houseType.text
+        .post("/selectdecordByrandom", {
+          roomtypes: this.h_id,
+          currentPage: 1,
+          pageSize: this.pagesize
         })
         .then(res => {
           if (res.data.code == 200) {
             console.log(res.data);
-            this.tables = res.data;
+            this.boxtext = res.data;
           }
         })
         .catch(err => {
@@ -302,13 +266,15 @@ export default {
       // 面积点击事件
       this.a_id = item;
       this.axios
-        .post("/tender/findAll", {
-          roomType: this.houseType.text
+        .post("/selectdecordByrandom", {
+          roomareas: this.a_id,
+          currentPage: 1,
+          pageSize: this.pagesize
         })
         .then(res => {
           if (res.data.code == 200) {
             console.log(res.data);
-            this.tables = res.data;
+            this.boxtext = res.data;
           }
         })
         .catch(err => {
@@ -320,13 +286,15 @@ export default {
       this.p_id = item;
 
       this.axios
-        .post("/tender/findAll", {
-          roomType: this.houseType.text
+        .post("/selectdecordByrandom", {
+          roomcosts: this.p_id,
+          currentPage: 1,
+          pageSize: this.pagesize
         })
         .then(res => {
           if (res.data.code == 200) {
             console.log(res.data);
-            this.tables = res.data;
+            this.boxtext = res.data;
           }
         })
         .catch(err => {
@@ -338,13 +306,15 @@ export default {
       this.s_id = item;
 
       this.axios
-        .post("/tender/findAll", {
-          roomType: this.houseType.text
+        .post("/selectdecordByrandom", {
+          roomstyles: this.s_id,
+          currentPage: 1,
+          pageSize: this.pagesize
         })
         .then(res => {
           if (res.data.code == 200) {
             console.log(res.data);
-            this.tables = res.data;
+            this.boxtext = res.data;
           }
         })
         .catch(err => {
@@ -354,6 +324,47 @@ export default {
     getin(i) {
       console.log(i);
       this.$router.push("/design?" + i);
+    },
+    getTime(time) {
+      /**
+       * 时间对象的格式化;
+       */
+      Date.prototype.format = function(format) {
+        /*
+         * eg:format="YYYY-MM-dd hh:mm:ss";
+         */
+        var o = {
+          "M+": this.getMonth() + 1, // month
+          "d+": this.getDate(), // day
+          "h+": this.getHours(), // hour
+          "m+": this.getMinutes(), // minute
+          "s+": this.getSeconds(), // second
+          "q+": Math.floor((this.getMonth() + 3) / 3), // quarter
+          S: this.getMilliseconds() // millisecond
+        };
+        if (/(y+)/.test(format)) {
+          format = format.replace(
+            RegExp.$1,
+            (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+          );
+        }
+        for (var k in o) {
+          if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(
+              RegExp.$1,
+              RegExp.$1.length == 1
+                ? o[k]
+                : ("00" + o[k]).substr(("" + o[k]).length)
+            );
+          }
+        }
+        return format;
+      };
+
+      var jsDate = new Date(time).toLocaleDateString();
+      var date = jsDate.split("/");
+      var times = date.join("-");
+      return times;
     }
   }
 };
@@ -431,12 +442,12 @@ export default {
   .content {
     width: 90%;
     max-width: 1200px;
-    height: 1250px;
-    border: 1px solid #dddddd;
+    height: 900px;
+    // border: 1px solid #dddddd;
     margin: 0 auto;
     padding-left: 15px;
     color: black;
-    background: #ddd;
+    // background: #ddd;
     text-align: left;
 
     p {
@@ -465,20 +476,20 @@ export default {
         height: 280px;
         float: left;
         margin-left: 10px;
-        background: black;
+        // background: black;
 
         .rig-top {
           width: 100%;
           height: 135px;
           margin-bottom: 10px;
-          background: #f76d4e;
+          // background: #f76d4e;
           cursor: pointer;
         }
         .rig-bottom {
           width: 100%;
           height: 135px;
           cursor: pointer;
-          background: lawngreen;
+          // background: lawngreen;
         }
       }
     }
