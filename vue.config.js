@@ -4,7 +4,7 @@ module.exports = {
         '/api': {
           target: 'http://172.16.6.64:8080', // 服务器地址
           pathRewrite: {
-            '^/api': '' // 以 /api 开头的地址替换为 ''
+            '^/api': '' // 以 /api 开头的地址替换为 ''m
           },
           changeOrigin: true // 本地会虚拟一个服务端接收你的请求并代你发送该请求
         }
