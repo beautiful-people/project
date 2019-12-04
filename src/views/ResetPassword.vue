@@ -4,11 +4,11 @@
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 
       <el-form-item label="密码" prop="pass">
-        <el-input type="password" v-model="ruleForm.pass" autocomplete="off" show-password style="width: 120px;"></el-input>
+        <el-input type="password" v-model="ruleForm.pass" autocomplete="off" show-password style="width: 170px;"></el-input>
       </el-form-item>
 
       <el-form-item label="确认密码" prop="checkPass">
-        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" show-password style="width: 120px;"></el-input>
+        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" show-password style="width: 170px;"></el-input>
       </el-form-item>
   
       <el-form-item>
@@ -21,11 +21,6 @@
 <script>
 export default {
   data() {
-    var checkCode = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('验证码不能为空'));
-      }
-    };
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
@@ -48,18 +43,18 @@ export default {
     return {
       ruleForm: {
         pass: '',
-        checkPass: '',
-        code: ''
+        checkPass: ''
       },
       rules: {
         pass: [
-          { validator: validatePass, trigger: 'blur' }
+          { validator: validatePass, trigger: 'blur' },
+          {
+            pattern: /^[a-z0-9]{6,16}$/,
+            message: "请输入6-16位数字或字母"
+          }
         ],
         checkPass: [
           { validator: validatePass2, trigger: 'blur' }
-        ],
-        code: [
-          { validator: checkCode, trigger: 'blur' }
         ]
       }
     };
@@ -68,18 +63,20 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
           // 修改的密码
           this.axios
           .post("/changeUserPwd", {
             accId: 1,
-            accPwd: ruleForm.pass
+            accPwd: this.ruleForm.pass
+            // accPwd: this.ruleForm.pass
           }) // 后台请求地址
           .then(res => {
-            console.log("修改成功！")
+            console.log("修改成功！", res)
           })
           .catch(err => {
             console.log(err);
+            this.ruleForm.pass = '';
+            this.ruleForm.checkPass = '';
           });
         } else {
           console.log('error submit!!');

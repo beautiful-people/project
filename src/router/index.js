@@ -156,7 +156,40 @@ const routes = [
       meta: {
         
       }
-    }]
+    },
+    {
+      path: 'Merpersonaldata',
+      name: 'MerPersonalData',
+      component: () => import('../views/MerPersonalData.vue'),
+      meta: {
+        
+      }
+    },{
+      path: 'Mermytender',
+      name: 'MerMyTender',
+      component: () => import('../views/MerMyTender.vue'),
+    },{
+      path: 'MerLaunchBid',
+      name: 'MerLaunchBid',
+      component: () => import('../views/MerLaunchBid.vue'),
+      meta: {
+      }
+    },{
+      path: 'MerInformation',
+      name: 'MerInformation',
+      component: () => import('../views/MerInformation.vue'),
+      meta: {
+        
+      }
+    },{
+      path: 'MertenderInfor',
+      name: 'MerTenderInfor',
+      component: () => import('../views/MerTenderInfor.vue'),
+      meta: {
+        
+      }
+    }
+  ]
   }
 ]
 const router = new VueRouter({

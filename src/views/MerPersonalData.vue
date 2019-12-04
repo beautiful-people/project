@@ -79,7 +79,9 @@ export default {
   },
   created () {
     this.axios.post('/showUserInfo', {
-      token: sessionStorage.getItem("token")
+      accId: 1
+      // userId: sessionStorage.getItem('userId'),
+      /* sessionStorage.getItem('userId') */
     }) // 后台请求地址
     .then(res => {
       console.log('获取用户信息：', res.data.data.users)
