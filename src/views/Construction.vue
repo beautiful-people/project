@@ -62,7 +62,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page.sync="currentPage"
-          :page-size="5"
+          :page-size="4"
           layout="prev, pager, next, jumper"
           :total="totalPage"
           class="pag"
@@ -110,7 +110,7 @@ export default {
       Linelist: {},
       currentPage: 1 /* 当前页码 */,
       totalPage: 0,
-      pageSize: 4
+      pageSize: 7
     };
   },
   created() {
