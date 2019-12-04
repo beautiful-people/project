@@ -52,19 +52,6 @@ export default {
       }
     };
   },
-  created () {
-    this.axios.post('/showUserInfo', {
-      token: sessionStorage.getItem("token")
-      // 
-    }) // 后台请求地址
-    .then(res => {
-      console.log('获取用户信息：', res.data.data.users)
-      this.formLabelAlign = res.data.data.users[0]
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  },
   methods: {
     onSubmit(tel) {
       // 验证是否为手机号
@@ -76,7 +63,8 @@ export default {
         } else {
           // console.log("修改后手机号：",tel);
           this.axios.post('/changeUserPhone', {
-            token: sessionStorage.getItem("token"),
+            accId: 1,
+            // sessionStorage.getItem('userId'),
             userPhone: tel
           }) // 后台请求地址
           .then(res => {
@@ -88,6 +76,20 @@ export default {
         }
       } 
     
+  },
+  created () {
+    this.axios.post('/showUserInfo', {
+      accId: 1
+      // userId: sessionStorage.getItem('userId'),
+      /* sessionStorage.getItem('userId') */
+    }) // 后台请求地址
+    .then(res => {
+      console.log('获取用户信息：', res.data.data.users)
+      this.formLabelAlign = res.data.data.users[0]
+    })
+    .catch(err => {
+      console.log(err)
+    })
   },
   rules: {
     name: {

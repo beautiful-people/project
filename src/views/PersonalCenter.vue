@@ -46,5 +46,6 @@ export default {
   background: #fff;
   padding: 10px 50px;
   border: 1px solid #ccc;
+  position: relative;
 }
 </style>

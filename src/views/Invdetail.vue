@@ -286,6 +286,11 @@ export default {
 
 
 <style lang="less" scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .content {
   width: 90%;
   height: 640px;

@@ -30,7 +30,7 @@
           label="发送人"
           prop="sendUserName" width="120px">
         </el-table-column>
-        <!-- <el-table-column
+        <el-table-column
           fixed="right"
           label="操作"
           width="120">
@@ -42,7 +42,7 @@
               移除
             </el-button>
           </template>
-        </el-table-column> -->
+        </el-table-column>
       </el-table>
     </template>
   </div>
@@ -51,18 +51,6 @@
 
 <script>
 export default {
-  created() {
-    this.axios
-      .post("/showUserMerchantCAMessage", {
-        token: sessionStorage.getItem("token")
-      })
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  },
   methods: {
     deleteRow(index, rows) {
       rows.splice(index, 1);

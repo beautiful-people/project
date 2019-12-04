@@ -41,8 +41,7 @@ export default {
     this.axios
     .post("/showTenderInfo", {
       currentPage: 1,
-      pageSize: this.pagesize,
-      token: sessionStorage.getItem("token")
+      pageSize: this.pagesize
     })
     .then(res => {
       console.log("获取用户信息：", res.data.data.tenders);
