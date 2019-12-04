@@ -77,7 +77,13 @@ const routes = [
     name: 'decorationDesign',
     component: () => import('../views/DecorationDesign.vue')
   },
+  {
+    path: '/design',
+    name: 'design',
+    component: () => import('../views/Design.vue')
+  },
  
+  
   {
     path: '/invitation',
     name: 'invitation',
@@ -102,6 +108,11 @@ const routes = [
     path: '/membership',
     name: 'membership',
     component: () => import('../views//Membership.vue')
+  },
+  {
+    path: '/detailed',
+    name: 'detailed',
+    component: () => import('../views//Detailed.vue')
   },
   {
     path: '/personalCenter',

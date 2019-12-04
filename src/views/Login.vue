@@ -468,6 +468,7 @@ export default {
           background-color: orange;
           font-size: 12px;
           color: white;
+          cursor: pointer;
         }
         .logo {
           position: absolute;
