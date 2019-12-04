@@ -134,45 +134,10 @@
         <div class="home-mosthold">家居美图</div>
       </div>
       <div class="home-most">
-        <div class="most-list">
-          <img src="img/index-img/thetopby/one.jpg" class="most-list-img" alt="">
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-        </div>
-        <div class="most-list">
-          <img src="img/index-img/thetopby/two.jpg" class="most-list-img" alt="">
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-        </div>
-        <div class="most-list">
-          <img src="img/index-img/thetopby/three.jpg" class="most-list-img" alt="">
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-        </div>
-        <div class="most-list">
-          <img src="img/index-img/thetopby/two.jpg" class="most-list-img" alt="">
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-        </div>
-        <div class="most-list">
-          <img src="img/index-img/thetopby/one.jpg" class="most-list-img" alt="">
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-        </div>
-        <div class="most-list">
-          <img src="img/index-img/thetopby/three.jpg" class="most-list-img" alt="">
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-        </div>
-        <div class="most-list">
-          <img src="img/index-img/thetopby/two.jpg" class="most-list-img" alt="">
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-        </div>
-        <div class="most-list">
-          <img src="img/index-img/thetopby/one.jpg" class="most-list-img" alt="">
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
-          <div class="most-list-span">2019南京高档别墅整体厨房装修设计图</div>
+        <div class="most-list" v-for="(item,index) in mainimg" :key="index">
+          <img :src=item.imgsName class="most-list-img" alt="">
+          <div class="most-list-span">{{item.imgsContext}}</div>
+          <div class="most-list-span">{{item.imgsContext}}</div>
         </div>
       </div>
     </div>
@@ -194,29 +159,9 @@
           </div>
         </div>
         <div class="household-list-right">
-          <div class="household-right-img">
-            <img src="img/index-img/thetopby/xxgt_02.jpg" alt="">
-            <div class="household-span">地中海风格</div>
-          </div>
-          <div class="household-right-img">
-            <img src="img/index-img/thetopby/xxgt_03.jpg" alt="">
-            <div class="household-span">田园风格</div>
-          </div>
-          <div class="household-right-img">
-            <img src="img/index-img/thetopby/xxgt_04.jpg" alt="">
-            <div class="household-span">美式风格</div>
-          </div>
-          <div class="household-right-img">
-            <img src="img/index-img/thetopby/xxgt_05.jpg" alt="">
-            <div class="household-span">法式风格</div>
-          </div>
-          <div class="household-right-img">
-            <img src="img/index-img/thetopby/xxgt_06.jpg" alt="">
-            <div class="household-span">欧式风格</div>
-          </div>
-          <div class="household-right-img">
-            <img src="img/index-img/thetopby/xxgt_07.jpg" alt="">
-            <div class="household-span">新中式风格</div>
+          <div class="household-right-img" v-for="(item,index) in foterimg" :key="index">
+            <img :src=item.imgsName alt="">
+            <div class="household-span">{{item.imgsContext}}</div>
           </div>
         </div>
       </div>
@@ -237,7 +182,9 @@ export default {
     return {
      
       msg:sessionStorage.getItem("name"),
-      list:{}
+      list:{},
+      mainimg:{},
+      foterimg:{}
     }
   },
   created() {
@@ -246,7 +193,9 @@ export default {
       this.axios.post("/findUser")//在括号中，需要请求数据需要在("/",{})括号中需要的请求。
       .then(res=>{
         console.log("请求成功",res);
-      this.list= res.data.data.list[0];
+      this.list= res.data.data.imags;
+      this.mainimg= res.data.data.imags1;
+      this.foterimg= res.data.data.imags2;
 
       })
       .cath(err=>{
@@ -487,7 +436,7 @@ export default {
 .home {
   width: 100%;
   height: 448px;
-  margin-top: 40px;
+  margin-top: -10px;
   background: #e3dfe0;
   .home-main {
     width: 1200px;

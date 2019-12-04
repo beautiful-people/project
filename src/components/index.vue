@@ -24,11 +24,11 @@
           <!-- 切换定位 -->
           <div class="main-top-location">
             <!-- 定位 -->
-            <img src="img/index-img/land_01.png" width="19px" style="float:left;" height="23px" alt />
+            <!-- <img src="img/index-img/land_01.png" width="19px" style="float:left;" height="23px" alt />
             <div class="main-top-city">
               <span>成都</span>
               <div class="main-top-pulldown"></div>
-            </div>
+            </div> -->
           </div>
           <!-- 买得起的高端楼 -->
           <img src="img/index-img/slogan.png" alt />
@@ -54,12 +54,14 @@
     </div>
     <!-- 导航 -->
     <div class="main-top">
-      <ul class="main-top-max" style="position: relative; top: 0px; z-index: 999; background: rgba(0, 0, 0, 0.6); margin: 0px auto;">
+      <ul class="main-top-max">
         <router-link to="/">首页</router-link>
         <router-link to="/construction">在线工地</router-link>
         <router-link to="/decoration">装修公司</router-link>
         <router-link to="/decorationDesign">装修设计</router-link>
         <router-link to="/Invitation">投标中心</router-link>
+        <router-link to="/EffectPicture">EffectPicture</router-link>
+        <router-link to="/Original">Original</router-link>
         
       </ul>
     </div>
@@ -247,6 +249,17 @@ ul a {
   line-height: 40px;
   font-size: 13px;
   color: white;
+  background: #e3dfe0;
+  ul{
+    background: #e3dfe0;
+  }
+  a:hover{
+    color: rgb(228, 21, 21);
+  }
+  a{
+    color: white;
+    background: #e3dfe0;
+  }
 }
 .main-top {
   width: 100%;

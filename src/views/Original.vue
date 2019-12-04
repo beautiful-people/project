@@ -91,8 +91,15 @@
           <div class="shuxian"></div> <strong class="list-name-top">北京东易日盛装饰原创案例</strong>
         </div>
 
-        <div class="original-right-bottom">
-          <div class="right-bottom-list">
+        <div class="original-right-bottom" >
+          <div class="right-bottom-list" v-for="(item,index) in lists" :key="index">
+            <img :src=item.decorationimgs[0].imgPath >
+            <span>{{item.schemeName}}</span><br>
+            <span>简约/二居/全包/81㎡</span>
+          </div>
+
+
+          <!-- <div class="right-bottom-list">
             <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
             <span>光华城81平简约风格装修案例</span><br>
             <span>简约/二居/全包/81㎡</span>
@@ -146,12 +153,15 @@
             <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
             <span>光华城81平简约风格装修案例</span><br>
             <span>简约/二居/全包/81㎡</span>
-          </div>
-          <div class="right-bottom-list">
-            <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
-            <span>光华城81平简约风格装修案例</span><br>
-            <span>简约/二居/全包/81㎡</span>
-          </div>
+          </div> -->
+
+        <div class="original-right-pages">
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="50">
+          </el-pagination>
+        </div>
         </div>
       </div>
     </div>
@@ -164,6 +174,28 @@ export default {
   name:"Original",
   components: {
     index
+  },
+  data(){
+    return{
+      lists:{}
+    }
+  },
+  
+  created() {
+    this.axios.post("/findDecscheme",{
+      merId:1,
+      pageSize:20,
+      currentPage:1
+    })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
+    .then(res=>{
+      console.log("请求成功",res);
+      // this.sc= res.data.data.imags;
+      this.lists= res.data.data.decschemes;
+      // this.foterimg= res.data.data.imags2;
+    })
+    .cath(err=>{
+      console.log("请求失败",err);
+    })
   }
 }
 </script>
@@ -183,13 +215,13 @@ li {
 }
   .original-max{
     width: 1280px;
-    height: 500px;
-    background: rebeccapurple;
-    margin:60px auto;
+    // height: 500px;
+    // background: rebeccapurple;
+    margin: auto;
     .original-left{
       width: 320px;
-      height: 500px;
-      background: skyblue;
+      // height: 500px;
+      // background: skyblue;
       float: left;
       .original-left-list{
         margin-top: 10px;
@@ -371,7 +403,7 @@ li {
     }
     .original-right{
       width: 948px;
-      height: 900px;
+      // height: 900px;
       float: left;
       border-radius: 5px;
       margin-left: 12px;
@@ -381,9 +413,18 @@ li {
         background: #5fcfa1;
         margin-top: 10px;
         margin-left: 24px;
+        .original-right-pages{
+          // 分页
+          width: 100%;
+          margin: 30px auto;
+          text-align: center;
+          height: 40px;
+          line-height: 40px;
+          float: left;
+        }
         .right-bottom-list{
           width: 290px;
-          height: 244px;
+          height: 260px;
           border-radius: 6px;
           margin-right: 0px;
           // background:red;
@@ -399,10 +440,8 @@ li {
       }
 
       .original-right-top{
-        // width: 100%;
         height: 20px;
         padding: 18px;
-        // background: rgb(253, 190, 190);
         border-bottom: solid 1px rgb(204, 204, 204);
         .shuxian{
           width: 5px;

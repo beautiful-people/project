@@ -912,6 +912,7 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 .clear::before,
 .clear::after {
   display: table;
