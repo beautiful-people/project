@@ -262,9 +262,12 @@ export default {
 
 <style lang="less" scoped>
 @import "../assets/style/base.less";
-
+* {
+  margin: 0;
+  padding: 0;
+}
 .invitation {
-  width: 1366px;
+  // width: 1366px;
   margin: 0 auto;
 }
 .inv-nav {

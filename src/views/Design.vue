@@ -23,14 +23,18 @@ export default {
 
 
 <style lang="less" scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
 .design {
-  width: 1366px;
+  // width: 1366px;
   height: 700px;
   margin: 0 auto;
  text-align: center;
 
   // background: yellow;
-  border: 1px solid black;
+  // border: 1px solid black;
   .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;

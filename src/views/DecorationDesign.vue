@@ -286,7 +286,7 @@ export default {
 
       this.axios
         .post("/tender/findAll", {
-          roomType:this.houseType.text
+          roomType: this.houseType.text
         })
         .then(res => {
           if (res.data.code == 200) {
@@ -301,14 +301,55 @@ export default {
     areaClick(item) {
       // 面积点击事件
       this.a_id = item;
+      this.axios
+        .post("/tender/findAll", {
+          roomType: this.houseType.text
+        })
+        .then(res => {
+          if (res.data.code == 200) {
+            console.log(res.data);
+            this.tables = res.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     priceClick(item) {
       // 总价点击事件
       this.p_id = item;
+
+      this.axios
+        .post("/tender/findAll", {
+          roomType: this.houseType.text
+        })
+        .then(res => {
+          if (res.data.code == 200) {
+            console.log(res.data);
+            this.tables = res.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     stylesClick(item) {
       // 风格点击事件
       this.s_id = item;
+
+      this.axios
+        .post("/tender/findAll", {
+          roomType: this.houseType.text
+        })
+        .then(res => {
+          if (res.data.code == 200) {
+            console.log(res.data);
+            this.tables = res.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     getin(i) {
       console.log(i);
@@ -326,7 +367,7 @@ export default {
   padding: 0;
 }
 .decorationdesign {
-  width: 1366px;
+  // width: 1366px;
   height: 1800px;
   margin: 0 auto;
 
