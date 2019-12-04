@@ -25,7 +25,7 @@ export default {
 <style lang="less" scoped>
 .design {
   width: 1366px;
-  height: 1800px;
+  height: 700px;
   margin: 0 auto;
  text-align: center;
 
