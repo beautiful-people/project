@@ -109,9 +109,11 @@ export default {
       userpass: "",
       userphone: "",
       tokens: sessionStorage.getItem("token"),
+      token:"",
       texts: "",
       code: "",
-      userphones: false
+      userphones: false,
+      accid:sessionStorage.getItem("accId")
     };
   },
   methods: {
@@ -134,15 +136,25 @@ export default {
           {
             headers: {
               "content-type": "application/json",
-              id: 1,
-              token: this.tokens
+              "token": this.tokens,
+              "accountId":this.accid
             }
+          },
+          {
+            xhrFields: {
+                withCredentials: true
+                }
+          },
+          {
+            crossDomain: true
           }
         )
         .then(res => {
           console.log(res.data);
           if (res.data.code == "200") {
             // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
+            this.token=res.data.data.account;
+            this.accid=res.data.data.accountId;
             var token = res.data.data.account;
             var name = res.data.data.accountName;
             var power = res.data.data.power;
