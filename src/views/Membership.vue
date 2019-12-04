@@ -55,7 +55,7 @@
         <div class="membership-main-one clear two">
           <span>商家简介</span>
           <div class="one-main">
-            <textarea cols="50" rows="10" v-model="textarea"></textarea>
+            <textarea cols="50" rows="8" v-model="textarea"></textarea>
           </div>
         </div>
         <div class="membership-main-one clear three">

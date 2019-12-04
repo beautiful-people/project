@@ -100,6 +100,11 @@ const routes = [
     component: () => import('../views//Membership.vue')
   },
   {
+    path: '/detailed',
+    name: 'detailed',
+    component: () => import('../views//Detailed.vue')
+  },
+  {
     path: '/personalCenter',
     name: 'personalCenter',
     component: () => import( '../views/PersonalCenter.vue'),

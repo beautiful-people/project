@@ -523,6 +523,9 @@ export default {
         });
     },
     getcode(){
+      // if(this.userTelphone==""){
+
+      // }
       this.axios
         .post(
           "/phoneCode",
@@ -770,6 +773,7 @@ export default {
           background-color: rgba(255, 166, 0, 0.767);
           font-size: 12px;
           color: white;
+          cursor: pointer;
         }
         .code {
           display: inline-block;
@@ -782,6 +786,7 @@ export default {
          font-size: 16px;
          background-color: rgba(255, 166, 0, 0.767);
          color: white;
+          cursor: pointer;
         }
         .btn {
           display: inline-block;
@@ -793,8 +798,9 @@ export default {
           font-size: 12px;
           color: white;
           position: absolute;
-          top:12px;
+          top:14px;
           right:40px;
+          cursor: pointer;
         }
          .loginbtn {
           width: 254px;

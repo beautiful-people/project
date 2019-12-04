@@ -1,103 +1,224 @@
 <template>
   <div>
     <h3>招标详情</h3>
-    <!-- <div>
-      <el-steps :space="200" :active="1" finish-status="success">
-        <el-step title="招标详情"></el-step>
-        <el-step title="是否中标"></el-step>
-        <el-step title="施工阶段"></el-step>
-        <el-step title="圆满完工"></el-step>
-      </el-steps>
-    </div> -->
     <div class="lis">
       <p>招标编号：{{newList.tenderNum}}</p>
       <p>联系方式：{{newList.phone}}</p>
-      <p>动工时间：{{newList.startTime}}</p>
-      <p>工期：{{newList.timeForProject}}</p>
-      <p>装修面积：{{newList.area}}</p>
+      <p>动工时间：{{getTime(newList.startTime)}}</p>
+      <p>工期：{{newList.timeForProject + "个月"}}</p>
+      <p>装修面积：{{newList.area + "㎡"}}</p>
       <p>项目名称：{{newList.calusename}}</p>
       <p>地点：{{newList.location}}</p>
-      <p>招标开始时间：{{newList.tenderStartTime}}</p>
-      <p>招标结束时间：{{newList.tenderEndTime}}</p>
+      <p>招标开始时间：{{getTime(newList.tenderStartTime)}}</p>
+      <p>招标结束时间：{{getTime(newList.tenderEndTime)}}</p>
       <p>户型结构：{{newList.familyStructure}}</p>
-      <p>房屋状态：{{newList.houseSituation}}</p>
-      <p>装修预算：{{newList.decorationBudget}}</p>
-      <p>装修要求：{{newList.fitmenRequest}}</p>
-      <p>中标商家：</p>
-      <p>此标状态：{{newList.state}}</p>
+      <p>房屋状态：{{newList.housingSituation}}</p>
+      <p>装修预算：{{newList.decorationBudget + "万元"}}</p>
+      <p>装修要求：{{newList.fitmentRequest}}</p>
+      <p>此标状态：{{getStatus(newList.state)}}</p>
     </div>
-    <el-table :data="newList" style="width: 100%" max-height="250">
-    <el-table-column prop="merName" label="商家名称" width="120">
-    </el-table-column>
-    <el-table-column
-      prop="freeBudget"
-      label="免费上门做预算"
-      width="120">
-    </el-table-column>
-    <el-table-column
-      prop="freeDesign"
-      label="免费设计"
-      width="120">
-    </el-table-column>
-    <el-table-column
-      prop="initialOffer"
-      label="报价"
-      width="100">
-    </el-table-column>
-    <el-table-column
-      prop="quoteExplain"
-      label="报价及方案说明"
-      width="120">
-    </el-table-column>
-    <el-table-column
-      fixed="right"
-      label="操作"
-      width="120">
-      <template slot-scope="scope">
-        <el-button
-          @click.native.prevent="deleteRow(scope.$index, newList)"
-          type="text"
-          size="small">
-          允许中标
-        </el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-    
+    <!-- 商家表格 -->
+    <template>
+      <el-table :data="bidList" style="width: 100%">
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <el-form label-position="left" inline class="demo-table-expand">
+              <el-form-item label="商家名称">
+                <span>{{ props.row.merchant.merName }}</span>
+              </el-form-item>
+              <el-form-item label="免费上门做预算">
+                <span>{{ props.row.freeBudget }}</span>
+              </el-form-item>
+              <el-form-item label="免费设计">
+                <span>{{ props.row.freeDesign }}</span>
+              </el-form-item>
+              <el-form-item label="报价">
+                <span>{{ props.row.initialOffer }}</span>
+              </el-form-item>
+              <el-form-item label="方案说明">
+                <span>{{ props.row.quoteExplain }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column label="商家名称" prop="merchant.merName"></el-table-column>
+        <el-table-column label="报价" prop="initialOffer"></el-table-column>
+        <el-table-column label="操作" prop="operation" align="center">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              class="cancel"
+              type="primary"
+              @click="dialogVisible = true,handleDelete(scope.row)"
+            >允许中标</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </template>
+
+    <!-- 分页 -->
+    <el-pagination 
+     background
+      layout="prev, pager, next"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-size="pagesize"
+      :total="totalPage"
+      ></el-pagination>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      newList:""
+      newList: [],
+      bidList: [],
+      totalPage: 0,
+      currentPage: 1,
+      pagesize: 2,
+      totalCount: 0
+    };
+  },
+  created(){
+     
+      this.axios
+      .post("/showTenderAndMerInfo", {
+        tenderId: sessionStorage.getItem('tenderId'),
+        currentPage: 1, //当前页
+        pageSize: this.pagesize
+        // sessionStorage.getItem("tenderId")
+      }) // 后台请求地址
+      .then(res => {
+        // 获取newList信息
+        this.newList = res.data.data.tender;
+        // 获取newList信息里商家信息
+        this.bidList = res.data.data.bids[0].bids;
+        // console.log("获取商家信息：", res.data.data.bids);
+        // 获取商家名称
+        this.tmerName = res.data.data.bids[0].bids[0].merchant.merName;
+        console.log("商家",res.data.data)
+        // console.log(res.data.data.bids);
+        // console.log("获取用户信息：", res.data.data.tenders);
+        this.totalPage = res.data.data.page.totalCount;
+        // console.log("总条数", res.data.data);
+        // console.log("总页数：", this.totalPage);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    
+  },
+  methods: {
+   
+    // 转换时间戳
+    getTime(time) {
+      /**
+       * 时间对象的格式化;
+       */
+      Date.prototype.format = function(format) {
+        /*
+         * eg:format="YYYY-MM-dd hh:mm:ss";
+         */
+        var o = {
+          "M+": this.getMonth() + 1, // month
+          "d+": this.getDate(), // day
+          "h+": this.getHours(), // hour
+          "m+": this.getMinutes(), // minute
+          "s+": this.getSeconds(), // second
+          "q+": Math.floor((this.getMonth() + 3) / 3), // quarter
+          S: this.getMilliseconds() // millisecond
+        };
+        if (/(y+)/.test(format)) {
+          format = format.replace(
+            RegExp.$1,
+            (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+          );
+        }
+        for (var k in o) {
+          if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(
+              RegExp.$1,
+              RegExp.$1.length == 1
+                ? o[k]
+                : ("00" + o[k]).substr(("" + o[k]).length)
+            );
+          }
+        }
+        return format;
+      };
+
+      var jsDate = new Date(time).toLocaleDateString();
+      var date = jsDate.split("/");
+      var times = date.join("-");
+      return times;
+    },
+    // 转换投标状态
+    getStatus(num) {
+      if(num == 1) {
+        return "审核状态"
+      } else if(num == 2) {
+        return "招标状态"
+      } else if(num == 3) {
+        return "招标成功"
+      } else if(num == 4){
+        return "招标失败"
+      }
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页haha: ${val}`);
+      this.axios
+      .post("/showTenderAndMerInfo", {
+        currentPage: 2, //当前页
+        pageSize: this.pagesize,
+        tenderId:sessionStorage.getItem('tenderId')
+      }) // 后台请求地址
+      .then(res => {
+        // 获取当前页
+        this.currentPage = val;
+
+        this.bidList = res.data.data.bids[0].bids;
+        // this.tmerName = res.data.data.bids[0].bids[0].merchant.merName;
+        console.log("商家",res.data)
+        // 获取总页数
+        // this.totalPage = res.data.data.page.totalCount;
+        // this.bidList  = res.data.data.bids[0].bids;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    },
+    handleSizeChange(val) {
+      // 分页-每页条数
+      this.pagesize = val;
     }
-  },
-  created () {
-      this.axios.post('/showTenderAndMerInfo', {
-      tenderId: sessionStorage.getItem("tenderId")
-    }) // 后台请求地址
-    .then(res => {
-      console.log('获取用户信息：', res.data.data.bids)
-      this.newList = res.data.data.tender
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  },
-}
+  }
+};
 </script>
 
 <style lang="less" scoped>
-
-  .lis{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    p{
-      width: 360px;
-    }
+.lis {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  p {
+    width: 360px;
   }
-
+  p:last-child {
+    color: red;
+  }
+}
+.demo-table-expand {
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
 </style>

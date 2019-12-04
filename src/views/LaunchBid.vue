@@ -209,7 +209,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           console.log("submit!");
-          this.axios.post("http://172.16.6.60:8080/releaseTender", {
+          this.axios.post("/releaseTender", {
             linkMan: this.ruleForm.linkMan,
             phone: this.ruleForm.phone,
             calusename: this.ruleForm.calusename,
