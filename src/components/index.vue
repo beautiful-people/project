@@ -251,10 +251,10 @@ ul a {
     background: #e3dfe0;
   }
   a:hover{
-    color: rgb(228, 21, 21);
+    color: red;
   }
   a{
-    color: white;
+    color: #5291d7;
     background: #e3dfe0;
   }
 }
