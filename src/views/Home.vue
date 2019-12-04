@@ -436,7 +436,7 @@ export default {
 .home {
   width: 100%;
   height: 448px;
-  margin-top: 40px;
+  margin-top: -10px;
   background: #e3dfe0;
   .home-main {
     width: 1200px;

@@ -15,7 +15,7 @@
         </div>
 
         <!-- 中间内容 -->
-        <div class="decor-left-main" v-for="(item,index) in list" :key="index">
+        <div class="decor-left-main" v-for="(item,index) in imags" :key="index">
           <div class="left-main-left">
             <!-- 左侧顶部 -->
             <div class="main-left-img">
@@ -24,7 +24,7 @@
                 <img src="http://www.zx123.cn/templates/zx123cs/img_new/tuij.png" alt="">
               </div>
               <!-- 商家LOGO -->
-              <img :src=item.imgs alt="">
+              <img :src=item.decschemeList[0].decorationimgs[0].imgPath alt="">
             </div>
               
             <p>
@@ -32,12 +32,19 @@
               <span>数据通信 {{item.year}} 年</span>
             </p>
             <div class="satisfaction">
+              <!-- <svg t="1575378517179" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5846" width="12" height="12"><path d="M512 85.9l110.8 318.7 337.2 6.8-268.8 203.8 97.7 322.9L512 745.4 235.1 938.1l97.7-322.9L64 411.4l337.2-6.8z" p-id="5847" fill="#ffab00"></path></svg>
               <svg t="1575378517179" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5846" width="12" height="12"><path d="M512 85.9l110.8 318.7 337.2 6.8-268.8 203.8 97.7 322.9L512 745.4 235.1 938.1l97.7-322.9L64 411.4l337.2-6.8z" p-id="5847" fill="#ffab00"></path></svg>
               <svg t="1575378517179" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5846" width="12" height="12"><path d="M512 85.9l110.8 318.7 337.2 6.8-268.8 203.8 97.7 322.9L512 745.4 235.1 938.1l97.7-322.9L64 411.4l337.2-6.8z" p-id="5847" fill="#ffab00"></path></svg>
               <svg t="1575378517179" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5846" width="12" height="12"><path d="M512 85.9l110.8 318.7 337.2 6.8-268.8 203.8 97.7 322.9L512 745.4 235.1 938.1l97.7-322.9L64 411.4l337.2-6.8z" p-id="5847" fill="#ffab00"></path></svg>
-              <svg t="1575378517179" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5846" width="12" height="12"><path d="M512 85.9l110.8 318.7 337.2 6.8-268.8 203.8 97.7 322.9L512 745.4 235.1 938.1l97.7-322.9L64 411.4l337.2-6.8z" p-id="5847" fill="#ffab00"></path></svg>
-              <svg t="1575378726679" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7230" width="12" height="12"><path d="M957.85 408.72c-4.51-13.87-17.4-23.27-31.98-23.31l-291.08-0.91-90.66-276.55c-4.54-13.85-17.47-23.22-32.04-23.22h-0.01c-0.03 0-0.07 0.01-0.1 0.01-0.13 0-0.25 0.03-0.37 0.03-1.68 0.02-3.35 0.14-4.98 0.41-0.17 0.03-0.33 0.09-0.5 0.12-1.58 0.28-3.13 0.64-4.63 1.14-0.21 0.07-0.41 0.18-0.62 0.26-1.43 0.51-2.85 1.06-4.19 1.75-0.58 0.3-1.1 0.69-1.66 1.02-0.93 0.55-1.89 1.06-2.76 1.69-1.12 0.81-2.16 1.75-3.17 2.69-0.25 0.23-0.54 0.42-0.78 0.66a33.656 33.656 0 0 0-8.3 13.42l-90.84 276.54-291.04 0.78a33.738 33.738 0 0 0-33.24 28.54c-0.27 1.76-0.41 3.52-0.4 5.28 0.03 10.52 4.99 20.68 13.82 27.13l234.93 171.83-89.18 277.09c-4.47 13.87 0.49 29.05 12.27 37.62 5.9 4.29 12.84 6.44 19.78 6.45a33.75 33.75 0 0 0 19.8-6.38l236-170.35 0.06 0.04L747.9 932.87a33.659 33.659 0 0 0 19.75 6.39c6.96 0 13.92-2.15 19.82-6.44 11.79-8.56 16.75-23.74 12.29-37.61l-89.07-277.08 234.99-171.76c11.76-8.6 16.67-23.79 12.17-37.65zM651.21 578.04c-11.74 8.58-16.65 23.71-12.21 37.55l65.07 202.44-172.4-124.5a33.661 33.661 0 0 0-19.7-6.38V226.86l0.07-0.21 66.23 202.03c4.53 13.82 17.41 23.18 31.95 23.22l212.67 0.66-171.68 125.48z" p-id="7231" fill="#ffab00"></path></svg>
-               <span>{{item.score}} 分</span>
+              <svg t="1575378726679" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7230" width="12" height="12"><path d="M957.85 408.72c-4.51-13.87-17.4-23.27-31.98-23.31l-291.08-0.91-90.66-276.55c-4.54-13.85-17.47-23.22-32.04-23.22h-0.01c-0.03 0-0.07 0.01-0.1 0.01-0.13 0-0.25 0.03-0.37 0.03-1.68 0.02-3.35 0.14-4.98 0.41-0.17 0.03-0.33 0.09-0.5 0.12-1.58 0.28-3.13 0.64-4.63 1.14-0.21 0.07-0.41 0.18-0.62 0.26-1.43 0.51-2.85 1.06-4.19 1.75-0.58 0.3-1.1 0.69-1.66 1.02-0.93 0.55-1.89 1.06-2.76 1.69-1.12 0.81-2.16 1.75-3.17 2.69-0.25 0.23-0.54 0.42-0.78 0.66a33.656 33.656 0 0 0-8.3 13.42l-90.84 276.54-291.04 0.78a33.738 33.738 0 0 0-33.24 28.54c-0.27 1.76-0.41 3.52-0.4 5.28 0.03 10.52 4.99 20.68 13.82 27.13l234.93 171.83-89.18 277.09c-4.47 13.87 0.49 29.05 12.27 37.62 5.9 4.29 12.84 6.44 19.78 6.45a33.75 33.75 0 0 0 19.8-6.38l236-170.35 0.06 0.04L747.9 932.87a33.659 33.659 0 0 0 19.75 6.39c6.96 0 13.92-2.15 19.82-6.44 11.79-8.56 16.75-23.74 12.29-37.61l-89.07-277.08 234.99-171.76c11.76-8.6 16.67-23.79 12.17-37.65zM651.21 578.04c-11.74 8.58-16.65 23.71-12.21 37.55l65.07 202.44-172.4-124.5a33.661 33.661 0 0 0-19.7-6.38V226.86l0.07-0.21 66.23 202.03c4.53 13.82 17.41 23.18 31.95 23.22l212.67 0.66-171.68 125.48z" p-id="7231" fill="#ffab00"></path></svg> -->
+               <el-rate
+                v-model="item.merReputation"
+                disabled
+                show-score
+                text-color="#ff9900"
+                score-template="">
+              </el-rate>
+              <div>{{item.merReputation}}</div>
             </div>
             
           </div>
@@ -48,9 +55,9 @@
           <div class="left-main-right">
             <div class="right-main-top">
               <div class="right-top-left">
-                <h3>{{item.name}} <img src="//www.zx123.cn/templates/zx123cs/img_new/i_zhuans.gif" alt=""></h3>
+                <h3>{{item.merName}}<img src="//www.zx123.cn/templates/zx123cs/img_new/i_zhuans.gif" alt=""></h3>
                 <div class="compaskbd">
-                  <div class="compaskbd-attestation" :v-if="item.auth=true">
+                  <div class="compaskbd-attestation" :v-if="item.auth=1">
                     <svg t="1575386003590" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6195" width="12" height="12"><path d="M976.571429 296q-5.714286 134.857143-189.714286 372-190.285714 246.285714-321.142857 246.285714-81.142857 0-137.142857-150.285714-25.142857-91.428571-75.428572-275.428571-41.142857-149.714286-89.714286-149.714286-10.285714 0-72.571428 43.428571l-44-56q13.714286-12 61.714286-55.142857T182.857143 205.142857q89.142857-78.857143 137.714286-83.428571 54.285714-5.142857 87.428571 31.714285T454.285714 269.714286q25.142857 164 37.714286 213.142857 31.428571 142.285714 68.571429 142.285714 29.142857 0 88-92 57.714286-92 62.285714-140.571428 7.428571-79.428571-62.285714-79.428572-32.571429 0-69.142858 14.857143 68.571429-224.571429 262.285715-218.285714 143.428571 4.571429 134.857143 186.285714z" p-id="6196" fill="#ffffff"></path></svg>
                     <div class="compaskbd-attestation-span">认证</div>
                   </div>
@@ -66,20 +73,10 @@
 
                 <div class="subscribe">
                   <div class="subscribe-sc">
-                    预约:<span>{{item.subsc}}</span>个 &nbsp;
-                  </div>
-                  
-                  <div class="subscribe-sc">
                   案例:<span>{{item.works}}</span>套 &nbsp;
                   </div>
                   <div class="subscribe-sc">
-                  文章:<span>{{item.article}}</span>篇 &nbsp;
-                  </div>
-                  <div class="subscribe-sc">
                   工地:<span>{{item.consite}}</span>个 &nbsp;
-                  </div>
-                  <div class="subscribe-sc">
-                  设计师:<span>{{item.docter}}</span>位 &nbsp;
                   </div>
                   <div class="subscribe-sc">
                   访问:<span>{{item.visit}}</span>次 &nbsp;
@@ -108,11 +105,21 @@
                 
               </div>
             </div>
-            <div class="right-main-bottom" >
-              <img v-for="(isc,uid) in item.children" :key="uid" :src=isc.imgs alt="">
+            <div class="right-main-bottom"> 
+              <!-- :src=item.decschemeList[0].decorationimgs[0].imgPath -->
+              <!-- <img v-for="(isc,uid) in item.children" :key="uid" :src=isc.imgs alt=""> -->
+              <!-- <img  v-for="(isc,uid) in item.decschemeList[0].decorationimgs" :key="uid" :src=isc.decschemeList[0].decorationimgs[0].imgPath > -->
+              <img  :src=item.decschemeList[0].decorationimgs[0].imgPath >
+              <!-- <img v-for="(isc,uid) in item.decschemeList" :key="uid" :src=isc[0].decorationimgs.imgPath alt="">; -->
+              <!-- <img  :src=item.decschemeList[1].decorationimgs[0].imgPath >
+              <img  :src=item.decschemeList[2].decorationimgs[0].imgPath >
+              <img  :src=item.decschemeList[3].decorationimgs[0].imgPath >
+              <img  :src=item.decschemeList[4].decorationimgs[0].imgPath >
+              <img  :src=item.decschemeList[5].decorationimgs[0].imgPath > -->
             </div>
           </div>
         </div>
+        
         <el-pagination
           background
           layout="prev, pager, next"
@@ -159,6 +166,7 @@ export default {
   },
   data() {
     return {
+      value:2.5,
       activeIndex: '1',
       activeIndex2: '1',
       list:[
@@ -167,7 +175,7 @@ export default {
           year:5,
           score:4.5,
           name:"北京东易日盛装饰集团",
-          auth:true,
+          auth:1,
           recommend:true,
           insurance:true,
           subsc:98,
@@ -194,7 +202,7 @@ export default {
           year:1,
           score:4.1,
           name:"北京东易日盛装饰集团",
-          auth:false,
+          auth:0,
           recommend:true,
           insurance:true,
           subsc:98,
@@ -228,35 +236,33 @@ export default {
         resource: '',
         desc: ''
       },
-      imgs:{
-        
-      }
+      imags:{}
     };
-  },created() {
-    this.axios.post("/showOne",{
-      styleType:"客厅",
+  },
+  
+  created() {
+    this.axios.post("/findMerchant",{
       pageSize:20,
       currentPage:1
     })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
-      .then(res=>{
-        console.log("请求成功",res);
-        // this.sc= res.data.data.imags;
-        this.imags= res.data.data.imagesList;
-        // this.foterimg= res.data.data.imags2;
-      })
-      .cath(err=>{
-        console.log("请求失败",err);
-      })
+    .then(res=>{
+      console.log("请求成功",res);
+      // this.sc= res.data.data.imags;
+      this.imags= res.data.data.merchants;
+      // this.foterimg= res.data.data.imags2;
+    })
+    .cath(err=>{
+      console.log("请求失败",err);
+    })
   },
+
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
-    format(percentage) {
-        return percentage === 100 ? '满' : `${percentage}`;
-    },
     onSubmit() {
       console.log('submit!');
+      // console.log(list);
     }
   }
   
@@ -273,8 +279,8 @@ export default {
     // background: rebeccapurple;
     // margin-top:60px; 
     // padding-top: 60px;
-    margin-top: 60px;
-    margin:60px auto;
+    // margin-top: 60px;
+    margin: auto;
     
     .decor-right{
       width: 240px;
@@ -361,7 +367,7 @@ export default {
         box-shadow: 1px 1px 5px rgb(155, 155, 155);
       }
       .decor-left-main{
-        margin-top: 2px;
+        // margin-top: 2px;
         width: 100%;
         height: 234px;
         padding-top: 27px;
@@ -375,8 +381,11 @@ export default {
           // background: springgreen;
           // border-left: solid 1px red;
           .satisfaction{
-            width: 120px;
+            width: 100%;
+            height: 30px;
             margin: auto;
+            text-align: center;
+            background: #3cdec1;
             span{
               vertical-align: middle;
               font-size: 12px;
