@@ -113,6 +113,11 @@
             </div>
           </div>
         </div>
+        <el-pagination
+          background
+          layout="prev, pager, next"
+          :total="1000">
+        </el-pagination>
       </div>
 
 
@@ -214,16 +219,34 @@ export default {
         }
       ], 
       form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
-        }
+        name: '',
+        region: '',
+        date1: '',
+        date2: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      },
+      imgs:{
+        
+      }
     };
+  },created() {
+    this.axios.post("/showOne",{
+      styleType:"客厅",
+      pageSize:20,
+      currentPage:1
+    })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
+      .then(res=>{
+        console.log("请求成功",res);
+        // this.sc= res.data.data.imags;
+        this.imags= res.data.data.imagesList;
+        // this.foterimg= res.data.data.imags2;
+      })
+      .cath(err=>{
+        console.log("请求失败",err);
+      })
   },
   methods: {
     handleSelect(key, keyPath) {

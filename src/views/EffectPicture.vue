@@ -99,17 +99,20 @@
       <div class="Dec-buttom-list">
          
         
+          <!-- <waterfall-slot v-for="(item,index) in imags" :key="index"> -->
+           
+
         <waterfall :line-gap="300" :watch="items">
-          <!-- each component is wrapped by a waterfall slot -->
           <waterfall-slot
-            v-for="(item, index) in items"
-            :width="item.width"
-            :height="item.height"
+            v-for="(item, index) in imags"
+            :width="320"
+            :height="400"
             :order="index"
             :key="index"
           >
           <div class="Dec-buttom-img">
-            <img :src=item.site alt="">
+
+            <img :src=item.imgsName alt="">
             <div class="Dec-buttom-collect">
               <div class="Dec-collect-left">免费申请报价</div>
               <div class="Dec-collect-right">
@@ -139,9 +142,9 @@
               </div>
             </div>
           </div> 
+
           </waterfall-slot>
         </waterfall>
-
 
       <!-- 底部分页 -->
       <div class="home-paging">
@@ -347,28 +350,58 @@ export default {
         }
         
       ],
+
+      imags:[],
+
       tables: [],
       currentPage1: 1,
       pagesize: 10, // 每页显示三条
       currpage: 1 // 默认开始页面
     };
   },
+
+
+  // data:function(){
+  //   return {
+  //     msg:sessionStorage.getItem("name"),
+  //     list:{},
+  //     mainimg:{},
+  //     foterimg:{}
+  //   }
+  // },
+
   // create 打开即运行
   created() {
-    this.axios
-      .post("/tender/findAll", {
-        state: this.msgs_id,
-        chooseTime: this.time_id
+    this.axios.post("/showOne",{
+      styleType:"客厅",
+      pageSize:20,
+      currentPage:1
+    })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
+      .then(res=>{
+        console.log("请求成功",res);
+        // this.sc= res.data.data.imags;
+        this.imags= res.data.data.imagesList;
+        // this.foterimg= res.data.data.imags2;
       })
-      .then(res => {
-        if (res.data.code == 200) {
-          console.log(res.data.data.tenders);
-          this.tables = res.data.data.tenders;
-        }
+      .cath(err=>{
+        console.log("请求失败",err);
       })
-      .catch(err => {
-        console.log(err);
-      });
+
+
+    // this.axios
+    //   .post("/tender/findAll", {
+    //     state: this.msgs_id,
+    //     chooseTime: this.time_id
+    //   })
+    //   .then(res => {
+    //     if (res.data.code == 200) {
+    //       console.log(res.data.data.tenders);
+    //       this.tables = res.data.data.tenders;
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
 
 
       // imgs(i) {

@@ -25,11 +25,11 @@
           <!-- 切换定位 -->
           <div class="main-top-location">
             <!-- 定位 -->
-            <img src="img/index-img/land_01.png" width="19px" style="float:left;" height="23px" alt />
+            <!-- <img src="img/index-img/land_01.png" width="19px" style="float:left;" height="23px" alt />
             <div class="main-top-city">
               <span>成都</span>
               <div class="main-top-pulldown"></div>
-            </div>
+            </div> -->
           </div>
           <!-- 买得起的高端楼 -->
           <img src="img/index-img/slogan.png" alt />
