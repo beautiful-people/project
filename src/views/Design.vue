@@ -2,8 +2,9 @@
   <div class="design">
     <index></index>
   <el-carousel :interval="5000" arrow="always" height='450px'  style="width:700px;margin:0 auto" >
-    <el-carousel-item v-for="item in 4" :key="item" >
-      <h3>{{ item }}</h3>
+    <el-carousel-item v-for="(item,index) in imglist" :key="index" >
+      <img :src="item.imgPath" alt="" style="width:700px;height:450px;">
+    
     </el-carousel-item>
   </el-carousel>
   </div>
@@ -17,6 +18,30 @@ export default {
   name: "design",
   components:{
     index
+  },
+  data(){
+     return {
+        tenderId: location.search.substr(1),
+        imglist:[]
+     }
+
+  },
+  created(){
+      this.axios
+        .post("/selectdemoImg", {
+          schemeId:this.tenderId
+        })
+        .then(res => {
+          if (res.data.code == 200) {
+            console.log(res.data.data.decorationimgs);
+            this.imglist = res.data.data.decorationimgs;
+            console.log(this.imglist)
+           
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
   }
 };
 </script>
