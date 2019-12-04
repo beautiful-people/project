@@ -179,7 +179,7 @@
           </div>
           <div class="form-group">
             <input type="password" placeholder="请输入验证码" v-model="userpasses" class="password" id="tts"/>
-            <button type="button">获取验证码</button>
+            <button type="button" @click="getCodes">获取验证码</button>
 
             <i class="el-icon-lock logo"></i>
           </div>
@@ -304,7 +304,7 @@ export default {
       }else {
          this.axios
         .post(
-          "/regAccount",
+          "/register/regAccount",
           {
             account:{
               accName:this.username,
@@ -345,7 +345,7 @@ export default {
     getBus(){
       this.axios
         .post(
-          "/regPhone",
+          "/register/regPhone",
           {
            code:this.userPass,
            phone:this.userTelphone,
@@ -378,7 +378,7 @@ export default {
     getuser(){
       this.axios
         .post(
-          "/regPhone",
+          "/register/regPhone",
           {
            code:this.userpasses,
            phone:this.usertelphones,
@@ -489,7 +489,7 @@ export default {
     getUser(){
       this.axios
         .post(
-          "/regAccount",
+          "/register/regAccount",
           {
             account:{
               accName:this.userNames,
@@ -528,9 +528,34 @@ export default {
       // }
       this.axios
         .post(
-          "/phoneCode",
+          "/register/regphoneCode",
           {
             phone:this.userTelphone
+          },
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+
+
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getCodes(){
+      // if(this.userTelphone==""){
+
+      // }
+      this.axios
+        .post(
+          "/register/regphoneCode",
+          {
+            phone:this.usertelphones
           },
           {
             headers: {
@@ -550,7 +575,7 @@ export default {
     getcodes(){
       this.axios
         .post(
-          "/regCode",
+          "/register/regCode",
           {
           },
           {

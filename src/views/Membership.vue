@@ -385,7 +385,7 @@ export default {
     getLogin() {
       this.axios
         .post(
-          "/regMerchant",
+          "/register/regMerchant",
           {
            
               merchant:{
