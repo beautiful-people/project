@@ -4,16 +4,15 @@
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 
       <el-form-item label="密码" prop="pass">
-        <el-input type="password" v-model="ruleForm.pass" autocomplete="off" show-password></el-input>
+        <el-input type="password" v-model="ruleForm.pass" autocomplete="off" show-password style="width: 120px;"></el-input>
       </el-form-item>
 
       <el-form-item label="确认密码" prop="checkPass">
-        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" show-password></el-input>
+        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" show-password style="width: 120px;"></el-input>
       </el-form-item>
   
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -70,24 +69,30 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           alert('submit!');
+          // 修改的密码
+          this.axios
+          .post("/changeUserPwd", {
+            accId: 1,
+            accPwd: ruleForm.pass
+          }) // 后台请求地址
+          .then(res => {
+            console.log("修改成功！")
+          })
+          .catch(err => {
+            console.log(err);
+          });
         } else {
           console.log('error submit!!');
           return false;
         }
       });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-  el-form{
-    width: 40%;
-    text-align: center;
-  }
+
 </style>
 
 

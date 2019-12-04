@@ -1,5 +1,6 @@
 <template>
   <div class="decorationdesign">
+    <index></index>
     <div class="inv-nav">
       <div class="clearfix">
         <ul>
@@ -11,7 +12,7 @@
             :class="{on:h_id === item.h_id}"
           >
             <label :for="item.h_id">
-              <input type="radio" name="houseType" :id="item.h_id" />
+              <input type="radio" name="houseType" :id="item.text" />
               {{item.text}}
             </label>
           </li>
@@ -28,7 +29,7 @@
             :class="{on:a_id === item.a_id}"
           >
             <label :for="item.a_id">
-              <input type="radio" name="area" :id="item.a_id" />
+              <input type="radio" name="area" :id="item.text" />
               {{item.text}}
             </label>
           </li>
@@ -45,7 +46,7 @@
             :class="{on:p_id === item.p_id}"
           >
             <label :for="item.p_id">
-              <input type="radio" name="price" :id="item.p_id" />
+              <input type="radio" name="price" :id="item.text" />
               {{item.text}}
             </label>
           </li>
@@ -62,7 +63,7 @@
             :class="{on:s_id === item.s_id}"
           >
             <label :for="item.s_id">
-              <input type="radio" name="styles" :id="item.s_id" />
+              <input type="radio" name="styles" :id="item.text" />
               {{item.text}}
             </label>
           </li>
@@ -77,17 +78,23 @@
 
     <div class="content">
       <div class="box" v-for="(item,index) in boxtext" :key="index">
-        <div class="box-left">
+        <div class="box-left" @click="getin(index)">
           {{index}}
           <img src alt />
         </div>
         <div class="box-right">
-          <div class="rig-top"></div>
-          <div class="rig-bottom"></div>
+          <div class="rig-top" @click="getin(index)"></div>
+          <div class="rig-bottom" @click="getin(index)"></div>
         </div>
 
-        <p style="font-weight:bold;font-size:14px;">{{item.title}}</p>
-        <p>设计者：<a href="">{{item.projector}}</a></p>
+        <p
+          style="font-weight:bold;font-size:14px;cursor: pointer;"
+          @click="getin(index)"
+        >{{item.title}}</p>
+        <p>
+          设计者：
+          <a href>{{item.projector}}</a>
+        </p>
         <p>
           风格：{{item.title}}&nbsp;&nbsp;
           户型：{{item.styles}}&nbsp;&nbsp;
@@ -102,78 +109,6 @@
         </p>
 
         <!-- Form -->
-
-        <el-dialog
-          title="装修计算器"
-          :visible.sync="dialogFormVisible"
-          width="50%"
-          style="height:500px;"
-          class="clearfix"
-        >
-          <el-form :model="form" class="forms" style="height:500px;">
-            <div style="width:50%;float:left;">
-              <el-form-item label="户型结构" style="margin-bottom:10px;">
-                <el-select v-model="value" placeholder="选择户型" style="width:40%;margin-right:20px;">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-
-              <el-form-item label="装修风格" style="margin-bottom:10px;">
-                <el-select v-model="styvalue" placeholder="选择风格" style="width:40%;">
-                  <el-option
-                    v-for="item in styOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :styvalue="item.value"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-
-              <el-form-item label="房屋面积" style="margin-bottom:10px;">
-                <el-input
-                  v-model="fwArea"
-                  autocomplete="off"
-                  placeholder="请输入房屋面积"
-                  style="width:40%;"
-                ></el-input>
-
-                <span style="color:#ccc4cf; margin-left:-25px;position: absolute;">㎡</span>
-              </el-form-item>
-
-              <el-form-item label="手机号码" style="margin-bottom:10px;">
-                <el-input
-                  v-model="form.initialOffer"
-                  autocomplete="off"
-                  id="cbbj"
-                  placeholder="请输入手机号码"
-                  style="width:40%;margin-right:20px;"
-                ></el-input>
-                <span style="color:red;"></span>
-              </el-form-item>
-            </div>
-
-            <div style="width:50%;float:left;text-align:center">
-              <h1 style="color:red; font-size:25px;position: absolute;top:30px;right:200px;">报价结果</h1>
-              <el-table :data="tableData" border style="width: 100%">
-                <el-table-column prop="title" label="档次" width="180"></el-table-column>
-                <el-table-column prop="allPrice" label="中档装修" width="180"></el-table-column>
-                <el-table-column prop="price" label="高档装修"></el-table-column>
-              </el-table>
-            </div>
-          </el-form>
-
-          <button type="button" class="js-btn" @click="beginJs">
-            开始
-            计算
-          </button>
-        </el-dialog>
-        <!-- <button type="button" class="btn">我要询价</button> -->
-      
       </div>
     </div>
 
@@ -183,7 +118,7 @@
       @current-change="handleCurrentChange"
       :current-page="currpage"
       :page-size="pagesize"
-      :total="100"
+      :total="totalCount"
       background
       layout="prev, pager, next"
     ></el-pagination>
@@ -191,23 +126,17 @@
 </template>
 
 <script>
+import index from "@/components/index";
+
 export default {
   name: "decorationDesign",
 
   data() {
     return {
-      dialogFormVisible: false,
-      form: {
-        initialOffer: "",
-        quoteExplain: "",
-        freeBudget: "",
-        freeDesign: "",
-        tenderId: this.tenderId
-      },
-      formLabelWidth: "120px",
-      pagesize: 10, // 每页显示三条
+      pagesize: 3, // 每页显示三条
       currpage: 1, // 默认开始页面
-      totalCount: 0,
+      totalCount: 10, // 总页数
+
       h_id: 0,
       houseType: [
         { h_id: 0, text: "全部" },
@@ -215,29 +144,45 @@ export default {
         { h_id: 2, text: "二居室" },
         { h_id: 3, text: "三居室" },
         { h_id: 4, text: "四居室" },
-        { h_id: 5, text: "五居室" },
-        { h_id: 6, text: "六居室" }
+        { h_id: 5, text: "复式" },
+        { h_id: 6, text: "跃层" },
+        { h_id: 7, text: "别墅" }
       ],
-      a_id: 7,
+      a_id: 0,
       area: [
-        { a_id: 7, text: "全部" },
-        { a_id: 8, text: "40㎡以下" },
-        { a_id: 9, text: "41㎡到60㎡" },
-        { a_id: 10, text: "61㎡到90㎡" },
-        { a_id: 11, text: "91㎡到120㎡" },
-        { a_id: 12, text: "121㎡到150㎡" }
+        { a_id: 0, text: "全部" },
+        { a_id: 1, text: "40㎡以下" },
+        { a_id: 2, text: "41㎡到60㎡" },
+        { a_id: 3, text: "61㎡到90㎡" },
+        { a_id: 4, text: "91㎡到120㎡" },
+        { a_id: 5, text: "121㎡到150㎡" },
+        { a_id: 6, text: "151㎡到200㎡" },
+        { a_id: 7, text: "200㎡以上" }
       ],
-      p_id: 13,
+      p_id: 0,
       price: [
-        { p_id: 13, text: "1-5万" },
-        { p_id: 14, text: "5-10万" },
-        { p_id: 15, text: "10-20万" }
+        { p_id: 0, text: "全部" },
+        { p_id: 1, text: "1-5万" },
+        { p_id: 2, text: "5-10万" },
+        { p_id: 3, text: "10-20万" },
+        { p_id: 4, text: "20-30万" },
+        { p_id: 5, text: "30-50万" },
+        { p_id: 6, text: "50-100万" },
+        { p_id: 7, text: "100-200万" },
+        { p_id: 8, text: "200万以" }
       ],
-      s_id: 16,
+      s_id: 0,
       styles: [
-        { s_id: 16, text: "东欧" },
-        { s_id: 17, text: "北欧" },
-        { s_id: 18, text: "南欧" }
+        { s_id: 0, text: "全部" },
+        { s_id: 1, text: "中式" },
+        { s_id: 2, text: "欧式" },
+        { s_id: 3, text: "美式" },
+        { s_id: 4, text: "现代" },
+        { s_id: 5, text: "古典" },
+        { s_id: 6, text: "田园" },
+        { s_id: 7, text: "地中海" },
+        { s_id: 8, text: "混搭" },
+        { s_id: 9, text: "东南亚" }
       ],
       boxtext: [
         {
@@ -300,43 +245,11 @@ export default {
           time: "2019-11-27",
           address: "文化产品体验中心"
         }
-      ],
-      options: [
-        {
-          value: 2,
-          label: "一居室"
-        },
-        {
-          value: 3,
-          label: "二居室"
-        },
-        {
-          value: 4,
-          label: "三居室"
-        },
-        {
-          value: 5,
-          label: "四居室"
-        },
-        {
-          value: 6,
-          label: "五居室"
-        }
-      ],
-      value: '',
-      styOptions:[
-        {label:'东欧',value:5},
-        {label:'北欧',value:6},
-        {label:'南欧',value:7},
-      ],
-      tableData: [
-        { title: "简单装修", allPrice: "100万元", price: "43万元" },
-        { title: "中档装修", allPrice: "105万元", price: "53万元" },
-        { title: "高档装修", allPrice: "120万元", price: "53万元" }
-      ],
-      styvalue:'',
-      fwArea:''
+      ]
     };
+  },
+  components: {
+    index
   },
   methods: {
     handleSizeChange(val) {
@@ -371,74 +284,36 @@ export default {
       // 户型的点击事件
       this.h_id = item;
 
-      // this.axios
-      //   .post("/tender/findAll", {
-      //     name: this.hx_id
-      //   })
-      //   .then(res => {
-      //     if (res.data.code == 200) {
-      //       console.log(res.data);
-      //       this.tables = res.data;
-      //     }
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
+      this.axios
+        .post("/tender/findAll", {
+          roomType:this.houseType.text
+        })
+        .then(res => {
+          if (res.data.code == 200) {
+            console.log(res.data);
+            this.tables = res.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     areaClick(item) {
+      // 面积点击事件
       this.a_id = item;
     },
     priceClick(item) {
+      // 总价点击事件
       this.p_id = item;
     },
     stylesClick(item) {
+      // 风格点击事件
       this.s_id = item;
     },
-    open() {
-      this.$confirm("你确定要参加这次投标吗, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          // this.axios
-          //   .post("/bid/insertBid", {
-          //     // 投标请求
-          //     tenderId: this.tenderId,
-          //     merId: 0,
-          //     freeBudget: this.form.freeBudget,
-          //     freeDesign: this.form.freeDesign,
-          //     initialOffer: this.form.initialOffer,
-          //     quoteExplain: this.form.quoteExplain
-          //   })
-          //   .then(res => {
-          //     if (res.data.code == 200) {
-          //       console.log(this.form.freeBudget);
-          //     }
-          //   })
-          //   .catch(err => {
-          //     console.log(err, this.tenderId);
-          //   });
-
-          this.dialogFormVisible = false;
-
-          this.$message({
-            type: "success",
-            message: "投标成功!"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消投标"
-          });
-        });
-    },
-    cancel() {
-      this.dialogFormVisible = false;
-    },
- 
-    
+    getin(i) {
+      console.log(i);
+      this.$router.push("/design?" + i);
+    }
   }
 };
 </script>
@@ -456,7 +331,7 @@ export default {
   margin: 0 auto;
 
   // background: yellow;
-  border: 1px solid black;
+  // border: 1px solid black;
 
   .inv-nav {
     width: 90%;
@@ -466,7 +341,7 @@ export default {
     margin: 0 auto;
     padding: 10px;
     color: black;
-    color:#5291d7;
+    color: #5291d7;
     background: #f8f8f8;
 
     ul,
@@ -542,6 +417,7 @@ export default {
         // margin-right: 10px;
         float: left;
         background: aqua;
+        cursor: pointer;
       }
       .box-right {
         width: 250px;
@@ -555,11 +431,12 @@ export default {
           height: 135px;
           margin-bottom: 10px;
           background: #f76d4e;
+          cursor: pointer;
         }
         .rig-bottom {
           width: 100%;
           height: 135px;
-
+          cursor: pointer;
           background: lawngreen;
         }
       }
@@ -592,11 +469,9 @@ export default {
     font-weight: bold;
     font-size: 25px;
     background: #ff9f05bd;
-    
   }
   .js-btn:hover {
     background: #ff9f05;
-
   }
 }
 </style>

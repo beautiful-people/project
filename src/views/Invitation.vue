@@ -1,6 +1,6 @@
 <template>
   <div class="invitation">
-    <!-- <index></index> -->
+    <index></index>
 
     <div class="inv-nav">
       <div class="clearfix">
@@ -87,7 +87,7 @@
 </template>
 
 <script>
-//  import index from '@/components/index'
+ import index from '@/components/index'
 
 export default {
   name: "invitation",
@@ -132,14 +132,10 @@ export default {
         console.log(err);
       });
   },
-  // computed: {
-  //   inv_tableData() {
-  //     return this.$store.state.invitation.inv_tableData;
-  //   }
-  // },
   components: {
-    // index
+    index
   },
+  
   methods: {
     msgclick(item) {
       this.msgs_id = item;

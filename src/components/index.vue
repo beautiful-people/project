@@ -1,5 +1,5 @@
 <template>
-  <div class="index">
+  <div class="index clearfix">
     <!-- 文本包含个人信息 -->
     <div class="main-Stick">
       <ul class="main-Stick-leftul">
@@ -59,8 +59,8 @@
         <router-link to="/construction">在线工地</router-link>
         <router-link to="/decoration">装修公司</router-link>
         <router-link to="/decorationDesign">装修设计</router-link>
-        <router-link to="/design">设计报价</router-link>
-        <router-link to="/invitation">{{msg}}</router-link>
+        <router-link to="/Invitation">投标中心</router-link>
+        
       </ul>
     </div>
 
@@ -89,6 +89,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import "../assets/style/base.less";
+
 *{
   margin: 0;
   padding: 0;
@@ -114,6 +116,7 @@ ul a {
 }
 .index {
   text-align: center;
+  margin-bottom: 10px;
 }
 .main-Stick {
   width: 90%;
@@ -245,6 +248,6 @@ ul a {
 .main-top {
   width: 100%;
   height: 40px;
-  float: left;
+  // float: left;
 }
 </style>
