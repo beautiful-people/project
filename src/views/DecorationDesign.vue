@@ -87,7 +87,10 @@
         </div>
 
         <p style="font-weight:bold;font-size:14px;">{{item.title}}</p>
-        <p>设计者：<a href="">{{item.projector}}</a></p>
+        <p>
+          设计者：
+          <a href>{{item.projector}}</a>
+        </p>
         <p>
           风格：{{item.title}}&nbsp;&nbsp;
           户型：{{item.styles}}&nbsp;&nbsp;
@@ -103,77 +106,7 @@
 
         <!-- Form -->
 
-        <el-dialog
-          title="装修计算器"
-          :visible.sync="dialogFormVisible"
-          width="50%"
-          style="height:500px;"
-          class="clearfix"
-        >
-          <el-form :model="form" class="forms" style="height:500px;">
-            <div style="width:50%;float:left;">
-              <el-form-item label="户型结构" style="margin-bottom:10px;">
-                <el-select v-model="value" placeholder="选择户型" style="width:40%;margin-right:20px;">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-
-              <el-form-item label="装修风格" style="margin-bottom:10px;">
-                <el-select v-model="styvalue" placeholder="选择风格" style="width:40%;">
-                  <el-option
-                    v-for="item in styOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :styvalue="item.value"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-
-              <el-form-item label="房屋面积" style="margin-bottom:10px;">
-                <el-input
-                  v-model="fwArea"
-                  autocomplete="off"
-                  placeholder="请输入房屋面积"
-                  style="width:40%;"
-                ></el-input>
-
-                <span style="color:#ccc4cf; margin-left:-25px;position: absolute;">㎡</span>
-              </el-form-item>
-
-              <el-form-item label="手机号码" style="margin-bottom:10px;">
-                <el-input
-                  v-model="form.initialOffer"
-                  autocomplete="off"
-                  id="cbbj"
-                  placeholder="请输入手机号码"
-                  style="width:40%;margin-right:20px;"
-                ></el-input>
-                <span style="color:red;"></span>
-              </el-form-item>
-            </div>
-
-            <div style="width:50%;float:left;text-align:center">
-              <h1 style="color:red; font-size:25px;position: absolute;top:30px;right:200px;">报价结果</h1>
-              <el-table :data="tableData" border style="width: 100%">
-                <el-table-column prop="title" label="档次" width="180"></el-table-column>
-                <el-table-column prop="allPrice" label="中档装修" width="180"></el-table-column>
-                <el-table-column prop="price" label="高档装修"></el-table-column>
-              </el-table>
-            </div>
-          </el-form>
-
-          <button type="button" class="js-btn" @click="beginJs">
-            开始
-            计算
-          </button>
-        </el-dialog>
-        <!-- <button type="button" class="btn">我要询价</button> -->
-      
+       
       </div>
     </div>
 
@@ -183,7 +116,7 @@
       @current-change="handleCurrentChange"
       :current-page="currpage"
       :page-size="pagesize"
-      :total="100"
+      :total="totalCount"
       background
       layout="prev, pager, next"
     ></el-pagination>
@@ -196,18 +129,12 @@ export default {
 
   data() {
     return {
-      dialogFormVisible: false,
-      form: {
-        initialOffer: "",
-        quoteExplain: "",
-        freeBudget: "",
-        freeDesign: "",
-        tenderId: this.tenderId
-      },
-      formLabelWidth: "120px",
-      pagesize: 10, // 每页显示三条
+      pagesize: 3, // 每页显示三条
       currpage: 1, // 默认开始页面
-      totalCount: 0,
+      totalCount: 10, // 总页数
+ 
+    
+     
       h_id: 0,
       houseType: [
         { h_id: 0, text: "全部" },
@@ -301,41 +228,7 @@ export default {
           address: "文化产品体验中心"
         }
       ],
-      options: [
-        {
-          value: 2,
-          label: "一居室"
-        },
-        {
-          value: 3,
-          label: "二居室"
-        },
-        {
-          value: 4,
-          label: "三居室"
-        },
-        {
-          value: 5,
-          label: "四居室"
-        },
-        {
-          value: 6,
-          label: "五居室"
-        }
-      ],
-      value: '',
-      styOptions:[
-        {label:'东欧',value:5},
-        {label:'北欧',value:6},
-        {label:'南欧',value:7},
-      ],
-      tableData: [
-        { title: "简单装修", allPrice: "100万元", price: "43万元" },
-        { title: "中档装修", allPrice: "105万元", price: "53万元" },
-        { title: "高档装修", allPrice: "120万元", price: "53万元" }
-      ],
-      styvalue:'',
-      fwArea:''
+      
     };
   },
   methods: {
@@ -385,60 +278,16 @@ export default {
       //     console.log(err);
       //   });
     },
-    areaClick(item) {
+    areaClick(item) { // 面积点击事件
       this.a_id = item;
     },
-    priceClick(item) {
+    priceClick(item) { // 总价点击事件
       this.p_id = item;
     },
-    stylesClick(item) {
+    stylesClick(item) {// 风格点击事件
       this.s_id = item;
     },
-    open() {
-      this.$confirm("你确定要参加这次投标吗, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          // this.axios
-          //   .post("/bid/insertBid", {
-          //     // 投标请求
-          //     tenderId: this.tenderId,
-          //     merId: 0,
-          //     freeBudget: this.form.freeBudget,
-          //     freeDesign: this.form.freeDesign,
-          //     initialOffer: this.form.initialOffer,
-          //     quoteExplain: this.form.quoteExplain
-          //   })
-          //   .then(res => {
-          //     if (res.data.code == 200) {
-          //       console.log(this.form.freeBudget);
-          //     }
-          //   })
-          //   .catch(err => {
-          //     console.log(err, this.tenderId);
-          //   });
-
-          this.dialogFormVisible = false;
-
-          this.$message({
-            type: "success",
-            message: "投标成功!"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消投标"
-          });
-        });
-    },
-    cancel() {
-      this.dialogFormVisible = false;
-    },
- 
-    
+  
   }
 };
 </script>
@@ -466,7 +315,7 @@ export default {
     margin: 0 auto;
     padding: 10px;
     color: black;
-    color:#5291d7;
+    color: #5291d7;
     background: #f8f8f8;
 
     ul,
@@ -592,11 +441,9 @@ export default {
     font-weight: bold;
     font-size: 25px;
     background: #ff9f05bd;
-    
   }
   .js-btn:hover {
     background: #ff9f05;
-
   }
 }
 </style>
