@@ -83,7 +83,8 @@
           </div>
           <div class="form-group">
             <input type="password" placeholder="请输入验证码" v-model="code" class="password" />
-            <button type="button" @click="getCode">获取验证码</button>
+            <button type="button" @click="getCode" v-if="isfs">获取验证码</button>
+            <button type="button" v-else>{{miao}}s重新发送</button>
             <i class="el-icon-key logo"></i>
           </div>
           <div class="form-group">
@@ -115,10 +116,24 @@ export default {
       texts: "",
       code: "",
       userphones: false,
-      accid:sessionStorage.getItem("accId")
+      accid:sessionStorage.getItem("accId"),
+      isfs:true,
+      miao:60
     };
   },
   methods: {
+    sub() {
+      this.isfs = false;
+      var time = setInterval(() => {
+        if (this.miao > 1) {
+          this.miao--;
+        } else {
+          clearInterval(time);
+          this.miao = 60;
+          this.isfs = true;
+        }
+      }, 1000);
+    },
     getResiter() {
       this.$router.replace("/register");
     },
@@ -187,6 +202,7 @@ export default {
       if (this.userphone == "") {
         this.open8();
       } else {
+        this.sub();
         setTimeout(() => {
           this.axios
             .post(
@@ -210,6 +226,7 @@ export default {
       }
     },
     getPhone() {
+      
       this.axios
         .post(
           "/login/loginPhone",

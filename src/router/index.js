@@ -124,6 +124,7 @@ const routes = [
     name: 'detailed',
     component: () => import('../views//Detailed.vue')
   },
+  
   {
     path: '/personalCenter',
     name: 'personalCenter',

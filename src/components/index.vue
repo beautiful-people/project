@@ -80,7 +80,8 @@ export default {
     return {
       input: "",
       index:location.search.substr(1),
-      msg:sessionStorage.getItem("name")
+      msg:sessionStorage.getItem("name"),
+      power:sessionStorage.getItem("power")
     };
   },
   methods:{
@@ -90,7 +91,10 @@ export default {
        
     },
     backone(){
-     this.$router.replace("/PersonalCenter");
+     
+ this.$router.replace("/PersonalCenter");
+  
+    
   }
   },
   

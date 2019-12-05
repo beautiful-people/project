@@ -1,16 +1,16 @@
 <template>
   <div class="sideNav">
-    <p v-if="power == 3">个人中心</p>
-    <p v-if="power == 2">商家中心</p>
-    <div v-if="power == 3">
+    <p v-if="power == 2">个人中心</p>
+    <p v-if="power == 3">商家中心</p>
+    <div v-if="power == 2">
       <router-link to="/personalCenter/personaldata">个人资料</router-link>
       <router-link to="/personalCenter/mytender">我的招标</router-link>
       <router-link to="/personalCenter/launchbid">发布竞标</router-link>
       <router-link to="/personalCenter/information">站内信息</router-link>
       <router-link to="/personalCenter/resetpassword">重置密码</router-link>
     </div>
-    <div v-if="power == 2">
-      <router-link to="/personalCenter/Merpersonaldata">个人资料</router-link>
+    <div v-if="power == 3">
+      <router-link to="/personalCenter/Merpersonaldata">商家资料</router-link>
       <router-link to="/personalCenter/Mermytender">我的招标</router-link>
       <router-link to="/personalCenter/Merlaunchbid">发布竞标</router-link>
       <router-link to="/personalCenter/MerTranscript">竞标记录</router-link>
@@ -27,17 +27,17 @@ export default {
   data() {
     return {
       // power:sessionStorage.getItem("power")
-      power: 2
+      power: sessionStorage.getItem("power")
     }
   },
   methods() {
     
   },
   created() {
-    if(this.power == 2) {
-      this.showShangjia = true;
-      this.showSin = false;
-    }
+    // if(this.power == 3) {
+    //   this.showShangjia = true;
+    //   this.showSin = false;
+    // }
   }
 }
 </script>
