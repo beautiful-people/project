@@ -329,7 +329,7 @@ export default {
               res.data.data.tenders[i].startTime = this.getTime(res.data.data.tenders[i].startTime)
               res.data.data.tenders[i].tenderEndTime = this.getTime(res.data.data.tenders[i].tenderEndTime)
               // console.log(res.data.data.tenders[i].messageDate)
-            }
+            }            
             this.tableDatass = res.data.data.tenders;
             this.totalPage = res.data.data.totalCount;
           }
