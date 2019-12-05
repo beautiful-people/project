@@ -35,7 +35,7 @@ export default {
       })
       .then(res => {
         if (res.data.code == 200) {
-          console.log(res.data.data.decorationimgs);
+          // console.log(res.data.data.decorationimgs);
           this.imglist = res.data.data.decorationimgs;
           console.log(this.imglist);
         }

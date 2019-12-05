@@ -21,7 +21,7 @@
           <td>装修预算：{{tableData.decorationBudget}}</td>
           <td>审核人：管理员</td>
           <td style="color:red;" v-if="tableData.state == 3">当前状态：中标</td>
-          <td style="color:red;" v-else-if="tableData.state == 2">当前状态：招标</td>
+          <td style="color:red;" v-else-if="tableData.state == 2">当前状态：招标<span style="color:#fd7c32;">（投标人数： {{count}}）</span></td>
         </tr>
         <tr>
           <td>房屋现状：{{tableData.housingSituation}}</td>
@@ -96,9 +96,9 @@
           <el-button type="primary" @click="open">提交</el-button>
         </div>
       </el-dialog>
-       <footerr></footerr>
+       
     </div>
-   
+   <footerr></footerr>
   </div>
 </template>
 
@@ -127,7 +127,8 @@ export default {
       msg: "",
       types: "",
       reg: false,
-      check: false
+      check: false,
+      count:0
     };
   },
   components:{
@@ -148,7 +149,8 @@ export default {
         if (res.data.code == 200) {
           // console.log(res.data.data.tender);
           this.tableData = res.data.data.tender;
-          console.log(res.data.data);
+          this.count = res.data.data.count
+          console.log(res.data.data.count);
         }
       })
       .catch(err => {
@@ -183,7 +185,7 @@ export default {
             .post("/bid/insertBid", {
               // 投标请求
               tenderId: this.tenderId,
-              merId: 0,
+              // merId: 0,
               freeBudget: this.form.freeBudget,
               freeDesign: this.form.freeDesign,
               initialOffer: this.form.initialOffer,
@@ -211,9 +213,12 @@ export default {
               } else if (res.data.code == 200) {
                 this.types = "success";
                 this.msg = "投标成功";
+              } else if (res.data.code == 404) {
+                this.types = "info";
+                this.msg = "投标失败，未登录";
               }
 
-              console.log(this.msg);
+              console.log(res.data.code);
               this.$message({
                 type: this.types,
                 message: this.msg
@@ -305,7 +310,12 @@ export default {
   margin: 0;
   padding: 0;
 }
+.invdetail {
+  width: 100%;
+  height: 900px;
+  position: relative;
 
+}
 .content {
   width: 90%;
   height: 640px;
@@ -313,7 +323,6 @@ export default {
   // border: 1px solid #dddddd;
   padding: 10px;
   max-width: 1200px;
-  position: relative;
 
   .tab {
     width: 1200px;
