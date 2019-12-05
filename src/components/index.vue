@@ -79,7 +79,7 @@ export default {
   data() {
     return {
       input: "",
-      index:location.search.substr(1),
+      index:sessionStorage.getItem("index"),
       msg:sessionStorage.getItem("name"),
       power:sessionStorage.getItem("power")
     };

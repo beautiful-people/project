@@ -176,6 +176,8 @@ export default {
             var name = res.data.data.accountName;
             var power = res.data.data.power;
             var accId = res.data.data.accountId;
+            var index=true;
+            sessionStorage.setItem("index", index);
             sessionStorage.setItem("token", token);
             sessionStorage.setItem("name", name);
             sessionStorage.setItem("power", power);
