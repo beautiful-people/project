@@ -116,7 +116,7 @@
     </div>
 
     <el-pagination
-      style="text-align:center;"
+      style="text-align:center;margin-top:-50px;"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="currpage"
@@ -259,6 +259,7 @@ export default {
           if (res.data.code == 200) {
             console.log(res.data);
             this.boxtext = res.data.data.schemeOfmerVoList;
+            this.totolCount = res.data.data.totolCount
           }
         })
         .catch(err => {
@@ -278,6 +279,7 @@ export default {
           if (res.data.code == 200) {
             console.log(res.data);
             this.boxtext = res.data.data.schemeOfmerVoList;
+            this.totalCount = res.data.data.totolCount
           }
         })
         .catch(err => {
@@ -298,6 +300,8 @@ export default {
           if (res.data.code == 200) {
             console.log(res.data);
             this.boxtext = res.data.data.schemeOfmerVoList;
+            this.totolCount = res.data.data.totolCount
+
           }
         })
         .catch(err => {
@@ -318,6 +322,8 @@ export default {
           if (res.data.code == 200) {
             console.log(res.data);
             this.boxtext = res.data.data.schemeOfmerVoList;
+            this.totolCount = res.data.data.totolCount
+
           }
         })
         .catch(err => {
@@ -391,7 +397,8 @@ export default {
 
 .footer {
   position: absolute;
-  bottom: -80px;
+  bottom: -100px;
+  
 }
   .inv-nav {
     width: 90%;
