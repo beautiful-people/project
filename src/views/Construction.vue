@@ -18,7 +18,7 @@
       <div class="onLineHead">
         <span>在线工地</span>
       </div>
-      <div class="onLine-main" v-show="inex===0">
+      <div class="onLine-main clear" v-show="inex===0">
         <div class="main" v-for="item in Linelist" :key="item.tenterId">
           <div class="main-left ">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
@@ -73,7 +73,7 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===2">
+      <div class="onLine-main clear" v-show="inex===2">
          <div class="main" v-for="item in Linelistone" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
@@ -126,7 +126,7 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===3">
+      <div class="onLine-main clear" v-show="inex===3">
          <div class="main" v-for="item in LinelistTwo" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
@@ -180,7 +180,7 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===4">
+      <div class="onLine-main clear" v-show="inex===4">
          <div class="main" v-for="item in LinelistThree" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
@@ -234,7 +234,7 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===5">
+      <div class="onLine-main clear" v-show="inex===5">
          <div class="main" v-for="item in LinelistFour" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
@@ -288,7 +288,7 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===6">
+      <div class="onLine-main clear" v-show="inex===6">
          <div class="main" v-for="item in LinelistFive" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
@@ -342,7 +342,7 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===7">
+      <div class="onLine-main clear" v-show="inex===7">
          <div class="main" v-for="item in LinelistSix" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
@@ -396,7 +396,7 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===8">
+      <div class="onLine-main clear" v-show="inex===8">
          <div class="main" v-for="item in LinelistSeven" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
@@ -450,17 +450,19 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
+      <footerr class="footers"></footerr>
     </div>
   </div>
 </template>
 
 <script>
 import index from "@/components/index";
-
+import footerr from "@/components/Footer.vue";
 export default {
   name: "Construction",
   components: {
-    index
+    index,
+    footerr
   },
   data: function() {
     return {
@@ -1023,6 +1025,11 @@ export default {
       }
     }
   }
+ .footers{
+   position: absolute;
+   bottom: -1500px;
+   left: 0;
+ }
   .pag {
     position: absolute;
     bottom: 20px;
