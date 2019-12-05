@@ -227,6 +227,19 @@ export default {
   },
 
   methods:{
+
+    open2() {
+      this.$message({
+        message: "恭喜您，留言成功",
+        type: "success"
+      })
+    },
+    open3() {
+      this.$message({
+        message: "恭喜您，预约成功！",
+        type: "success"
+      })
+    },
     // 改变select的值
     changeSelect(){
       // this.grade=event;
@@ -300,6 +313,7 @@ export default {
       })
       .then(res=>{
         console.log("请求成功",res);
+        this.open3();
         this.findCompanyAppointment();
       })
       .cath(err=>{
@@ -333,6 +347,8 @@ export default {
         .then(res => {
           console.log("留言成功",res);
             this.commentDesc();
+            this.open2();
+          
             // this.comment= res.data.data.liuyans;
             // this.totalPage = res.data.data.data.totalCounte;
             // console.log(res.data.data.totalCounte)
@@ -360,7 +376,7 @@ export default {
           console.log(err);
         });
     },
-
+    
     handleSizeChange(val) {
       /* 每页多少条数据 */
       console.log(`每页 ${val} 条`);
@@ -466,7 +482,7 @@ li {
         input:nth-child(1){
           margin-top: 62px;
           // margin-top: 10px;
-          margin-left: 7px;
+          // margin-left: 7px;
           width: 256px;
           height: 20px;
           padding: 10px;
@@ -671,7 +687,7 @@ li {
             height: 20px;
             padding: 10px;
             margin-top: 7px;
-            margin-left: 10px;
+            margin-left: 7px;
             margin-bottom: 7px;
             border: solid 1px rgb(224, 224, 224);
           }

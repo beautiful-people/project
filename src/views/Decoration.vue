@@ -269,6 +269,12 @@ export default {
   },
 
   methods: {
+     open2() {
+      this.$message({
+        message: "恭喜您，预约成功",
+        type: "success"
+      })
+    },
     link(id){
       console.log(id)
 
@@ -286,7 +292,8 @@ export default {
       })
       .then(res=>{
         console.log("请求成功",res);
-        this.findCompanyAppointment();
+        this.open2();
+        // this.findCompanyAppointment();
       })
       .cath(err=>{
         console.log("请求失败",err);
