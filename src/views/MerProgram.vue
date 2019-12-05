@@ -133,22 +133,19 @@ export default {
             .then(res => {
             console.log(res.data);
             if(res.data.code == '200') {
-              this.ruleForm=[]
-              /* this.ruleForm.roomArea);
-              this.ruleForm.roomCost);
-              this.ruleForm.quarters);
-              this.ruleForm.releaseTime);
-              this.ruleForm.roomType);
-              this.ruleForm.roomStyle);
-              this.ruleForm.servicesProvided);
-              this.ruleForm.designConcept); */
-                this.fileList=[];
-                this.photo = [];
+              this.ruleForm=[];
+              this.fileList=[];
+              this.photo = [];
             }
-            })
-            .catch(err => {
-            console.log(err);
-            });
+          },{
+            headers: {
+              "content-type": "application/json",
+              "token": sessionStorage.getItem("token")
+            }
+          })
+          .catch(err => {
+          console.log(err);
+          });
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);

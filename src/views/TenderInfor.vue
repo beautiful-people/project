@@ -92,7 +92,12 @@ export default {
         currentPage: 1, //当前页
         pageSize: this.pagesize
         // sessionStorage.getItem("tenderId")
-      }) // 后台请求地址
+      },{
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
+          }
+        }) // 后台请求地址
       .then(res => {
         // 获取newList信息
         this.newList = res.data.data.tender;
@@ -180,7 +185,12 @@ export default {
         currentPage: val, //当前页
         pageSize: this.pagesize,
         tenderId:sessionStorage.getItem('tenderId')
-      }) // 后台请求地址
+      },{
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
+          }
+        }) // 后台请求地址
       .then(res => {
         // 获取当前页
         this.currentPage = val;
@@ -219,6 +229,11 @@ export default {
           accId: rows[index].merchant.accId
           // this.bidList[0].merchant.accId
           // this.res.data.data.bids[0].merchant.accId
+        },{
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
+          }
         }) // 后台请求地址
         .then(res => {
           console.log(index, rows[index].merchant.accId);
