@@ -7,12 +7,12 @@
         <li class="main-leftul-text">9年来打造专业装修平台，已为4,208,329位用户提供了优质装修服务！</li>
       </ul>
       <ul class="main-Stick-rightul">
-        <li><img src="img/index-img/qq.png" class="main-Stick-img" alt=""> 在线咨询</li>
-        <li><img src="img/index-img/tel.png" class="main-Stick-img" alt=""> <span>400-123-169</span></li>
-        <li @click="backone"  v-if="index"><img src="img/index-img/geren.png" class="main-Stick-img" alt=""> 进入会员中心</li>
-        <li  v-if="index"><img src="img/index-img/login.png" class="main-Stick-img" >已经登陆</li>
-        <li v-else @click="back"><img src="img/index-img/login.png" class="main-Stick-img" >请先登录或者注册</li>
-        <li   v-if="index"><img src="img/index-img/quit.png" class="main-Stick-img" > 退出</li>
+        <li><img src="/img/index-img/qq.png" class="main-Stick-img" alt=""> 在线咨询</li>
+        <li><img src="/img/index-img/tel.png" class="main-Stick-img" alt=""> <span>400-123-169</span></li>
+        <li @click="backone"  v-if="index"><img src="/img/index-img/geren.png" class="main-Stick-img" alt=""> 进入会员中心</li>
+        <li  v-if="index"><img src="/img/index-img/login.png" class="main-Stick-img" >已经登陆</li>
+        <li v-else @click="back"><img src="/img/index-img/login.png" class="main-Stick-img" >请先登录或者注册</li>
+        <li   v-if="index"><img src="/img/index-img/quit.png" class="main-Stick-img" > 退出</li>
       </ul>
     </div>
 
@@ -21,30 +21,30 @@
       <div class="main-top-center">
         <div class="main-top-header-logo">
           <!-- LOGO图片 -->
-          <img src="img/index-img/logo.png" class="main-top-img" alt />
+          <img src="/img/index-img/logo.png" class="main-top-img" alt />
           <!-- 切换定位 -->
           <div class="main-top-location">
             <!-- 定位 -->
-            <!-- <img src="img/index-img/land_01.png" width="19px" style="float:left;" height="23px" alt />
+            <!-- <img src="/img/index-img/land_01.png" width="19px" style="float:left;" height="23px" alt />
             <div class="main-top-city">
               <span>成都</span>
               <div class="main-top-pulldown"></div>
             </div> -->
           </div>
           <!-- 买得起的高端楼 -->
-          <img src="img/index-img/slogan.png" alt />
+          <img src="/img/index-img/slogan.png" alt />
         </div>
         <!-- 搜索 -->
         <div class="main-search">
           <form action>
             <input type="text" placeholder="搜索设计师、楼盘等信息" />
             <!-- <el-input v-model="input" placeholder="搜索设计师、楼盘等信息"></el-input> -->
-            <input class="subsearch" type="image" src="img/index-img/search.jpg" />
+            <input class="subsearch" type="image" src="/img/index-img/search.jpg" />
           </form>
         </div>
         <!-- 右侧联系 -->
         <div class="main-top-call">
-          <img src="img/index-img/tel.png" alt />
+          <img src="/img/index-img/tel.png" alt />
           <div class="main-top-phone">
             <span style="font-size:18px;">24</span>小时咨询热线:
             <br />
