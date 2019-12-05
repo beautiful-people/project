@@ -67,8 +67,11 @@ export default {
           this.axios
           .post("/changeUserPwd", {
             accPwd: this.ruleForm.pass,
-            token: sessionStorage.getItem("token")
-            // accPwd: this.ruleForm.pass
+          },{
+            headers: {
+              "content-type": "application/json",
+              "token": sessionStorage.getItem("token")
+            }
           }) // 后台请求地址
           .then(res => {
             console.log("修改成功！", res)

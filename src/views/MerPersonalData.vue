@@ -55,10 +55,12 @@ export default {
   },
   created () {
     this.axios.post('/showMerchantInfo', {
-      // accId: 1
-      // userId: sessionStorage.getItem('userId'),
-      /* sessionStorage.getItem('userId') */
-    }) // 后台请求地址
+    },{
+        headers: {
+          "content-type": "application/json",
+          "token": sessionStorage.getItem("token")
+        }
+      }) // 后台请求地址
     .then(res => {
       console.log(res)
       // console.log('获取用户信息：', res.data.data.users)

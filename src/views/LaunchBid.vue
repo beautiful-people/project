@@ -223,8 +223,12 @@ export default {
             tenderEndTime: this.ruleForm.tenderEndTime,
             decorationBudget: this.ruleForm.decorationBudget,
             fitmentRequest: this.ruleForm.fitmentRequest,
-            compayRequest: this.ruleForm.compayRequest,
-            token: sessionStorage.getItem("token")
+            compayRequest: this.ruleForm.compayRequest
+          },{
+            headers: {
+              "content-type": "application/json",
+              "token": sessionStorage.getItem("token")
+            }
           })
           .then(res => {
             console.log(res);

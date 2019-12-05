@@ -42,8 +42,12 @@ export default {
     .post("/showTender", {
       currentPage: 1,
       pageSize: this.pagesize,
-      token: sessionStorage.getItem("token")
-    })
+    },{
+        headers: {
+          "content-type": "application/json",
+          "token": sessionStorage.getItem("token")
+        }
+      })
     .then(res => {
       console.log("获取用户信息：", res.data.data.tenders);
       this.newList = res.data.data.tenders;
@@ -67,7 +71,12 @@ export default {
       .post("/showTender", {
         currentPage: val, //当前页
         pageSize: this.pagesize
-      }) // 后台请求地址
+      },{
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
+          }
+        }) // 后台请求地址
       .then(res => {
         console.log("获取用户信息：", res.data.data.tenders);
         this.newList = res.data.data.tenders;
