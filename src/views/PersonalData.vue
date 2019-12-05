@@ -87,7 +87,15 @@ export default {
             }
           }) // 后台请求地址
           .then(res => {
-            console.log('这里：', res.data.code)
+            console.log('这里：', res.data.code);
+            if(res.data.code == 200) {
+              this.$message({
+                showClose: true,
+                message: '修改成功！',
+                type: 'success'
+              });
+            }
+            
           })
           .catch(err => {
             console.log(err)

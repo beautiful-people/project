@@ -61,8 +61,6 @@
         <router-link to="/decoration">装修公司</router-link>
         <router-link to="/decorationDesign">装修设计</router-link>
         <router-link to="/Invitation">投标中心</router-link>
-        <router-link to="/EffectPicture">EffectPicture</router-link>
-        <router-link to="/Original">Original</router-link>
         
       </ul>
     </div>

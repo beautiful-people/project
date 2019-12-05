@@ -109,7 +109,7 @@
               </div>
             </div>
             <div class="right-main-bottom">
-              <img v-for="(it,i) in imgchild" :src=it.decschemeList[0].decorationimgs[0].imgPath :key="i">
+              <img v-for="(it,i) in imgchild" :src=it.decschemeList[index].decorationimgs[0].imgPath :key="i">
             </div>
           </div>
         </div>
@@ -149,14 +149,19 @@
         </div>
       </div>
     </div>
+
+  <footerr></footerr>
   </div>
 </template>
 <script>
 import index from "@/components/index";
+ import footerr from '@/components/Footer.vue'
+
 export default {
   name:"Decoration",
   components: {
-    index
+    index,
+    footerr
   },
   data() {
     return {
@@ -166,7 +171,7 @@ export default {
       site:'',
       currentPage: 1,/* 当前页码 */
       totalPage:0,//总页数
-      pageSize:2,//一页三条
+      pageSize:5,//一页三条
       value:2.5,
       activeIndex: '1',
       activeIndex2: '1',
@@ -246,7 +251,7 @@ export default {
      this.axios.post("/findMerchant", {
           // merId:1,
           currentPage: 1, //当前页
-          pageSize: 2, //每页显示的条数
+          pageSize: 5, //每页显示的条数
           // caluseState: 0
         })
         .then(res => {
@@ -383,6 +388,11 @@ export default {
 *{
   margin: 0;
   padding:0;
+}
+.decor{
+  position: relative;
+  width: 100%;
+  height: 1860px;
 }
   .decor-max{
     width: 1200px;

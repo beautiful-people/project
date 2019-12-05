@@ -248,6 +248,12 @@ export default {
         .then(res => {
           console.log(res.data);
           if (res.data.code == 200) {
+             for (var i = 0; i <res.data.data.tenders.length;i++) {
+              res.data.data.tenders[i].startTime = this.getTime(res.data.data.tenders[i].startTime)
+              res.data.data.tenders[i].tenderEndTime = this.getTime(res.data.data.tenders[i].tenderEndTime)
+              // console.log(res.data.data.tenders[i].messageDate)
+            }
+            console.log(res.data.data)
             this.tableData = res.data.data.tenders;
             this.totalPage = res.data.data.totalCount;
           }
@@ -289,6 +295,11 @@ export default {
         .then(res => {
           console.log(res.data);
           if (res.data.code == 200) {
+             for (var i = 0; i <res.data.data.tenders.length;i++) {
+              res.data.data.tenders[i].startTime = this.getTime(res.data.data.tenders[i].startTime)
+              res.data.data.tenders[i].tenderEndTime = this.getTime(res.data.data.tenders[i].tenderEndTime)
+              // console.log(res.data.data.tenders[i].messageDate)
+            }
             this.tableDatas = res.data.data.tenders;
             this.totalPage = res.data.data.totalCount;
           }
@@ -314,6 +325,11 @@ export default {
         .then(res => {
           console.log(res.data);
           if (res.data.code == 200) {
+             for (var i = 0; i <res.data.data.tenders.length;i++) {
+              res.data.data.tenders[i].startTime = this.getTime(res.data.data.tenders[i].startTime)
+              res.data.data.tenders[i].tenderEndTime = this.getTime(res.data.data.tenders[i].tenderEndTime)
+              // console.log(res.data.data.tenders[i].messageDate)
+            }            
             this.tableDatass = res.data.data.tenders;
             this.totalPage = res.data.data.totalCount;
           }
@@ -326,17 +342,22 @@ export default {
       /* 每页多少条数据 */
       console.log(`每页 ${val} 条`);
     },
-    handleCurrentChanges() {
+    handleCurrentChanges(val) {
       /* 获取当前页码 */
       this.axios
         .post("/tender/selectMyTender", {
-          currentPage: this.currentPages, //当前页
+          currentPage: val, //当前页
           pageSize: this.pageSize, //每页显示的条数
-        })
+        },{
+        headers: {
+          "content-type": "application/json",
+          "token": sessionStorage.getItem("token")
+        }
+      })
         .then(res => {
-          console.log(res.data);
+          console.log(res.data.data.tenders);
           if (res.data.code == 200) {
-            this.tableData = res.data.data.Tender;
+            this.tableData = res.data.data.tenders;
            this.totalPage = res.data.data.totalCount;
           }
         })
@@ -344,18 +365,23 @@ export default {
           console.log(err);
         });
     },
-    handleCurrentChangess() {
+    handleCurrentChangess(val) {
       /* 获取当前页码 */
       this.axios
         .post("/tender/selectMyTender", {
-          currentPage: this.currentPagess, //当前页
+          currentPage: val, //当前页
           pageSize: this.pageSize, //每页显示的条数
           caluseState: 0
-        })
+        },{
+        headers: {
+          "content-type": "application/json",
+          "token": sessionStorage.getItem("token")
+        }
+      })
         .then(res => {
           console.log(res.data);
           if (res.data.code == 200) {
-            this.tableDatas = res.data.data.Tender;
+            this.tableDatas = res.data.data.tenders;
            this.totalPage = res.data.data.totalCount;
           }
         })
@@ -363,18 +389,23 @@ export default {
           console.log(err);
         });
     },
-    handleCurrentChangesss() {
+    handleCurrentChangesss(val) {
       /* 获取当前页码 */
       this.axios
         .post("/tender/selectMyTender", {
-          currentPage: this.currentPagesss, //当前页
+          currentPage: val, //当前页
           pageSize: this.pageSize, //每页显示的条数
           caluseState: 0
-        })
+        },{
+        headers: {
+          "content-type": "application/json",
+          "token": sessionStorage.getItem("token")
+        }
+      })
         .then(res => {
           console.log(res.data);
           if (res.data.code == 200) {
-            this.tableDatass = res.data.data.Tender;
+            this.tableDatass = res.data.data.tenders;
            this.totalPage = res.data.data.totalCount;
           }
         })

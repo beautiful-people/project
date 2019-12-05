@@ -72,7 +72,7 @@
  <el-form-item label="QQ号码:">
     <el-input v-model="userAddress" placeholder="请输入QQ号码"></el-input>
   </el-form-item>
-<el-form-item label="QQ号码:">
+<el-form-item label="详细地址:">
     <el-input v-model="userAddress" placeholder="请输入地址"></el-input>
   </el-form-item>
   <el-form-item>
