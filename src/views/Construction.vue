@@ -479,7 +479,7 @@ export default {
        currentPagess:1,
         currentPagesss:1,
         currentPagessss:1,
-      currentPage: 1 /* 当前页码 */,
+     
         currentPagesssss:1,
         currentPagessssss:1,
         currentPagesssssss:1,
