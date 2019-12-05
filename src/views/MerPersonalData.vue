@@ -11,8 +11,8 @@
       <el-form-item label="商家全称">
         <el-input v-model="formLabelAlign.merName" disabled>{{formLabelAlign.realName}}</el-input>
       </el-form-item>
-      <el-form-item label="联系方式">
-        <el-input v-model="formLabelAlign.merFourPhone" disabled></el-input>
+      <el-form-item label="免费服务">
+        <el-input v-model="formLabelAlign.merFreeserve" disabled></el-input>
       </el-form-item>
       <el-form-item label="服务区域">
         <!-- <el-radio-group v-model="formLabelAlign.userSex">
@@ -30,8 +30,8 @@
       <el-form-item label="商家类型">
         <el-input v-model="formLabelAlign.merType" disabled></el-input>
       </el-form-item>
-      <el-form-item label="注册时间">
-        <el-input v-model="formLabelAlign.userDate" disabled></el-input>
+      <el-form-item label="承接价位">
+        <el-input v-model="formLabelAlign.merPrice" disabled></el-input>
       </el-form-item>
       <el-form-item label="详细地址">
         <el-input v-model="formLabelAlign.merAddress" disabled></el-input>

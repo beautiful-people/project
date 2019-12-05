@@ -1,19 +1,21 @@
 <template>
   <div class="sideNav">
-    <p>商家中心</p>
-    <div v-if="showSin">
+    <p v-if="power == 3">个人中心</p>
+    <p v-if="power == 2">商家中心</p>
+    <div v-if="power == 3">
       <router-link to="/personalCenter/personaldata">个人资料</router-link>
       <router-link to="/personalCenter/mytender">我的招标</router-link>
       <router-link to="/personalCenter/launchbid">发布竞标</router-link>
       <router-link to="/personalCenter/information">站内信息</router-link>
       <router-link to="/personalCenter/resetpassword">重置密码</router-link>
     </div>
-    <div v-if="showShangjia">
+    <div v-if="power == 2">
       <router-link to="/personalCenter/Merpersonaldata">个人资料</router-link>
       <router-link to="/personalCenter/Mermytender">我的招标</router-link>
       <router-link to="/personalCenter/Merlaunchbid">发布竞标</router-link>
       <router-link to="/personalCenter/MerTranscript">竞标记录</router-link>
       <router-link to="/personalCenter/Merinformation">站内信息</router-link>
+      <router-link to="/personalCenter/MerProgram">方案上传</router-link>
 
     </div>
   </div>
@@ -24,8 +26,6 @@ export default {
   name:'Sidenav',
   data() {
     return {
-      showSin:true,
-      showShangjia:false,
       // power:sessionStorage.getItem("power")
       power: 2
     }
