@@ -3,10 +3,39 @@
     <index></index>
     <div class="det">
       <div class="detailed-head">
-        
         <p>在线工地</p>
-        
-        <el-button type="primary" @click= "getimg" size="medium" class="btn-sc">上传<i class="el-icon-upload el-icon--right"></i></el-button>
+        <el-button type="text" @click="dialogFormVisible = true">上传图片</el-button>
+        <el-dialog title="上传图片" :visible.sync="dialogFormVisible">
+          <form>
+            <el-upload
+              class="upload-demo"
+              ref="upload"
+              action="uploadState"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :file-list="fileList"
+              :auto-upload="false"
+              :on-change="imgBroadcastChange"
+              :onSuccess="uploadSuccess"
+              :headers="headers"
+              list-type="picture-card"
+              name="photo"
+            >
+              <el-button slot="trigger" size="small" type="primary" class="getImg">选取图片</el-button>
+              <el-button
+                style="margin-left: 10px;"
+                size="small"
+                type="success"
+                @click="startUpload()"
+              >上传到服务器</el-button>
+            </el-upload>
+          </form>
+
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+          </div>
+        </el-dialog>
       </div>
       <div class="detailed-main" :v-model="ListTen">
         <p>{{ListTen.calusename}}</p>
@@ -19,9 +48,7 @@
             风格：
             <span>{{ListTen.familyStructure}}</span>
           </li>
-          <li>
-           
-          </li>
+          <li></li>
         </ul>
         <p class="pe">中建国际城9号楼3单元在施工地</p>
         <el-steps
@@ -30,64 +57,64 @@
           finish-status="success"
           class="el"
         >
-          <el-step title="开工大吉" ></el-step>
-          <el-step title="水电改造" ></el-step>
+          <el-step title="开工大吉"></el-step>
+          <el-step title="水电改造"></el-step>
           <el-step title="泥瓦阶段"></el-step>
-          <el-step title="木工阶段" ></el-step>
-          <el-step title="油漆阶段" ></el-step>
-          <el-step title="安装阶段" ></el-step>
-          <el-step title="验收完成" ></el-step>
+          <el-step title="木工阶段"></el-step>
+          <el-step title="油漆阶段"></el-step>
+          <el-step title="安装阶段"></el-step>
+          <el-step title="验收完成"></el-step>
         </el-steps>
         <div class="det-cont">
           <div class="detailed-cont">
             <div class="detailed-cont-c">开门大吉</div>
-            <img :src=ListTen.onlinesites[0].caluseImg alt="">
+            <img :src="ListTen.onlinesites[0].caluseImg" alt />
           </div>
           <div class="detailed-cont">
             <div class="detailed-cont-c">水电改造</div>
-            <img :src=ListTen.onlinesites[1].caluseImg alt="">
+            <img :src="ListTen.onlinesites[1].caluseImg" alt />
           </div>
           <div class="detailed-cont">
             <div class="detailed-cont-c">泥瓦阶段</div>
-            <img :src=ListTen.onlinesites[2].caluseImg alt="">
+            <img :src="ListTen.onlinesites[2].caluseImg" alt />
           </div>
           <div class="detailed-cont">
             <div class="detailed-cont-c">木工阶段</div>
-            <img :src=ListTen.onlinesites[3].caluseImg alt="">
+            <img :src="ListTen.onlinesites[3].caluseImg" alt />
           </div>
           <div class="detailed-cont">
             <div class="detailed-cont-c">油漆阶段</div>
-            <img :src=ListTen.onlinesites[4].caluseImg alt="">
+            <img :src="ListTen.onlinesites[4].caluseImg" alt />
           </div>
-            
-
-        </div>
-        
+        </div> 
       </div>
     </div>
-    <footerr></footerr>
+    <!-- <footerr></footerr> -->
   </div>
 </template>
 <script>
 import index from "@/components/index";
-import footerr from "@/components/Footer.vue";
+// import footerr from "@/components/Footer.vue";
 export default {
   name: "Detailed",
   data: function() {
     return {
       tenderId: sessionStorage.getItem("tenderIds"),
       ListTen: [],
-      ind:0,
-      tenderIds:3
+      ind: 0,
+      tenderIds: 3,
+      dialogTableVisible: false,
+      dialogFormVisible: false,
+      fileList: [], //上传图片的
+      photo: "" //选取图片时存储的地方
     };
   },
   components: {
-    index,
-    footerr
+    index
+    // footerr
   },
   created() {
     this.getmain();
-    //  this.getmains();
   },
   methods: {
     getmain() {
@@ -95,7 +122,7 @@ export default {
         .post(
           "/tender/selectTenderWithOnlinesite",
           {
-            tenderId:this.tenderIds
+            tenderId: this.tenderIds
           },
 
           {
@@ -108,16 +135,55 @@ export default {
           console.log(res.data);
           if (res.data.code == 200) {
             this.ListTen = res.data.data.tender;
-            console.log(this.ListTen.calusename);
           }
         })
         .catch(err => {
           console.log(err);
         });
     },
-      getimg(){
-         this.$router.push("/imageUpload?" + this.tenderIds);
-      }
+    getimg() {
+      this.$router.push("/imageUpload?" + this.tenderIds);
+    },
+    imgBroadcastChange(file, fileList) {
+      this.photo = file.raw;
+      /* this.fileName = file.name; */
+      console.log(fileList);
+      console.log(this.photo);
+    },
+    uploadSuccess(res, file) {
+      console.log(res);
+      console.log(file);
+    },
+    startUpload() {
+      const formData = new FormData();
+      formData.append("tenderId", 3);
+      formData.append("caluseState", 7);
+      formData.append("photo", this.photo);
+      this.axios
+        .post("/uploadState", formData)
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == "200") {
+            this.open();
+            this.fileList = [];
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    open() {
+        this.$message({
+          message: '上传成功',
+          type: 'success'
+        });
+      },
   }
 };
 </script>
@@ -141,9 +207,7 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.267);
   margin-top: 40px;
   margin-left: 340px;
-  
 
-  
   .detailed-head {
     width: 800px;
     height: 50px;
@@ -153,12 +217,11 @@ export default {
     color: rgba(0, 89, 255, 0.788);
     font-weight: bold;
     font-size: 24px;
-    p{
+    p {
       display: inline-block;
       width: 80%;
-      
     }
-    .btn-sc{
+    .btn-sc {
       width: 80px;
       height: 30px;
     }
@@ -201,7 +264,7 @@ export default {
     }
   }
 }
-.det-cont{
+.det-cont {
   margin-top: 50px;
 }
 .detailed-cont {
@@ -210,21 +273,21 @@ export default {
   padding-top: 20px;
   padding-bottom: 30px;
   border-bottom: 1px solid #ddd;
-  
-  img{
+
+  img {
     float: left;
     width: 300px;
     height: 150px;
   }
 }
-.detailed-cont-c{
-    float: left;
-    width: 100px;
-    height: 150px;
-    line-height: 150px;
-    margin-left: 130px;
-    margin-right: 100px;
-    color: rgba(0, 89, 255, 0.788);
-    font-weight: bold;
-  }
+.detailed-cont-c {
+  float: left;
+  width: 100px;
+  height: 150px;
+  line-height: 150px;
+  margin-left: 130px;
+  margin-right: 100px;
+  color: rgba(0, 89, 255, 0.788);
+  font-weight: bold;
+}
 </style>

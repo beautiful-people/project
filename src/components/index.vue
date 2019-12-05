@@ -89,10 +89,11 @@ export default {
        this.$router.replace("/login?"+this.index);
        
     },
-  },
-  backone(){
+    backone(){
      this.$router.replace("/PersonalCenter");
   }
+  },
+  
 };
 </script>
 
