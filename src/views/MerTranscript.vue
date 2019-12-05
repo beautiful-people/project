@@ -305,7 +305,7 @@ export default {
           console.log(err);
         });
     },
-     getline2() {
+    getline2() {
       this.axios
         .post(
           "/tender/selectMyTender",
@@ -331,71 +331,7 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    },
-       handleSizeChange(val) {
-      /* 每页多少条数据 */
-      console.log(`每页 ${val} 条`);
-    },
-    handleCurrentChanges() {
-      /* 获取当前页码 */
-      this.axios
-        .post("/tender/selectMyTender", {
-          currentPage: this.currentPages, //当前页
-          pageSize: this.pageSize, //每页显示的条数
-          state: 0,
-
-        })
-        .then(res => {
-          console.log(res.data);
-          if (res.data.code == 200) {
-            this.tableData = res.data.data.tenders;
-           this.totalPage = res.data.data.totalCount;
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    handleCurrentChangess() {
-      /* 获取当前页码 */
-      this.axios
-        .post("/tender/selectMyTender", {
-          currentPage: this.currentPagess, //当前页
-          pageSize: this.pageSize, //每页显示的条数
-          state: 1,
-
-        })
-        .then(res => {
-          console.log(res.data);
-          if (res.data.code == 200) {
-            this.tableDatas = res.data.data.tenders;
-           this.totalPage = res.data.data.totalCount;
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    handleCurrentChangesss() {
-      /* 获取当前页码 */
-      this.axios
-        .post("/tender/selectMyTender", {
-          currentPage: this.currentPagesss, //当前页
-          pageSize: this.pageSize, //每页显示的条数
-          state: 2,
-
-        })
-        .then(res => {
-          console.log(res.data);
-          if (res.data.code == 200) {
-            this.tableDatass = res.data.data.tenders;
-           this.totalPage = res.data.data.totalCount;
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+    }
   },
   data() {
     return {

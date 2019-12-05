@@ -206,6 +206,13 @@ const routes = [
       meta: {
         
       }
+    },{
+      path: 'MerProgram',
+      name: 'MerProgram',
+      component: () => import('../views/MerProgram.vue'),
+      meta: {
+        
+      }
     }
   ]
   }
