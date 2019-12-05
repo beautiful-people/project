@@ -107,7 +107,7 @@
           width="120">
           <template >
             <el-button
-              @click.native.prevent="getDeail"
+              @click.native.prevent="getDeail(tableDatas)"
               type="text"
               size="small">
               修改
