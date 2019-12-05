@@ -76,8 +76,8 @@
            
           <div class="form-group">
             <input type="password" placeholder="请输入验证码" v-model="userPass" class="password" id="ttes"/>
-            <button type="button" @click="getcode">获取验证码</button>
-
+            <button type="button" @click="getcode" v-if="isfs">获取验证码</button>
+            <button type="button" v-else>{{miao}}s重新发送</button>
             <i class="el-icon-key logo"></i>
           </div>
           <p class="clear">
@@ -179,8 +179,8 @@
           </div>
           <div class="form-group">
             <input type="password" placeholder="请输入验证码" v-model="userpasses" class="password" id="tts"/>
-            <button type="button" @click="getCodes">获取验证码</button>
-
+            <button type="button" @click="getCodes" v-if="isfs">获取验证码</button>
+            <button type="button" v-else>{{miao}}s重新发送</button>
             <i class="el-icon-lock logo"></i>
           </div>
           <p class="clear">
@@ -285,7 +285,9 @@ export default {
       proId:"",
       identifyCodes: "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ", // 验证码字符的集合
       identifyCode: "",
-      userphones:false
+      userphones:false,
+      isfs:true,
+      miao:60
     };
   },
   created() {
@@ -298,6 +300,18 @@ export default {
    
   },
   methods: {
+     sub() {
+      this.isfs = false;
+      var time = setInterval(() => {
+        if (this.miao > 1) {
+          this.miao--;
+        } else {
+          clearInterval(time);
+          this.miao = 60;
+          this.isfs = true;
+        }
+      }, 1000);
+    },
     getBusiness() {
       if(this.selected==""||this.username==""||this.userpass==""||this.usertelphone==""||this.selecteds==""||this.selectedse==""){
          this.$message.error('不能为空');
@@ -523,9 +537,10 @@ export default {
         });
     },
     getcode(){
-      // if(this.userTelphone==""){
-
-      // }
+      if(this.userTelphone==""){
+        this.$message.error('请输入手机号码');
+      }else {
+        this.sub();
       this.axios
         .post(
           "/register/regphoneCode",
@@ -546,11 +561,15 @@ export default {
         .catch(err => {
           console.log(err);
         });
+      }
+      
     },
     getCodes(){
-      // if(this.userTelphone==""){
-
-      // }
+      if(this.usertelphones==""){
+      this.$message.error('请输入手机号码');
+      }
+      else{
+           this.sub();
       this.axios
         .post(
           "/register/regphoneCode",
@@ -571,6 +590,8 @@ export default {
         .catch(err => {
           console.log(err);
         });
+      }
+     
     },
     getcodes(){
       this.axios

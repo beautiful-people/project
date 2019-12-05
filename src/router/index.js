@@ -58,11 +58,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Details.vue')
   },
   {
-    path: '/imageUpload',
-    name: 'imageUpload',
-    component: () => import(/* webpackChunkName: "about" */ '../views/imageUpload.vue')
-  },
-  {
     path: '/userdetails',
     name: 'userdetails',
     component: () => import(/* webpackChunkName: "about" */ '../views/Userdetails.vue')
@@ -129,6 +124,7 @@ const routes = [
     name: 'detailed',
     component: () => import('../views//Detailed.vue')
   },
+  
   {
     path: '/personalCenter',
     name: 'personalCenter',
@@ -208,6 +204,13 @@ const routes = [
       path: 'MerTranscript',
       name: 'MerTranscript',
       component: () => import('../views/MerTranscript.vue'),
+      meta: {
+        
+      }
+    },{
+      path: 'MerProgram',
+      name: 'MerProgram',
+      component: () => import('../views/MerProgram.vue'),
       meta: {
         
       }

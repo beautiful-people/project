@@ -37,6 +37,9 @@
         </div>
       </div>
     </div>
+   <!--  <div class="qwer">
+      <img src="../../public/img/qwer.jpg" alt="">
+    </div> -->
     <div class="tails">
 <el-row type="flex" class="row-bg" justify="center">
   <el-col :span="6"> <el-form :inline="true"  class="demo-form-inline">
@@ -53,8 +56,9 @@
     <el-input v-model="userEmail" placeholder="电子邮件"></el-input>
   </el-form-item>
   <el-form-item>
-    <button type="button" @click="getdeng">提交</button>
+    <button type="button" @click="getdeng" class="deng">提交</button>
   </el-form-item>
+  
   </el-form></el-col>
   <el-col :span="6"><div class="grid-content bg-purple-light"></div></el-col>
   <el-col :span="6">
@@ -68,7 +72,12 @@
  <el-form-item label="QQ号码:">
     <el-input v-model="userAddress" placeholder="请输入QQ号码"></el-input>
   </el-form-item>
- 
+<el-form-item label="QQ号码:">
+    <el-input v-model="userAddress" placeholder="请输入地址"></el-input>
+  </el-form-item>
+  <el-form-item>
+    <button type="button" @click="getdeng" class="deng">重置</button>
+  </el-form-item>
   
 </el-form></el-col>
 </el-row>
@@ -128,14 +137,14 @@ export default {
                 });
         },
          open() {
-        this.$message({
+          this.$message({
           message: '恭喜你，注册成功',
           type: 'success'
         });
     },
-        open4() {
-         this.$message.error('手机号已存在');
-        this.usertelphone=""
+      open4() {
+          this.$message.error('手机号已存在');
+          this.usertelphone=""
     },
     }
 }
@@ -154,11 +163,20 @@ export default {
 .clear::after {
   clear: both;
 }
+.qwer{
+  width: 100%;
+  height: auto;
+  float: left;
+  img{
+    width: 100%;
+    height: auto;
+  }
+}
 .userdetails{
  
   width: 100%;
   height: 700px;
-  background-image: url(../../public/img/register_bg.jpg);
+  background-image: url(../../public/img/denglu-bg.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -167,16 +185,29 @@ export default {
     width: 800px;
     height: 400px;
     display: flex;
-    justify-content: space-between;
-     align-items:space-around;
-    border: 1px solid red;
+   
+    /* justify-content: space-between;
+     align-items:space-around; */
+    border: 1px solid rgba(0, 102, 255, 0.904);
+    background:ddd;
+    
     position: absolute;
     top:120px;
-    left:0;
+    left:90px;
     bottom: 0;
     right: 0;
     margin: 0 auto;
-
+    transform: translateY(100px);
+    .deng {
+      width: 100px;
+      height: 30px;
+      margin-left: 8px;
+      margin-top: 13px;
+      outline: none;
+      border: none;
+      background-color: orange;
+      border-radius: 5px;
+    }
 }
 }
 
