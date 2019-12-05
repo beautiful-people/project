@@ -46,19 +46,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../assets/style/base.less";
-div{
-  margin: 0;
-  padding: 0;
-}
+// @import "../assets/style/base.less";
+
 .footer {
   width: 100%;
-  height: 75px;
+  height: 80px;
   background: black;
   box-sizing: border-box;
-  line-height: 75px;
+  line-height: 80px;
   margin-top: 20px;  
-  flex: 1;
+  // margin-bottom: -10px
+  // flex: 1;
 }
 .footer ul{
   height: 75px;
