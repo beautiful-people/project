@@ -38,7 +38,10 @@
       </div>
     </div>
 
-    <div class="msg">当前更新了 <span style="color:red;">{{totalCount}}</span> 条招标消息</div>
+    <div class="msg">
+      当前更新了
+      <span style="color:red;">{{totalCount}}</span> 条招标消息
+    </div>
 
     <div class="content clearfix">
       <div style="width:100%;">
@@ -82,18 +85,15 @@
           layout="prev, pager, next"
         ></el-pagination>
       </div>
-    
     </div>
 
-<footerr class="footer"></footerr>
-  
-    
+    <footerr class="footer"></footerr>
   </div>
 </template>
 
 <script>
- import index from '@/components/index'
- import footerr from '@/components/Footer'
+import index from "@/components/index";
+import footerr from "@/components/Footer";
 
 export default {
   name: "invitation",
@@ -121,12 +121,21 @@ export default {
   },
   created() {
     this.axios
-      .post("/tender/findAll", {
-        state: this.msgs_id,
-        chooseTime: this.time_id,
-        currentPage: this.currpage,
-        pageSize: this.pagesize
-      })
+      .post(
+        "/tender/findAll",
+        {
+          state: this.msgs_id,
+          chooseTime: this.time_id,
+          currentPage: this.currpage,
+          pageSize: this.pagesize
+        },
+        {
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
+          }
+        }
+      )
       .then(res => {
         if (res.data.code == 200) {
           console.log(res.data);
@@ -142,7 +151,7 @@ export default {
     index,
     footerr
   },
-  
+
   methods: {
     msgclick(item) {
       this.msgs_id = item;
@@ -152,6 +161,12 @@ export default {
           chooseTime: this.time_id,
           currentPage: this.currpage,
           pageSize: this.pagesize
+        },
+        {
+          headers: {
+            "content-type": "application/json",
+           "token": sessionStorage.getItem("token")
+          }
         })
         .then(res => {
           if (res.data.code == 200) {
@@ -172,6 +187,12 @@ export default {
           chooseTime: this.time_id,
           currentPage: this.currpage,
           pageSize: this.pagesize
+        },
+        {
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
+          }
         })
         .then(res => {
           if (res.data.code == 200) {
@@ -197,7 +218,14 @@ export default {
           pageSize: this.pagesize,
           state: this.msgs_id,
           chooseTime: this.time_id
-        })
+        },
+         {
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
+          }
+        }
+        )
         .then(res => {
           if (res.data.code == 200) {
             console.log(res.data.data.tenders);
@@ -362,11 +390,11 @@ export default {
 /*清除浮动*/
 .clearfix:before,
 .clearfix:after {
-    content: "";
-    display: table;
+  content: "";
+  display: table;
 }
 
 .clearfix:after {
-    clear: both;
+  clear: both;
 }
 </style>

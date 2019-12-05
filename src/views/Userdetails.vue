@@ -188,12 +188,12 @@ export default {
    
     /* justify-content: space-between;
      align-items:space-around; */
-    border: 1px solid rgba(0, 102, 255, 0.904);
-    background:ddd;
+    border: 1px solid rgba(0, 0, 0, 0.363);
+    background:white;
     
     position: absolute;
     top:120px;
-    left:90px;
+    left:250px;
     bottom: 0;
     right: 0;
     margin: 0 auto;

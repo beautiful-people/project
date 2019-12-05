@@ -137,7 +137,13 @@ export default {
     this.axios
       .post("/tender/findBidCount", {
         tenderId: this.tenderId
-      })
+      },
+      {
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
+          }
+        })
       .then(res => {
         if (res.data.code == 200) {
           // console.log(res.data.data.tender);
@@ -182,7 +188,13 @@ export default {
               freeDesign: this.form.freeDesign,
               initialOffer: this.form.initialOffer,
               quoteExplain: this.form.quoteExplain
-            })
+            },
+            {
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
+          }
+        })
             .then(res => {
               if (res.data.code == 500) {
                 this.types = "info";
