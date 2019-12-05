@@ -86,7 +86,7 @@ export default {
   created(){
      
       this.axios
-      .post("/showTenderAndMerInfo", {
+      .post("/showTenderInfoAndMerInfo", {
         tenderId: sessionStorage.getItem('tenderId'),
         currentPage: 1, //当前页
         pageSize: this.pagesize

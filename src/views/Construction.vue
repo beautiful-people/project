@@ -4,15 +4,15 @@
     <div class="onLine">
       <div class="onLine-head clear">
         <ul>
-          <li>施工阶段</li>
+          <li>施工阶段：</li>
           <li @click="inex=0 " :class="{'on':inex===0}">不限</li>
           <li @click="fn" :class="{'on':inex===2}">开工大吉</li>
           <li @click="fnone " :class="{'on':inex===3}">水电改造</li>
           <li @click="fnthree " :class="{'on':inex===4}">泥瓦阶段</li>
           <li @click="fnfour " :class="{'on':inex===5}">木工阶段</li>
-          <li @click="inex=6 " :class="{'on':inex===6}">油漆阶段</li>
-          <li @click="inex=7 " :class="{'on':inex===7}">安装阶段</li>
-          <li @click="inex=8 " :class="{'on':inex===8}">验收完成</li>
+          <li @click="fnfive " :class="{'on':inex===6}">油漆阶段</li>
+          <li @click="fnsix " :class="{'on':inex===7}">安装阶段</li>
+          <li @click="fnseven " :class="{'on':inex===8}">验收完成</li>
         </ul>
       </div>
       <div class="onLineHead">
@@ -82,11 +82,11 @@
             <p>{{item.calusename}}</p>
             <ul class="clear">
               <li>
-                区域:
+                区域：
                 <span>{{item.location}}</span>
               </li>
               <li>
-                风格:
+                风格：
                 <span>{{item.familyStructure}}</span>
               </li>
               <li>
@@ -243,20 +243,20 @@
             <p>{{item.calusename}}</p>
             <ul class="clear">
               <li>
-                区域:
+                区域：
                 <span>{{item.location}}</span>
               </li>
               <li>
-                风格:
+                风格：
                 <span>{{item.familyStructure}}</span>
               </li>
               <li>
-                面积:
+                面积：
                 <span>{{item.area}}</span>
               </li>
             </ul>
             <p>
-              装修公司:
+              装修公司：
               <span>{{item.merchant.merName}}</span>
             </p>
             <el-steps
@@ -288,12 +288,175 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
+      <div class="onLine-main" v-show="inex===6">
+         <div class="main" v-for="item in LinelistFive" :key="item.tenterId">
+          <div class="main-left clear">
+            <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
+          </div>
+          <div class="main-right clear">
+            <p>{{item.calusename}}</p>
+            <ul class="clear">
+              <li>
+                区域：
+                <span>{{item.location}}</span>
+              </li>
+              <li>
+                风格：
+                <span>{{item.familyStructure}}</span>
+              </li>
+              <li>
+                面积：
+                <span>{{item.area}}</span>
+              </li>
+            </ul>
+            <p>
+              装修公司：
+              <span>{{item.merchant.merName}}</span>
+            </p>
+            <el-steps
+              :space="200"
+              :active="Number(item.onlinesites.caluseState)"
+              finish-status="success"
+              class="el"
+            >
+              <el-step title="开工大吉"></el-step>
+              <el-step title="水电改造"></el-step>
+              <el-step title="泥瓦阶段"></el-step>
+              <el-step title="木工阶段"></el-step>
+              <el-step title="油漆阶段"></el-step>
+              <el-step title="安装阶段"></el-step>
+              <el-step title="验收完成"></el-step>
+            </el-steps>
+          </div>
+        </div>
+        <el-pagination
+          background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChangesssss"
+          :current-page.sync="currentPagesssss"
+          :page-size="4"
+          layout="prev, pager, next, jumper"
+          :total="totalPage"
+          class="pag"
+        >
+          <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
+        </el-pagination>
+      </div>
+      <div class="onLine-main" v-show="inex===7">
+         <div class="main" v-for="item in LinelistSix" :key="item.tenterId">
+          <div class="main-left clear">
+            <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
+          </div>
+          <div class="main-right clear">
+            <p>{{item.calusename}}</p>
+            <ul class="clear">
+              <li>
+                区域：
+                <span>{{item.location}}</span>
+              </li>
+              <li>
+                风格：
+                <span>{{item.familyStructure}}</span>
+              </li>
+              <li>
+                面积：
+                <span>{{item.area}}</span>
+              </li>
+            </ul>
+            <p>
+              装修公司：
+              <span>{{item.merchant.merName}}</span>
+            </p>
+            <el-steps
+              :space="200"
+              :active="Number(item.onlinesites.caluseState)"
+              finish-status="success"
+              class="el"
+            >
+              <el-step title="开工大吉"></el-step>
+              <el-step title="水电改造"></el-step>
+              <el-step title="泥瓦阶段"></el-step>
+              <el-step title="木工阶段"></el-step>
+              <el-step title="油漆阶段"></el-step>
+              <el-step title="安装阶段"></el-step>
+              <el-step title="验收完成"></el-step>
+            </el-steps>
+          </div>
+        </div>
+        <el-pagination
+          background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChangessssss"
+          :current-page.sync="currentPagessssss"
+          :page-size="4"
+          layout="prev, pager, next, jumper"
+          :total="totalPage"
+          class="pag"
+        >
+          <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
+        </el-pagination>
+      </div>
+      <div class="onLine-main" v-show="inex===8">
+         <div class="main" v-for="item in LinelistSeven" :key="item.tenterId">
+          <div class="main-left clear">
+            <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
+          </div>
+          <div class="main-right clear">
+            <p>{{item.calusename}}</p>
+            <ul class="clear">
+              <li>
+                区域：
+                <span>{{item.location}}</span>
+              </li>
+              <li>
+                风格：
+                <span>{{item.familyStructure}}</span>
+              </li>
+              <li>
+                面积：
+                <span>{{item.area}}</span>
+              </li>
+            </ul>
+            <p>
+              装修公司：
+              <span>{{item.merchant.merName}}</span>
+            </p>
+            <el-steps
+              :space="200"
+              :active="Number(item.onlinesites.caluseState)"
+              finish-status="success"
+              class="el"
+            >
+              <el-step title="开工大吉"></el-step>
+              <el-step title="水电改造"></el-step>
+              <el-step title="泥瓦阶段"></el-step>
+              <el-step title="木工阶段"></el-step>
+              <el-step title="油漆阶段"></el-step>
+              <el-step title="安装阶段"></el-step>
+              <el-step title="验收完成"></el-step>
+            </el-steps>
+          </div>
+        </div>
+        <el-pagination
+          background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChangesssssss"
+          :current-page.sync="currentPagesssssss"
+          :page-size="4"
+          layout="prev, pager, next, jumper"
+          :total="totalPage"
+          class="pag"
+        >
+          <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import index from "@/components/index";
+
 export default {
   name: "Construction",
   components: {
@@ -308,11 +471,18 @@ export default {
        LinelistThree:{},
        LinelistFour:{},
       
+       LinelistFive:{},
+       LinelistSix:{},
+       LinelistSeven:{},
+      currentPage: 1 /* 当前页码 */,
       currentPages:1,
        currentPagess:1,
         currentPagesss:1,
         currentPagessss:1,
       currentPage: 1 /* 当前页码 */,
+        currentPagesssss:1,
+        currentPagessssss:1,
+        currentPagesssssss:1,
       totalPage: 0,
       pageSize: 4,
       tenderId:""
@@ -365,6 +535,18 @@ export default {
      fnfour(){
       this.inex=5;
       this.getFour();
+    },
+      fnfive(){
+      this.inex=6;
+      this.getFive();
+    },
+      fnsix(){
+      this.inex=7;
+      this.getSix();
+    },
+    fnseven(){
+      this.inex=8;
+      this.getSeven();
     },
     getDeTailed(){
   this.$router.push("/detailed");
@@ -483,6 +665,90 @@ export default {
           console.log(err);
         });
     },
+     getFive() {
+      this.axios
+        .post(
+          "/selectOnlineWorkerspage",
+          {
+            currentPage: this.currentPagesssss, //当前页
+            pageSize: this.pageSize, //每页显示的条数
+            caluseState:5,
+            state:5
+          },
+
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == 200) {
+            this.LinelistFive = res.data.data.Tender;
+            this.totalPage = res.data.data.totalCount;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getSix() {
+      this.axios
+        .post(
+          "/selectOnlineWorkerspage",
+          {
+            currentPage: this.currentPagessssss, //当前页
+            pageSize: this.pageSize, //每页显示的条数
+            caluseState:6,
+            state:6
+          },
+
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == 200) {
+            this.LinelistSix = res.data.data.Tender;
+            this.totalPage = res.data.data.totalCount;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getSeven() {
+      this.axios
+        .post(
+          "/selectOnlineWorkerspage",
+          {
+            currentPage: this.currentPagesssssss, //当前页
+            pageSize: this.pageSize, //每页显示的条数
+            caluseState:7,
+            state:7
+          },
+
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == 200) {
+            this.LinelistSeven = res.data.data.Tender;
+            this.totalPage = res.data.data.totalCount;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     handleSizeChange(val) {
       /* 每页多少条数据 */
       console.log(`每页 ${val} 条`);
@@ -581,6 +847,63 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+     handleCurrentChangesssss() {
+      /* 获取当前页码 */
+      this.axios
+        .post("/selectOnlineWorkerspage", {
+          currentPage: this.currentPagessss, //当前页
+          pageSize: this.pageSize, //每页显示的条数
+          caluseState: 5
+        })
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == 200) {
+            this.LinelistFive = res.data.data.Tender;
+           this.totalPage = res.data.data.totalCount;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+     handleCurrentChangessssss() {
+      /* 获取当前页码 */
+      this.axios
+        .post("/selectOnlineWorkerspage", {
+          currentPage: this.currentPagessssss, //当前页
+          pageSize: this.pageSize, //每页显示的条数
+          caluseState: 6
+        })
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == 200) {
+            this.LinelistSix = res.data.data.Tender;
+           this.totalPage = res.data.data.totalCount;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+     handleCurrentChangesssssss() {
+      /* 获取当前页码 */
+      this.axios
+        .post("/selectOnlineWorkerspage", {
+          currentPage: this.currentPagesssssss, //当前页
+          pageSize: this.pageSize, //每页显示的条数
+          caluseState: 7
+        })
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == 200) {
+            this.LinelistSeven = res.data.data.Tender;
+           this.totalPage = res.data.data.totalCount;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
@@ -600,6 +923,9 @@ export default {
 .clear::after {
   clear: both;
 }
+.construction {
+  margin: 0 auto;
+}
 .onLine {
   width: 100%;
   height: auto;
@@ -607,6 +933,10 @@ export default {
   margin-top: 50px;
   position: relative;
   background-color: rgba(255, 255, 255, 0.582);
+  //   .onLine-head ul li:hover{
+  //   background: rgb(39, 3, 3);
+  //   color: #ccc;
+  // }
   .onLine-head {
     ul {
       width: 902px;
@@ -622,13 +952,16 @@ export default {
         list-style-type: none;
         cursor: pointer;
       }
+   
       .on {
-        border: 1px solid rgba(0, 0, 0, 0.212);
+        border: 1px solid rgba(0, 0, 0, 0.5);
         background-color: black;
         color: white;
       }
+     
     }
   }
+
   .onLineHead {
     color: black;
     margin-left: 280px;
@@ -671,7 +1004,8 @@ export default {
             float: left;
             height: 30px;
             line-height: 30px;
-            padding-left: 112px;
+            padding-left: 20px;
+            margin-right: 50px;
             list-style-type: none;
             span {
               display: inline-block;
