@@ -65,7 +65,7 @@
           <el-step title="安装阶段"></el-step>
           <el-step title="验收完成"></el-step>
         </el-steps>
-        <div class="det-cont">
+         <div class="det-cont">
           <div class="detailed-cont">
             <div class="detailed-cont-c">开门大吉</div>
             <img :src="ListTen.onlinesites[0].caluseImg" alt />
@@ -86,9 +86,14 @@
             <div class="detailed-cont-c">油漆阶段</div>
             <img :src="ListTen.onlinesites[4].caluseImg" alt />
           </div>
-        </div> 
-      </div>
+          <div class="detailed-cont">
+            <div class="detailed-cont-c">油漆阶段</div>
+            <img :src="ListTen.onlinesites[5].caluseImg" alt />
+          </div>
+        </div>
     </div>
+      </div>
+      
     <!-- <footerr></footerr> -->
   </div>
 </template>
@@ -102,7 +107,7 @@ export default {
       tenderId: sessionStorage.getItem("tenderIds"),
       ListTen: [],
       ind: 0,
-      tenderIds: 3,
+      tenderIds: location.search.substr(1),
       dialogTableVisible: false,
       dialogFormVisible: false,
       fileList: [], //上传图片的
@@ -156,8 +161,8 @@ export default {
     },
     startUpload() {
       const formData = new FormData();
-      formData.append("tenderId", 3);
-      formData.append("caluseState", 7);
+      formData.append("tenderId", this.tenderIds);
+      formData.append("caluseState", 6);
       formData.append("photo", this.photo);
       this.axios
         .post("/uploadState", formData)

@@ -1,5 +1,7 @@
 <template>
+
   <div class="sideNav">
+    
     <p v-if="power == 2">个人中心</p>
     <p v-if="power == 3">商家中心</p>
     <div v-if="power == 2">
@@ -22,8 +24,14 @@
 </template>
 
 <script>
+  // import index from '@/components/index.vue'
 export default {
+
   name:'Sidenav',
+   components: {
+    // index,
+    
+  },
   data() {
     return {
       // power:sessionStorage.getItem("power")
@@ -34,10 +42,10 @@ export default {
     
   },
   created() {
-    // if(this.power == 3) {
-    //   this.showShangjia = true;
-    //   this.showSin = false;
-    // }
+    if(this.power == 3) {
+      this.showShangjia = true;
+      this.showSin = false;
+    }
   }
 }
 </script>

@@ -105,11 +105,12 @@
           fixed="right"
           label="操作"
           width="120">
-          <template >
+          <template slot-scope="scope">
             <el-button
-              @click.native.prevent="getDeail(tableDatas)"
+              @click.native.prevent="getDeail( scope.row.tenderId)"
               type="text"
-              size="small">
+              size="small"
+              :id="tenterId">
               修改
             </el-button>
           </template>
@@ -252,7 +253,8 @@ export default {
 
           {
             headers: {
-              "content-type": "application/json"
+              "content-type": "application/json",
+              "token": sessionStorage.getItem("token")
             }
           }
         )
@@ -275,8 +277,9 @@ export default {
       this.ind=2,
       this.getline2()
     },
-    getDeail(){                    
-        this.$router.replace("/details");
+    getDeail(id){          
+
+        this.$router.replace("/details?"+id);
     },
     getline1() {
       this.axios
