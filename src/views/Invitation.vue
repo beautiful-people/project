@@ -38,9 +38,9 @@
       </div>
     </div>
 
-    <div class="msg">当前更新了 <span style="color:red;">{{this.tables.length}}</span> 条招标消息</div>
+    <div class="msg">当前更新了 <span style="color:red;">{{totalCount}}</span> 条招标消息</div>
 
-    <div class="content">
+    <div class="content clearfix">
       <div style="width:100%;">
         <el-table :data="tables" style="width: 100%">
           <el-table-column label="日期" width="200">
@@ -70,7 +70,7 @@
         </el-table>
       </div>
 
-      <div class="page">
+      <div class="page clearfix">
         <el-pagination
           style="text-align:center;"
           @size-change="handleSizeChanghandleCurrentChangee"
@@ -82,8 +82,12 @@
           layout="prev, pager, next"
         ></el-pagination>
       </div>
+    
     </div>
-    <footerr></footerr>
+
+<footerr class="footer"></footerr>
+  
+    
   </div>
 </template>
 
@@ -272,6 +276,17 @@ export default {
 .invitation {
   // width: 1366px;
   margin: 0 auto;
+  position: relative;
+}
+// .footer-fa {
+//   // position: relative;
+//   width: 100%;
+//   height: 100px;
+//   background: yellow;
+// }
+.footer {
+  position: absolute;
+  bottom: -80px;
 }
 .inv-nav {
   width: 90%;
@@ -343,5 +358,15 @@ export default {
     bottom: 20px;
     width: 100%;
   }
+}
+/*清除浮动*/
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
 }
 </style>

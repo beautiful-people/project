@@ -96,8 +96,9 @@
           <el-button type="primary" @click="open">提交</el-button>
         </div>
       </el-dialog>
+       <footerr></footerr>
     </div>
-    <footerr></footerr>
+   
   </div>
 </template>
 
@@ -332,5 +333,9 @@ export default {
       cursor: pointer;
     }
   }
+}
+footerr{
+  position: absolute;
+  bottom: -80px;
 }
 </style>

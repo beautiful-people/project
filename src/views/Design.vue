@@ -7,7 +7,7 @@
     
     </el-carousel-item>
   </el-carousel>
-  <footerr></footerr>
+  <footerr class="footer"></footerr>
   </div>
 </template>
 
@@ -55,11 +55,16 @@ export default {
   margin: 0;
   padding: 0;
 }
+.footer {
+  position: absolute;
+  bottom: -80px;
+}
 .design {
   // width: 1366px;
   height: 700px;
   margin: 0 auto;
  text-align: center;
+ position: relative;
 
   // background: yellow;
   // border: 1px solid black;
