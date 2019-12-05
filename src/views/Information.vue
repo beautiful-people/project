@@ -44,9 +44,13 @@ export default {
   created() {
     this.axios
       .post("/showUserMerchantCAMessage", {
-        token: sessionStorage.getItem("token"),
-        accId: 1
-      })
+        accId: sessionStorage.getItem("accId")
+      },{
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
+          }
+        })
       .then(res => {
         this.tableData = res.data.data.messages;
         console.log(res.data);
@@ -104,6 +108,11 @@ export default {
         .post("/deleteUserMessage", {
           // messageId : this.data.data.messages.messageId
           messageId: rows[index].messageId
+        },{
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
+          }
         })
         .then(res => {
           // console.log("数据：", this.tableData)
@@ -112,8 +121,12 @@ export default {
 
             this.axios
               .post("/showUserMerchantCAMessage", {
-                token: sessionStorage.getItem("token"),
-                accId: 1
+                accId: sessionStorage.getItem("accId")
+              },{
+                headers: {
+                  "content-type": "application/json",
+                  "token": sessionStorage.getItem("token")
+                }
               })
               .then(res => {
                 this.tableData = res.data.data.messages;

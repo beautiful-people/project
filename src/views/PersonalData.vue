@@ -54,9 +54,12 @@ export default {
   },
   created () {
     this.axios.post('/showUserInfo', {
-      token: sessionStorage.getItem("token")
-      // 
-    }) // 后台请求地址
+    },{
+        headers: {
+          "content-type": "application/json",
+          "token": sessionStorage.getItem("token")
+        }
+      }) // 后台请求地址
     .then(res => {
       console.log('获取用户信息：', res.data.data.users)
       this.formLabelAlign = res.data.data.users[0]
@@ -76,8 +79,12 @@ export default {
         } else {
           // console.log("修改后手机号：",tel);
           this.axios.post('/changeUserPhone', {
-            token: sessionStorage.getItem("token"),
             userPhone: tel
+          },{
+            headers: {
+              "content-type": "application/json",
+              "token": sessionStorage.getItem("token")
+            }
           }) // 后台请求地址
           .then(res => {
             console.log('这里：', res.data.code)

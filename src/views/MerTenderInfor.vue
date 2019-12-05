@@ -209,6 +209,11 @@ export default {
           accId: rows[index].merchant.accId
           // this.bidList[0].merchant.accId
           // this.res.data.data.bids[0].merchant.accId
+        },{
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
+          }
         }) // 后台请求地址
         .then(res => {
           console.log(index, rows[index].merchant.accId);

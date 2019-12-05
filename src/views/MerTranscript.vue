@@ -286,14 +286,12 @@ export default {
             currentPage: this.currentPagess, //当前页
             pageSize: this.pageSize, //每页显示的条数
            state: 1,
-          },
-
-          {
-            headers: {
-              "content-type": "application/json"
-            }
+          },{
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
           }
-        )
+        })
         .then(res => {
           console.log(res.data);
           if (res.data.code == 200) {
@@ -313,14 +311,12 @@ export default {
             currentPage: this.currentPagesss, //当前页
             pageSize: this.pageSize, //每页显示的条数
            state: 2,
-          },
-
-          {
-            headers: {
-              "content-type": "application/json"
-            }
+          },{
+          headers: {
+            "content-type": "application/json",
+            "token": sessionStorage.getItem("token")
           }
-        )
+        })
         .then(res => {
           console.log(res.data);
           if (res.data.code == 200) {
@@ -336,7 +332,7 @@ export default {
   data() {
     return {
       ind:0,
-currentPagesss:1,
+      currentPagesss:1,
       currentPagess:1,
       currentPages:1,
       totalPage: 0,
