@@ -24,7 +24,7 @@
                 <img src="http://www.zx123.cn/templates/zx123cs/img_new/tuij.png" alt="">
               </div>
               <!-- 商家LOGO -->
-              <img :src=item.decschemeList[0].decorationimgs[0].imgPath alt="">
+              <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1118/thumb_168_20191118092539_29884.jpg" alt="">
             </div>
               
             <p>
@@ -37,13 +37,13 @@
               <svg t="1575378517179" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5846" width="12" height="12"><path d="M512 85.9l110.8 318.7 337.2 6.8-268.8 203.8 97.7 322.9L512 745.4 235.1 938.1l97.7-322.9L64 411.4l337.2-6.8z" p-id="5847" fill="#ffab00"></path></svg>
               <svg t="1575378517179" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5846" width="12" height="12"><path d="M512 85.9l110.8 318.7 337.2 6.8-268.8 203.8 97.7 322.9L512 745.4 235.1 938.1l97.7-322.9L64 411.4l337.2-6.8z" p-id="5847" fill="#ffab00"></path></svg>
               <svg t="1575378726679" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7230" width="12" height="12"><path d="M957.85 408.72c-4.51-13.87-17.4-23.27-31.98-23.31l-291.08-0.91-90.66-276.55c-4.54-13.85-17.47-23.22-32.04-23.22h-0.01c-0.03 0-0.07 0.01-0.1 0.01-0.13 0-0.25 0.03-0.37 0.03-1.68 0.02-3.35 0.14-4.98 0.41-0.17 0.03-0.33 0.09-0.5 0.12-1.58 0.28-3.13 0.64-4.63 1.14-0.21 0.07-0.41 0.18-0.62 0.26-1.43 0.51-2.85 1.06-4.19 1.75-0.58 0.3-1.1 0.69-1.66 1.02-0.93 0.55-1.89 1.06-2.76 1.69-1.12 0.81-2.16 1.75-3.17 2.69-0.25 0.23-0.54 0.42-0.78 0.66a33.656 33.656 0 0 0-8.3 13.42l-90.84 276.54-291.04 0.78a33.738 33.738 0 0 0-33.24 28.54c-0.27 1.76-0.41 3.52-0.4 5.28 0.03 10.52 4.99 20.68 13.82 27.13l234.93 171.83-89.18 277.09c-4.47 13.87 0.49 29.05 12.27 37.62 5.9 4.29 12.84 6.44 19.78 6.45a33.75 33.75 0 0 0 19.8-6.38l236-170.35 0.06 0.04L747.9 932.87a33.659 33.659 0 0 0 19.75 6.39c6.96 0 13.92-2.15 19.82-6.44 11.79-8.56 16.75-23.74 12.29-37.61l-89.07-277.08 234.99-171.76c11.76-8.6 16.67-23.79 12.17-37.65zM651.21 578.04c-11.74 8.58-16.65 23.71-12.21 37.55l65.07 202.44-172.4-124.5a33.661 33.661 0 0 0-19.7-6.38V226.86l0.07-0.21 66.23 202.03c4.53 13.82 17.41 23.18 31.95 23.22l212.67 0.66-171.68 125.48z" p-id="7231" fill="#ffab00"></path></svg> -->
-               <!-- <el-rate
+               <el-rate
                 v-model="item.merReputation"
                 disabled
                 show-score
                 text-color="#ff9900"
                 score-template="">
-              </el-rate> -->
+              </el-rate>
               <div>{{item.merReputation}}</div>
             </div>
             
@@ -57,7 +57,7 @@
               <div class="right-top-left">
                 <h3>{{item.merName}}<img src="//www.zx123.cn/templates/zx123cs/img_new/i_zhuans.gif" alt=""></h3>
                 <div class="compaskbd">
-                  <div class="compaskbd-attestation" :v-if="item.auth=1">
+                  <div class="compaskbd-attestation" :v-if="item.auth=true">
                     <svg t="1575386003590" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6195" width="12" height="12"><path d="M976.571429 296q-5.714286 134.857143-189.714286 372-190.285714 246.285714-321.142857 246.285714-81.142857 0-137.142857-150.285714-25.142857-91.428571-75.428572-275.428571-41.142857-149.714286-89.714286-149.714286-10.285714 0-72.571428 43.428571l-44-56q13.714286-12 61.714286-55.142857T182.857143 205.142857q89.142857-78.857143 137.714286-83.428571 54.285714-5.142857 87.428571 31.714285T454.285714 269.714286q25.142857 164 37.714286 213.142857 31.428571 142.285714 68.571429 142.285714 29.142857 0 88-92 57.714286-92 62.285714-140.571428 7.428571-79.428571-62.285714-79.428572-32.571429 0-69.142858 14.857143 68.571429-224.571429 262.285715-218.285714 143.428571 4.571429 134.857143 186.285714z" p-id="6196" fill="#ffffff"></path></svg>
                     <div class="compaskbd-attestation-span">认证</div>
                   </div>
@@ -111,7 +111,8 @@
               <!-- <img  v-for="(isc,uid) in item.decschemeList[0].decorationimgs" :key="uid" :src=isc.decschemeList[0].decorationimgs[0].imgPath > -->
               <!-- <img  :src=item.decschemeList[0].decorationimgs[index].imgPath > -->
               <!-- <img v-for="(isc,uid) in item.decschemeList" :key="uid" :src=isc[index].decorationimgs.imgPath alt="">; -->
-              <img  :src=item.decschemeList[0].decorationimgs[0].imgPath >
+              <img v-for="(it,i) in imgchild" :src=it.decschemeList[0].decorationimgs[0].imgPath :key="i">  
+              <!-- <img  :src=item.decschemeList[1].decorationimgs[0].imgPath >  -->
               <!-- <img  :src=item.decschemeList[2].decorationimgs[0].imgPath >
               <img  :src=item.decschemeList[3].decorationimgs[0].imgPath >
               <img  :src=item.decschemeList[4].decorationimgs[0].imgPath >
@@ -125,7 +126,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page.sync="currentPage"
-          :page-size="3"
+          :page-size="pageSize"
           layout="prev, pager, next"
           :total="totalPage">
         </el-pagination>
@@ -139,15 +140,10 @@
           <div class="right-top-subscribe">
             今天有<span>2000</span>位用户预约成功
             <form action="">
-              <input type="text" name="" id="" placeholder="您的称呼">
-              <input type="text" name="" id="" placeholder="联系电话"> 
-              <select>
-                <option value ="chengdu">成都</option>
-                <option value ="beijing">北京</option>
-                <option value="shenzhen">深圳</option>
-                <option value="shanghai">上海</option>
-              </select>
-              <input type="text" name="" id="" placeholder="装修面积 ㎡"> 
+              <input type="text" placeholder="您的称呼" v-model="name">
+              <input type="text" placeholder="您的电话" v-model="phone">
+              <input type="text" placeholder="所在区域-如：武侯区" v-model="site">
+              <input type="text" placeholder="您的住房面积 ㎡" v-model="area">
               <button>立即预约</button>
             </form>
           </div>
@@ -170,9 +166,13 @@ export default {
   },
   data() {
     return {
+      name:'',
+      number:'',
+      area:'',
+      site:'',
       currentPage: 1,/* 当前页码 */
       totalPage:0,//总页数
-      pageSize:3,//一页三条
+      pageSize:2,//一页三条
       value:2.5,
       activeIndex: '1',
       activeIndex2: '1',
@@ -243,12 +243,30 @@ export default {
         resource: '',
         desc: ''
       },
-      imags:{}
+      imags:[],
+      imgchild:[]
     };
   },
   
   created() {
-    this.handleCurrentChange();
+     this.axios.post("/findMerchant", {
+          // merId:1,
+          currentPage: 1, //当前页
+          pageSize: 2, //每页显示的条数
+          // caluseState: 0
+        })
+        .then(res => {
+          console.log("分页成功",res.data.data);
+            this.imags= res.data.data.merchants;
+            this.imgchild = res.data.data.merchantsImg
+            this.totalPage = res.data.data.totalCount;
+            // this.findCompanyAppointment();
+            // this.find();
+          // }
+        })
+        .catch(err => {
+          console.log(err);
+        });//sssF
   },
 
   methods: {
@@ -257,25 +275,24 @@ export default {
     },
     onSubmit() {
       console.log('submit!');
-      // console.log(list);
     },
 
 
-    find(){
-      this.axios.post("/findMerchant",{
-      pageSize:20,
-      currentPage:1
-      })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
-      .then(res=>{
-        console.log("请求成功",res);
-        // this.sc= res.data.data.imags;
-        this.imags= res.data.data.merchants;
-        // this.foterimg= res.data.data.imags2;
-      })
-      .cath(err=>{
-        console.log("请求失败",err);
-      })
-    },
+    // find(){
+    //   this.axios.post("/findMerchant",{
+    //   pageSize:20,
+    //   currentPage:1
+    //   })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
+    //   .then(res=>{
+    //     console.log("请求成功",res);
+    //     // this.sc= res.data.data.imags;
+    //     this.imags= res.data.data.merchants;
+    //     // this.foterimg= res.data.data.imags2;
+    //   })
+    //   .cath(err=>{
+    //     console.log("请求失败",err);
+    //   })
+    // },
 
     handleSizeChange(val) {
       /* 每页多少条数据 */
@@ -290,11 +307,11 @@ export default {
           // caluseState: 0
         })
         .then(res => {
-          console.log("分页成功",res);
+          console.log("分页成功",this.currentPage);
             this.imags= res.data.data.merchants;
-            this.totalPage = res.data.data.totalCount/this.pageSize;
+            this.totalPage = res.data.data.totalCount;
             // this.findCompanyAppointment();
-            this.find();
+            // this.find();
           // }
         })
         .catch(err => {
