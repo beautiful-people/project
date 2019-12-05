@@ -55,16 +55,16 @@ export default {
   box-sizing: border-box;
   line-height: 80px;
   margin-top: 20px;  
-<<<<<<< HEAD
+
   // margin-bottom: -10px
   // flex: 1;
-=======
+
   flex: 1;
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
->>>>>>> 444
+
 }
 .footer ul{
   height: 75px;
