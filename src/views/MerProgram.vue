@@ -129,18 +129,18 @@ export default {
               formData.append('photo', this.photo[i]);
           }
           this.axios
-            .post("/insertdecordOnes",formData)
+            .post("/insertdecordOnes",formData,{
+            headers: {
+              "content-type": "application/json",
+              "token": sessionStorage.getItem("token")
+            }
+          })
             .then(res => {
             console.log(res.data);
             if(res.data.code == '200') {
               this.ruleForm=[];
               this.fileList=[];
               this.photo = [];
-            }
-          },{
-            headers: {
-              "content-type": "application/json",
-              "token": sessionStorage.getItem("token")
             }
           })
           .catch(err => {

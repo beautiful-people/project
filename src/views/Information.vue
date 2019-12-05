@@ -52,6 +52,12 @@ export default {
           }
         })
       .then(res => {
+
+        for (var i = 0; i <res.data.data.messages.length;i++) {
+              res.data.data.messages[i].messageDate = this.getTime(res.data.data.messages[i].messageDate)
+             
+              // console.log(res.data.data.messages[i].messageDate)
+            }
         this.tableData = res.data.data.messages;
         console.log(res.data);
       })

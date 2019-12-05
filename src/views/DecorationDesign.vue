@@ -208,7 +208,7 @@ export default {
       })
       .then(res => {
         if (res.data.code == 200) {
-          console.log(res.data.data);
+          console.log(res.data.data.schemeOfmerVoList);
           this.totalCount = res.data.data.totolCount;
           this.boxtext = res.data.data.schemeOfmerVoList;
         }

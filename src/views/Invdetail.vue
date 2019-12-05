@@ -33,20 +33,16 @@
           <td colspan="4" style="color:red;">中标人：{{tableData.merchant.merName}}</td>
         </tr>
         <tr>
-          <td colspan="4">
+          <td colspan="4" style="color:red;">
             装修招标详细要求：
-            <br />
+      
             {{tableData.fitmentRequest}}
           </td>
         </tr>
         <tr>
-          <td colspan="4">
+          <td colspan="4" style="color:red;">
             投标公司要求：
-            <br />
-            <span style="color:red">
-              1、经工商注册的正规本地公司
-              <br />2、已通过装信通认证的无业主投诉与差评的精品装修公司！
-            </span>
+          {{tableData.compayRequest}}
           </td>
         </tr>
         <tr v-if="tableData.state == 2">
@@ -150,7 +146,7 @@ export default {
           // console.log(res.data.data.tender);
           this.tableData = res.data.data.tender;
           this.count = res.data.data.count
-          console.log(res.data.data.count);
+          console.log(res.data.data);
         }
       })
       .catch(err => {

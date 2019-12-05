@@ -12,7 +12,7 @@
         <li @click="backone"  v-if="index"><img src="/img/index-img/geren.png" class="main-Stick-img" alt=""> 进入会员中心</li>
         <li  v-if="index"><img src="/img/index-img/login.png" class="main-Stick-img" >已经登陆</li>
         <li v-else @click="back"><img src="/img/index-img/login.png" class="main-Stick-img" >请先登录或者注册</li>
-        <li   v-if="index"><img src="/img/index-img/quit.png" class="main-Stick-img" > 退出</li>
+        <li  @click="backtwo" v-if="index"><img src="/img/index-img/quit.png" class="main-Stick-img" > 退出</li>
       </ul>
     </div>
 
@@ -86,6 +86,11 @@ export default {
    back(){
     
        this.$router.replace("/login?"+this.index);
+       
+    },
+     backtwo(){
+    
+       this.$router.replace("/login");
        
     },
     backone(){

@@ -47,8 +47,8 @@
           <input type="text" placeholder="您的称呼" v-model="name">
           <input type="text" placeholder="您的电话" v-model="phone">
           <input type="text" placeholder="所在区域-如：武侯区" v-model="site">
-          <input type="text" placeholder="您的住房面积 ㎡" v-model="area  ">
-          <button type="submit" @click="addCompanyAppointment">申请装修服务</button>
+          <input type="text" placeholder="您的住房面积 ㎡" v-model="area">
+          <button type="submit" @click="addCompanyAppointment()">申请装修服务</button>
         </div>
 
         <div class="original-left-list">

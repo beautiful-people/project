@@ -75,6 +75,7 @@ export default {
           }) // 后台请求地址
           .then(res => {
             console.log("修改成功！", res)
+            alert('密码修改成功')
           })
           .catch(err => {
             console.log(err);

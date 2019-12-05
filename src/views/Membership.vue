@@ -169,16 +169,16 @@
         </div>
       </div>
     </div>
-     <footerr></footerr>
+     <!-- <footerr></footerr> -->
   </div>
 </template>
 
 <script>
-import footerr from "@/components/Footer.vue";
+// import footerr from "@/components/Footer.vue";
 export default {
   name: "membership",
   components: {
-    footerr
+    // footerr
   },
   data: function() {
     return {

@@ -109,7 +109,7 @@
               </div>
             </div>
             <div class="right-main-bottom">
-              <img v-for="(it,i) in imgchild" :src=it.decschemeList[index].decorationimgs[0].imgPath :key="i">
+              <img v-for="(it,i) in imgchild[0].decschemeList" :src="it.decorationimgs[0].imgPath" :key="i">
             </div>
           </div>
         </div>
@@ -255,7 +255,7 @@ export default {
           // caluseState: 0
         })
         .then(res => {
-          console.log("分页成功",res.data.data);
+          console.log("分页成功",res.data.data.merchantsImg);
             this.imags= res.data.data.merchants;
             this.imgchild = res.data.data.merchantsImg
             this.totalPage = res.data.data.totalCount;
