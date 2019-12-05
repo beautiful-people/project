@@ -9,28 +9,12 @@
           <li
             v-for="item in msgs"
             :key="item.id"
-            @click="msgclick(item.id)"
-            :class="{on:msgs_id === item.id}"
+            @click="msgclick(item.msg,item.id)"
+            :kj='item.msg'
+            :class="{on:msgs_id == item.id}"
           >
             <label :for="item.id">
-              <input type="radio" name="msgs" :id="item.id" />
-              {{item.msg}}
-            </label>
-          </li>
-        </ul>
-      </div>
-
-      <div class="clearfix">
-        <ul>
-          <li>户型:</li>
-          <li
-            v-for="item in time"
-            :key="item.id"
-            @click="timeclick(item.id)"
-            :class="{on:time_id === item.id}"
-          >
-            <label :for="item.id">
-              <input type="radio" name="time" :id="item.id" />
+              <input type="radio" name="msgs" :id="item.msg" />
               {{item.msg}}
             </label>
           </li>
@@ -41,13 +25,32 @@
         <ul>
           <li>局部:</li>
           <li
-            v-for="item in type"
+            v-for="item in time"
             :key="item.id"
-            @click="timeclick(item.id)"
-            :class="{on:time_id === item.id}"
+            @click="timeclick(item.msg,item.id)"
+            :hx="item.msg"
+            :class="{on:msgs_id == item.id}"
           >
             <label :for="item.id">
-              <input type="radio" name="time" :id="item.id" />
+              <input type="radio" name="time" :id="item.msg" />
+              {{item.msg}}
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="clearfix">
+        <ul>
+          <li>户型:</li>
+          <li
+            v-for="item in type"
+            :key="item.id"
+            :jb="item.msg"
+            @click="jbclick(item.msg,item.id)"
+            :class="{on:msgs_id == item.id}"
+          >
+            <label :for="item.id">
+              <input type="radio" name="time" :id="item.msg" />
               {{item.msg}}
             </label>
           </li>
@@ -58,13 +61,14 @@
         <ul>
           <li>风格:</li>
           <li
-            v-for="item in time"
+            v-for="item in style"
             :key="item.id"
-            @click="timeclick(item.id)"
-            :class="{on:time_id === item.id}"
+            :fg="item.msg"
+            @click="fgclick(item.msg,item.id)"
+            :class="{on:msgs_id == item.id}"
           >
             <label :for="item.id">
-              <input type="radio" name="time" :id="item.id" />
+              <input type="radio" name="time" :id="item.msg" />
               {{item.msg}}
             </label>
           </li>
@@ -73,7 +77,7 @@
     </div>
 
     <div class="Dec-list">
-      <div class="Dec-list-img">
+      <!-- <div class="Dec-list-img">
         <div class="Dec-img-top">
           <div class="top-list-frame">
             <h1>灯装效果图</h1>
@@ -92,7 +96,7 @@
           </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
       <!-- 瀑布模型 -->
@@ -102,17 +106,19 @@
           <!-- <waterfall-slot v-for="(item,index) in imags" :key="index"> -->
            
 
-        <waterfall :line-gap="300" :watch="items">
+        <!-- <waterfall :line-gap="277" :watch="items">
           <waterfall-slot
             v-for="(item, index) in imags"
             :width="320"
-            :height="400"
+            :height="277"
             :order="index"
             :key="index"
-          >
-          <div class="Dec-buttom-img">
+          > -->
+          <div class="Dec-buttom-img" v-for="(item, index) in imags" :key="index">
+          <!-- <div class="Dec-buttom-img"> -->
 
-            <img :src=item.imgsName alt="">
+            <!-- <img :src=item.imgsName alt=""> -->
+            <img :src=item.imgsName style="width:288px;height:240px;" alt="">
             <div class="Dec-buttom-collect">
               <div class="Dec-collect-left">免费申请报价</div>
               <div class="Dec-collect-right">
@@ -122,7 +128,7 @@
             </div>
             <div class="but-img-span">
               <span>别墅367平欧式风格餐厅吊顶设计图</span>
-              <div class="but-img-like">
+              <!-- <div class="but-img-like">
                 <svg
                   t="1575341943175"
                   class="icon"
@@ -139,13 +145,14 @@
                   />
                 </svg>
                 <span class="icon-span">{{index}}</span>
-              </div>
+              </div> -->
             </div>
+
           </div> 
 
-          </waterfall-slot>
-        </waterfall>
-
+          <!-- </waterfall-slot>Dec-buttom-img -->
+            
+      </div>
       <!-- 底部分页 -->
       <div class="home-paging">
         <el-pagination
@@ -159,7 +166,6 @@
           class="pagination">
         </el-pagination>
       </div>
-      </div>
 
     </div>
   </div>
@@ -167,28 +173,26 @@
 
 <script>
 import index from "@/components/index";
-import Waterfall from 'vue-waterfall/lib/waterfall'
-import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot'
+// import Waterfall from 'vue-waterfall/lib/waterfall'
+// import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot'
 
-/*
- * or use ES5 code (vue-waterfall.min.js) :
- * import { Waterfall, WaterfallSlot } from 'vue-waterfall'
- */
 
 export default {
   name: "invitation",
   components: {
-    index,
-    Waterfall,
-    WaterfallSlot
+    index
+    // Waterfall,
+    // WaterfallSlot
   },
   data() {
     return {
       currentPage: 1,/* 当前页码 */
       totalPage:0,//总页数
-      pageSize:2,//一页三条
-      msgs_id: 1,
+      pageSize:12,//一页三条
+      msgs_id: 0,
       time_id: 0,
+      jb_id:0,
+      fg_id:0,
       msgs: [
         { id: 1, msg: "客厅" },
         { id: 2, msg: "餐厅" },
@@ -221,7 +225,7 @@ export default {
         { id: 23, msg: "田园" },
         { id: 24, msg: "东南亚" }
       ],
-
+      text:'',
       botletop: [
         {
           imgsrc:'//img.zx123.cn/Resources/zx123cn/uploadfile/2019/0329/thumb_288_280_20190329114516_39411.jpg'
@@ -360,54 +364,161 @@ export default {
       ],
 
       imags:[],
-
+      jb:'',
+      fg:'',
+      kj:'',
+      hx:'',
       tables: [],
-      currentPage1: 1,
-      pagesize: 10, // 每页显示三条
-      currpage: 1 // 默认开始页面
+  
     };
   },
 
   // create 打开即运行
   created() {
-    this.handleCurrentChange();
+
+    this.msgs_id = location.search.substr(1)
+  if (location.search.substr(1) >= 1 && location.search.substr(1) <=6) {
+      this.msgs_id = location.search.substr(1)
+      if (location.search.substr(1) == 1) {
+        this.kj = "客厅"
+      } else if (location.search.substr(1) == 2) {
+        this.kj = '餐厅'
+      } else if (location.search.substr(1) == 3) {
+        this.kj = '卧室'
+      } else if (location.search.substr(1) == 4) {
+        this.kj = '厨房'
+      } else if (location.search.substr(1) == 5) {
+        this.kj = '阳台'
+      } else if (location.search.substr(1) == 6) {
+        this.kj = '卫生间'
+      }
+
+      this.text = this.kj
+
+    } else if (location.search.substr(1) >=7 && location.search.substr(1) <= 12) {
+      this.time_id = location.search.substr(1)
+
+  if (location.search.substr(1) == 7) {
+        this.hx = "隔断"
+      } else if (location.search.substr(1) == 8) {
+        this.hx = '吊顶'
+      } else if (location.search.substr(1) == 9) {
+        this.hx = '窗帘'
+      } else if (location.search.substr(1) == 10) {
+        this.hx = '门框'
+      } else if (location.search.substr(1) == 11) {
+        this.hx = '酒柜'
+      } else if (location.search.substr(1) == 12) {
+        this.hx = '背景墙'
+      }
+
+      this.text = this.hx
+
+    } else if (location.search.substr(1) >= 13 && location.search.substr(1) <= 18) {
+      this.jb_id = location.search.substr(1)
+
+       if (location.search.substr(1) == 13) {
+        this.jb = "二居"
+      } else if (location.search.substr(1) == 14) {
+        this.jb = '三居'
+      } else if (location.search.substr(1) == 15) {
+        this.jb = '四居'
+      } else if (location.search.substr(1) == 16) {
+        this.jb = '跃层'
+      } else if (location.search.substr(1) == 17) {
+        this.jb = '复式'
+      } else if (location.search.substr(1) == 18) {
+        this.jb = '小户型'
+      }
+
+      this.text = this.jb
+    } else if (location.search.substr(1) >=19 && location.search.substr(1) <= 24) {
+      this.fg_id = location.search.substr(1)
+
+
+       if (location.search.substr(1) == 19) {
+        this.fg = "中式"
+      } else if (location.search.substr(1) == 20) {
+        this.fg = '欧式'
+      } else if (location.search.substr(1) == 21) {
+        this.fg = '地中海'
+      } else if (location.search.substr(1) == 22) {
+        this.fg = '简约'
+      } else if (location.search.substr(1) == 23) {
+        this.fg = '田园'
+      } else if (location.search.substr(1) == 24) {
+        this.fg = '东南亚'
+      }
+
+      this.text = this.fg
+    }   // this.handleCurrentChange();
+ 
+
+
+ 
+  console.log(location.search.substr(1))
+
+        this.axios
+      .post("/showOne", {
+      styleType:this.text,
+      currentPage:1,
+      pageSize:12
+
+      })
+      .then(res => {
+        // if (res.data.code == 200) {
+          console.log(res.data.data);
+       this.imags = res.data.data.imagsList;
+          this.totalPage = res.data.data.totalCount;
+
+        // }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    
+    console.log(typeof location.search.substr(1))
+  
   },
   methods: {
-    find(){
-      this.axios.post("/showOne",{
-        styleType:"客厅",
-        currentPage: this.currentPage, //当前页
-        pageSize: this.pageSize, //每页显示的条数
-      })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
-      .then(res=>{
-        console.log("请求成功",res);
-        // this.sc= res.data.data.imags;
-        this.imags= res.data.data.imagesList;
-        // this.foterimg= res.data.data.imags2;
-      })
-      .cath(err=>{
-        console.log("请求失败",err);
-      })
-    },
+    // find(){
+    //   this.axios.post("/showOne",{
+    //     styleType:"客厅",
+    //     currentPage: this.currentPage, //当前页
+    //     pageSize: this.pageSize, //每页显示的条数
+    //   })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
+    //   .then(res=>{
+    //     console.log("请求成功",res);
+    //     // this.sc= res.data.data.imags;
+    //     this.imags= res.data.data.imagesList;
+    //     // this.foterimg= res.data.data.imags2;
+    //   })
+    //   .cath(err=>{
+    //     console.log("请求失败",err);
+    //   })
+    // },
 
     handleSizeChange(val) {
       /* 每页多少条数据 */
       console.log(`每页 ${val} 条`);
     },
-    handleCurrentChange() {
+    handleCurrentChange(val) {
       this.axios.post("/showOne", {
-        styleType:"客厅",
-        currentPage: this.currentPage, //当前页
+        styleType:this.text,
+        currentPage: val, //当前页
         pageSize: this.pageSize, //每页显示的条数
         // caluseState: 0
       })
       .then(res => {
-        console.log("分页成功",res);
+        console.log("分页成功",res.data);
+        console.log(val)
 
-          this.imags= res.data.data.decschemes;
-          this.totalPage = res.data.data.totalCount/this.pageSize;
-          this.find();
-          
+          // this.imags= res.data.data.decschemes;
+       this.imags = res.data.data.imagsList;  
+
+          this.totalPage = res.data.data.totalCount;
+          // this.find();
+
       })
       .catch(err => {
         console.log(err);
@@ -417,45 +528,89 @@ export default {
 
 
 
-    msgclick(item) {
-      this.msgs_id = item;
+    msgclick(item,id) { // 空间点击事件
+      this.msgs_id = id;
+      this.text = item;
       this.axios
-        .post("/tender/findAll", {
-          state: this.msgs_id,
-          chooseTime: this.time_id
+        .post("/showOne", {
+           styleType:item,
+      currentPage:this.currentPage,
+      pageSize:this.pageSize
         })
         .then(res => {
-          if (res.data.code == 200) {
-            console.log(res.data.data.tenders);
-            this.tables = res.data.data.tenders;
-          }
+          
+       this.imags = res.data.data.imagsList;
+       this.totalPage = res.data.data.totalCount;
+
+          
         })
         .catch(err => {
           console.log(err);
         });
     },
-    timeclick(item) {
-      this.time_id = item;
-
+    timeclick(item,id) { // 户型的点击事件
+      this.msgs_id = id;
+      this.text = item;
       this.axios
-        .post("/tender/findAll", {
-          state: this.msgs_id,
-          chooseTime: this.time_id
+        .post("/showOne", {
+           styleType:item,
+      currentPage:this.currentPage,
+      pageSize:this.pageSize
         })
         .then(res => {
-          if (res.data.code == 200) {
-            console.log(res.data.data.tenders);
-            this.tables = res.data.data.tenders;
-          }
+       this.imags = res.data.data.imagsList;
+       this.totalPage = res.data.data.totalCount;
+
+          
         })
         .catch(err => {
           console.log(err);
         });
+
     },
     // handleCurrentChange(val) {
     //   // 当前页
     //   this.currpage = val;
     // },
+    jbclick(item,id){// 局部的点击事件
+    this.msgs_id = id
+    this.text = item;
+  this.axios
+        .post("/showOne", {
+           styleType:item,
+       currentPage:this.currentPage,
+      pageSize:this.pageSize
+        })
+        .then(res => {
+       this.imags = res.data.data.imagsList;
+       this.totalPage = res.data.data.totalCount;
+
+          
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    fgclick(item,id){// 风格的点击事件
+    this.msgs_id = id
+    this.text = item;
+      this.axios
+        .post("/showOne", {
+           styleType:item,
+    currentPage:this.currentPage,
+      pageSize:this.pageSize
+        })
+        .then(res => {
+       this.imags = res.data.data.imagsList;
+       this.totalPage = res.data.data.totalCount;
+
+          
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
     fun(id) {
       console.log(id);
       this.axios
@@ -508,12 +663,17 @@ li {
   margin: auto;
   width: 1211px;
   // background: red;
+  // height: 1300px;
   padding-top: 10px;
-
+  overflow: hidden;
   .home-paging{
-    width: 33%;
-    padding-top: 20px;
-    margin: auto;
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+    float: left;
+    // margin: auto;
+    // background: red;
+    position: relative;
     .el-pagination{
       margin: auto;
     }
@@ -617,6 +777,7 @@ li {
     }
     .Dec-buttom-img {
       width: 288px;
+      height: 277px;
       float: left;
       margin-left: 7px;
       margin-right: 7px;
@@ -659,7 +820,8 @@ li {
       }
       .but-img-span {
         height: 37px;
-        background: palegreen;
+        border: solid 1px #eaeaea;
+        // background: palegreen;
         padding-left: 10px;
         padding-right: 10px;
         font-size: 12px;
@@ -669,7 +831,7 @@ li {
           width: 60px;
           height: 27px;
           float: right;
-          background: skyblue;
+          // background: skyblue;
           line-height: 37px;
           margin-top: 10px;
           position: relative;
@@ -690,7 +852,7 @@ li {
 .inv-nav {
   width: 90%;
   max-width: 1200px;
-  height: 150px;
+  height: 120px;
   border: 1px solid #dddddd;
   margin: 0 auto;
   padding: 10px;
@@ -759,8 +921,7 @@ li {
   }
 }
 .pagination{
-  position: absolute;
-  bottom: 20px;
-  right: 40px;
+  text-align: center;
+  margin:40px auto;
 }
 </style>

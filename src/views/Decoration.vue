@@ -8,9 +8,9 @@
         <!-- 顶部分列 -->
         <div class="decor-left-top">
           <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-            <el-menu-item index="1">处理中心 <strong>↓</strong></el-menu-item>
-            <el-menu-item index="2">满意度 <strong>↓</strong></el-menu-item>
-            <el-menu-item index="3">活跃度 <strong>↓</strong></el-menu-item>
+            <el-menu-item index="1">综合排序 <strong>↓</strong></el-menu-item>
+            <!-- <el-menu-item index="2">满意度 <strong>↓</strong></el-menu-item>
+            <el-menu-item index="3">活跃度 <strong>↓</strong></el-menu-item> -->
           </el-menu>
         </div>
 
@@ -24,12 +24,15 @@
                 <img src="http://www.zx123.cn/templates/zx123cs/img_new/tuij.png" alt="">
               </div>
               <!-- 商家LOGO -->
-              <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1118/thumb_168_20191118092539_29884.jpg" alt="">
+              
+              <h2 @click="link(item.merId)">{{item.merName}}</h2>
+              <!-- <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1118/thumb_168_20191118092539_29884.jpg" alt=""> -->
             </div>
               
             <p>
-              <img src="http://www.zx123.cn/templates/zx123cs/img_new/iou23.png" alt="">
-              <span>数据通信 {{item.year}} 年</span>
+              <!-- <img src="http://www.zx123.cn/templates/zx123cs/img_new/iou23.png" alt="">
+              <span>数据通信 {{item.year}} 年</span> -->
+              注册时间： {{getTime(item.userDate)}}
             </p>
             <div class="satisfaction">
               <!-- <svg t="1575378517179" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5846" width="12" height="12"><path d="M512 85.9l110.8 318.7 337.2 6.8-268.8 203.8 97.7 322.9L512 745.4 235.1 938.1l97.7-322.9L64 411.4l337.2-6.8z" p-id="5847" fill="#ffab00"></path></svg>
@@ -44,7 +47,7 @@
                 text-color="#ff9900"
                 score-template="">
               </el-rate>
-              <div>{{item.merReputation}}</div>
+              <!-- <div>{{item.merReputation}}</div> -->
             </div>
             
           </div>
@@ -55,7 +58,7 @@
           <div class="left-main-right">
             <div class="right-main-top">
               <div class="right-top-left">
-                <h3>{{item.merName}}<img src="//www.zx123.cn/templates/zx123cs/img_new/i_zhuans.gif" alt=""></h3>
+                <h3 @click="link(item.merId)">{{item.merName}}<img src="//www.zx123.cn/templates/zx123cs/img_new/i_zhuans.gif" alt=""></h3>
                 <div class="compaskbd">
                   <div class="compaskbd-attestation" :v-if="item.auth=true">
                     <svg t="1575386003590" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6195" width="12" height="12"><path d="M976.571429 296q-5.714286 134.857143-189.714286 372-190.285714 246.285714-321.142857 246.285714-81.142857 0-137.142857-150.285714-25.142857-91.428571-75.428572-275.428571-41.142857-149.714286-89.714286-149.714286-10.285714 0-72.571428 43.428571l-44-56q13.714286-12 61.714286-55.142857T182.857143 205.142857q89.142857-78.857143 137.714286-83.428571 54.285714-5.142857 87.428571 31.714285T454.285714 269.714286q25.142857 164 37.714286 213.142857 31.428571 142.285714 68.571429 142.285714 29.142857 0 88-92 57.714286-92 62.285714-140.571428 7.428571-79.428571-62.285714-79.428572-32.571429 0-69.142858 14.857143 68.571429-224.571429 262.285715-218.285714 143.428571 4.571429 134.857143 186.285714z" p-id="6196" fill="#ffffff"></path></svg>
@@ -71,7 +74,7 @@
                   </div>
                 </div>
 
-                <div class="subscribe">
+                <!-- <div class="subscribe">
                   <div class="subscribe-sc">
                   案例:<span>{{item.works}}</span>套 &nbsp;
                   </div>
@@ -81,10 +84,10 @@
                   <div class="subscribe-sc">
                   访问:<span>{{item.visit}}</span>次 &nbsp;
                   </div>
-                </div>
+                </div> -->
                 <div class="site-top-left">
                   <svg t="1575389032687" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="16007" width="14" height="14"><path d="M716.816 593.728C759.576 544.636 783.5 481.974 783.5 415.5 783.5 265.555 661.945 144 512 144S240.5 265.555 240.5 415.5c0 66.474 23.924 129.136 66.684 178.228a42.751 42.751 0 0 1 2.198 2.742L512 854.269l202.618-257.8a42.751 42.751 0 0 1 2.198-2.741zM160.5 415.5C160.5 221.372 317.872 64 512 64s351.5 157.372 351.5 351.5c0 85.5-30.687 166.35-85.441 229.714l-234.61 298.504c-16.015 20.376-46.883 20.376-62.898 0L245.94 645.214C191.187 581.85 160.5 501 160.5 415.5zM512 563c-81.462 0-147.5-66.038-147.5-147.5S430.538 268 512 268s147.5 66.038 147.5 147.5S593.462 563 512 563z m0-80c37.28 0 67.5-30.22 67.5-67.5S549.28 348 512 348s-67.5 30.22-67.5 67.5S474.72 483 512 483z" p-id="16008" fill="#6d6d6d"></path></svg>
-                  <span>{{item.location}}</span>
+                  <span>{{item.merAddress}}</span>
                 </div>
 
                 <div class="national-top-left">
@@ -105,18 +108,8 @@
                 
               </div>
             </div>
-            <div class="right-main-bottom"> 
-              <!-- :src=item.decschemeList[0].decorationimgs[0].imgPath -->
-              <!-- <img v-for="(isc,uid) in item.children" :key="uid" :src=isc.imgs alt=""> -->
-              <!-- <img  v-for="(isc,uid) in item.decschemeList[0].decorationimgs" :key="uid" :src=isc.decschemeList[0].decorationimgs[0].imgPath > -->
-              <!-- <img  :src=item.decschemeList[0].decorationimgs[index].imgPath > -->
-              <!-- <img v-for="(isc,uid) in item.decschemeList" :key="uid" :src=isc[index].decorationimgs.imgPath alt="">; -->
-              <img v-for="(it,i) in imgchild" :src=it.decschemeList[0].decorationimgs[0].imgPath :key="i">  
-              <!-- <img  :src=item.decschemeList[1].decorationimgs[0].imgPath >  -->
-              <!-- <img  :src=item.decschemeList[2].decorationimgs[0].imgPath >
-              <img  :src=item.decschemeList[3].decorationimgs[0].imgPath >
-              <img  :src=item.decschemeList[4].decorationimgs[0].imgPath >
-              <img  :src=item.decschemeList[5].decorationimgs[0].imgPath > -->
+            <div class="right-main-bottom">
+              <img v-for="(it,i) in imgchild" :src=it.decschemeList[0].decorationimgs[0].imgPath :key="i">
             </div>
           </div>
         </div>
@@ -128,7 +121,8 @@
           :current-page.sync="currentPage"
           :page-size="pageSize"
           layout="prev, pager, next"
-          :total="totalPage">
+          :total="totalPage"
+          class="elpagination">
         </el-pagination>
       </div>
 
@@ -144,7 +138,7 @@
               <input type="text" placeholder="您的电话" v-model="phone">
               <input type="text" placeholder="所在区域-如：武侯区" v-model="site">
               <input type="text" placeholder="您的住房面积 ㎡" v-model="area">
-              <button>立即预约</button>
+              <button  @click="addCompanyAppointment">立即预约</button>
             </form>
           </div>
           
@@ -270,13 +264,76 @@ export default {
   },
 
   methods: {
+    link(id){
+      console.log(id)
+
+      this.$router.push('/original?'+id);
+    }
+    ,
+    // 添加预约
+    addCompanyAppointment() {
+      console.log(this.name)
+       this.axios.post("/addCompanyAppointment",{
+        name: this.name,
+        number:this.phone,
+        areaName:this.site,
+        decorateArea:this.area,
+      })
+      .then(res=>{
+        console.log("请求成功",res);
+        this.findCompanyAppointment();
+      })
+      .cath(err=>{
+        console.log("请求失败",err);
+      })
+    },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
     onSubmit() {
       console.log('submit!');
     },
+    getTime(time) {
+      /**
+       * 时间对象的格式化;
+       */
+      Date.prototype.format = function(format) {
+        /*
+         * eg:format="YYYY-MM-dd hh:mm:ss";
+         */
+        var o = {
+          "M+": this.getMonth() + 1, // month
+          "d+": this.getDate(), // day
+          "h+": this.getHours(), // hour
+          "m+": this.getMinutes(), // minute
+          "s+": this.getSeconds(), // second
+          "q+": Math.floor((this.getMonth() + 3) / 3), // quarter
+          S: this.getMilliseconds() // millisecond
+        };
+        if (/(y+)/.test(format)) {
+          format = format.replace(
+            RegExp.$1,
+            (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+          );
+        }
+        for (var k in o) {
+          if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(
+              RegExp.$1,
+              RegExp.$1.length == 1
+                ? o[k]
+                : ("00" + o[k]).substr(("" + o[k]).length)
+            );
+          }
+        }
+        return format;
+      };
 
+      var jsDate = new Date(time).toLocaleDateString();
+      var date = jsDate.split("/");
+      var times = date.join("-");
+      return times;
+    },
 
     // find(){
     //   this.axios.post("/findMerchant",{
@@ -405,9 +462,10 @@ export default {
     }
     .decor-left{
       width: 945px;
-      height:900px;
+      // height:900px;
       // background: pink;
       float: left;
+      position: relative;
       .decor-left-top{
         width: 943px;
         height: 61px;
@@ -432,14 +490,16 @@ export default {
           width: 215px;
           height: 160px;
           float: left;
+          cursor: pointer;
           // background: springgreen;
           // border-left: solid 1px red;
           .satisfaction{
-            width: 100%;
+            width: 192px;
             height: 30px;
-            margin: auto;
+            margin:5px auto;
             text-align: center;
-            background: #3cdec1;
+            // background: #3cdec1;
+            float: left;
             span{
               vertical-align: middle;
               font-size: 12px;
@@ -448,11 +508,13 @@ export default {
             }
           }
           p{
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding-top: 15px;
+            padding-bottom: 5px;
             text-align: center;
             margin: auto;
             position: relative;
+            color: #ff8c48;
+            font-size: 12px;
             padding-right: 25px;
             span{
               position: absolute;
@@ -467,6 +529,8 @@ export default {
             background: #fafafa;
             border: solid 1px skyblue;
             position: relative;
+            line-height: 89px;
+            text-align: center;
             img{
               width: 168px;
               height: 67px;
@@ -504,10 +568,11 @@ export default {
               width: 545px;
               height: 100%;
               float: left;
+              // cursor: pointer;
               .national-top-left{
                 width: 100%;
                 height: 18px;
-                margin-top: 7px;
+                margin-top: 15px;
                 // background: #3cdec1;
                 span{
                   height: 18px;
@@ -526,6 +591,7 @@ export default {
               .site-top-left{
                 width: 100%;
                 height: 18px;
+                margin-top: 15px;
                 // background: #ff8c48;
                 position: relative;
                 color: #6d6d6d;
@@ -543,7 +609,7 @@ export default {
               .subscribe{
                 width: 100%;
                 height: 18px;
-                margin-top: 7px;
+                margin-top: 15px;
                 // background: #ff8c48;
                 font-size: 10px;
                 .subscribe-sc{
@@ -561,6 +627,7 @@ export default {
                 overflow: hidden;
                 line-height: 30px;
                 position: relative;
+                cursor: pointer;
                 img{
                   width: 20px;
                   height: 20px;
@@ -706,4 +773,12 @@ export default {
       }
     }
   }
+.elpagination{
+  
+  text-align: center;
+  margin:20px auto;
+}
+
+
+
 </style>
