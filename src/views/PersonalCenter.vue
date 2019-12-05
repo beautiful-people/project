@@ -2,7 +2,7 @@
   <div class="box">
     <index></index>
 
-    <el-page-header @back="goBack" content="详情页面"></el-page-header>
+    <!-- <el-page-header @back="goBack" content="详情页面"></el-page-header> -->
     <el-container>
       
       <!-- 侧边导航 -->
