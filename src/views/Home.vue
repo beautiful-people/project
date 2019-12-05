@@ -14,13 +14,8 @@
               <span class="left-home">HOME</span>
             </div>
             <div class="list-right">
-              <span class="right-duank">客厅</span>
-              <span class="right-duank">餐厅</span>
-              <span class="right-duank">卧室</span>
-              <br />
-              <span class="right-duank">厨房</span>
-              <span class="right-duank">阳台</span>
-              <span class="right-duank">卫生间</span>
+              <span class="right-duank" v-for="item in msgs" @click="locat(item.id,item.msg)" :key="item.id">{{item.msg}}/</span>
+            
             </div>
           </div>
           <!-- 列表一 -->
@@ -31,13 +26,8 @@
               <span class="left-home">LAYOUT</span>
             </div>
             <div class="list-right">
-              <span class="right-duank">隔断</span>
-              <span class="right-duank">吊顶</span>
-              <span class="right-duank">窗帘</span>
-              <br />
-              <span class="right-duank">门框</span>
-              <span class="right-duank">酒柜</span>
-              <span class="right-duank">背景墙</span>
+              <span class="right-duank" v-for="item in time" :key="item.id" @click="locat(item.id,item.msg)">{{item.msg}}/</span>
+              
             </div>
           </div>
           <!-- 列表一 -->
@@ -48,13 +38,8 @@
               <span class="left-home">TYPE</span>
             </div>
             <div class="list-right">
-              <span class="right-duank">二居</span>
-              <span class="right-duank">三居</span>
-              <span class="right-duank">四居</span>
-              <br />
-              <span class="right-duank">跃层</span>
-              <span class="right-duank">复式</span>
-              <span class="right-duank">小户型</span>
+                     <span class="right-duank" v-for="item in type" :key="item.id" @click="locat(item.id,item.msg)">{{item.msg}}/</span>
+
             </div>
           </div>
           <!-- 列表一 -->
@@ -65,13 +50,8 @@
               <span class="left-home">STYLE</span>
             </div>
             <div class="list-right">
-              <span class="right-duank">中式</span>
-              <span class="right-duank">欧式</span>
-              <span class="right-duank">地中海</span>
-              <br />
-              <span class="right-duank">简约</span>
-              <span class="right-duank">田园</span>
-              <span class="right-duank">东南亚</span>
+                          <span class="right-duank" v-for="item in style" :key="item.id" @click="locat(item.id,item.msg)">{{item.msg}}/</span>
+
             </div>
           </div>
         </div>
@@ -166,8 +146,12 @@
         </div>
       </div>
     </div>
+    
+  
+    
   </div>
-  <footerr></footerr>
+  
+    <div class="home-footer"><footerr></footerr></div>
   </div>
   
 </template>
@@ -188,7 +172,40 @@ export default {
       msg:sessionStorage.getItem("name"),
       list:{},
       mainimg:{},
-      foterimg:{}
+      foterimg:{},
+       msgs: [
+        { id: 1, msg: "客厅" },
+        { id: 2, msg: "餐厅" },
+        { id: 3, msg: "卧室" },
+        { id: 4, msg: "厨房" },
+        { id: 5, msg: "阳台" },
+        { id: 6, msg: "卫生间" }
+      ],
+      time: [
+        { id: 7, msg: "隔断" },
+        { id: 8, msg: "吊顶" },
+        { id: 9, msg: "窗帘" },
+        { id: 10, msg: "门框" },
+        { id: 11, msg: "酒柜" },
+        { id: 12, msg: "背景墙" }
+      ],
+      type: [
+        { id: 13, msg: "二居" },
+        { id: 14, msg: "三居" },
+        { id: 15, msg: "四居" },
+        { id: 16, msg: "跃层" },
+        { id: 17, msg: "复式" },
+        { id: 18, msg: "小户型" }
+      ],
+      style: [
+        { id: 19, msg: "中式" },
+        { id: 20, msg: "欧式" },
+        { id: 21, msg: "地中海" },
+        { id: 22, msg: "简约" },
+        { id: 23, msg: "田园" },
+        { id: 24, msg: "东南亚" }
+      ],
+
     }
   },
   created() {
@@ -208,6 +225,14 @@ export default {
 
   },
   methods:{
+    locat(id,msg) {
+      console.log(msg)
+
+        this.$router.push("/effectpicture?" + id);
+
+   
+    }
+
     // qinqiu1(){
     //   this.axios.post("/findUser")//在括号中，需要请求数据需要在("/",{})括号中需要的请求。
     //   .then(res=>{
@@ -239,12 +264,14 @@ export default {
 
 .home{
   text-align: center;
+  // overflow: hidden;
 }
 
 .home-householdstyle{
     width: 1200px;
     height: 600px;
     padding-top: 230px;
+    
     margin: auto;
     
     .household-list{
@@ -437,11 +464,22 @@ export default {
 
 
 //最顶部
+.home-footer{
+    // position: fixed;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    // height: 100px;
+    bottom: -1942px;
+  }
 .home {
   width: 100%;
   height: 448px;
   margin-top: -10px;
   background: #e3dfe0;
+  position: relative;
+  // overflow: hidden;
+  
   .home-main {
     width: 1200px;
     height: 448px;

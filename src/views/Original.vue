@@ -2,39 +2,43 @@
   <div class="orig">
     <index></index>
     <!-- 两列布局 -->
-    <div class="original-max">
+    <div class="original-max" v-for="(item,index) in rightlist" :key="index">
       <!-- 左侧 -->
       <div class="original-left">
         <div class="original-left-tenant">
           <div class="left-tenant-top">
-            <img alt="北京东易日盛装饰" src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1118/thumb_168_20191118092539_29884.jpg">
+            <h1>{{item.merName}}</h1>
+            <!-- <img :alt="item.merName" src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1118/thumb_168_20191118092539_29884.jpg"> -->
           </div>
           <div class="left-tenant-main">
-            <div class="tenant-main-recommend">荐</div>
-            <div class="tenant-main-card">证</div>
-            <div class="tenant-main-danger">险</div>
-            <strong>北京东易日盛装饰<img src="//www.zx123.cn/templates/zx123cs/img_new/i_zhuans.gif" alt=""></strong>
+            <div>
+              <div class="tenant-main-recommend">荐</div>
+              <div class="tenant-main-card">证</div>
+              <div class="tenant-main-danger">险</div>
+              <strong>{{item.merName}}<img src="//www.zx123.cn/templates/zx123cs/img_new/i_zhuans.gif" alt=""></strong>
+            </div>
           </div>
 
           <p>
-            <img src="http://www.zx123.cn/templates/zx123cs/img_new/iou23.png" alt=""> 
-            <strong>装信通1年</strong>
+            <!-- <img src="http://www.zx123.cn/templates/zx123cs/img_new/iou23.png" alt=""> 
+            <strong>装信通1年</strong> -->
+            注册时间： {{getTime(item.userDate)}}
           </p>
 
           <div class="left-tenant-number">
-            <div class="left-tenant-content">文章:<span>22</span>篇</div> 
-            <div class="left-tenant-content">案例:<span>41</span>套</div> 
-            <div class="left-tenant-content">工地:<span>9</span>个</div> 
-            <div class="left-tenant-content">设计师:<span>8</span>位</div>
+            <!-- <div class="left-tenant-content">文章:<span>22</span>篇</div>  -->
+            <div class="left-tenant-content">案例:<span>41</span>套 工地:<span>9</span>个</div> 
+            <!-- <div class="left-tenant-content">工地:<span>9</span>个</div>  -->
+            <!-- <div class="left-tenant-content">设计师:<span>8</span>位</div> -->
           </div>
           
           <div class="left-tenant-phone">
             <svg t="1575405564361" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17132" width="14" height="14"><path d="M912 743.8c0 10.3-1.9 23.6-5.7 40-3.8 16.5-7.8 29.4-11.9 38.9-8 19-31.1 39-69.4 60.2-35.5 19.3-70.7 28.9-105.7 28.9-10.3 0-20.4-0.6-30.1-2.1-9.8-1.3-20.8-3.7-32.6-7.1-11.9-3.4-20.8-6.2-26.7-8.2-5.8-2.1-16.4-6.1-31.6-11.6-15.1-5.7-24.4-9.1-27.8-10.3-37.1-13.3-70.3-28.9-99.4-47.2-48.2-29.8-98.1-70.9-150-122.7-51.8-51.8-92.8-102-122.7-150-18.2-29.1-34-62.3-47.2-99.4-1.2-3.4-4.5-12.7-10.3-27.8s-9.6-25.7-11.6-31.6c-2.1-5.8-4.7-14.8-8.2-26.7-3.4-11.9-5.7-22.8-7.1-32.6s-2.1-19.9-2.1-30.1c0-34.9 9.7-70.1 28.9-105.7 21.2-38.2 41.2-61.4 60.2-69.4 9.5-4.1 22.4-8.1 38.9-11.9 16.5-3.8 29.8-5.7 40-5.7 5.2 0 9.4 0.6 11.9 1.6 6.9 2.3 16.8 16.7 30.1 43.2 4.1 7.2 9.8 17.4 17.1 30.8 7.2 13.3 13.9 25.3 19.9 36.1 6.2 10.8 11.9 20.9 17.5 30.4 1.2 1.5 4.4 6.3 10 14.2 5.5 8 9.6 14.7 12.1 20.3 2.6 5.5 3.9 10.9 3.9 16.3 0 7.6-5.4 17.1-16.3 28.4-10.8 11.3-22.6 21.8-35.3 31.4-12.7 9.5-24.4 19.5-35.3 30.1-10.8 10.6-16.3 19.3-16.3 26.1 0 3.4 0.9 7.7 2.9 12.8 1.9 5.1 3.4 9 4.7 11.6 1.3 2.6 3.9 7.2 8 13.6 3.9 6.5 6.2 10.1 6.6 10.8 28.7 51.9 61.7 96.4 98.8 133.5 37.1 37.1 81.6 70.1 133.5 98.8 0.7 0.3 4.2 2.5 10.8 6.6 6.5 3.9 11 6.6 13.6 8 2.6 1.3 6.6 3 11.6 4.7 5.1 1.9 9.4 2.9 12.8 2.9 6.9 0 15.5-5.4 26.1-16.3 10.6-10.8 20.7-22.6 30.1-35.3 9.5-12.7 19.9-24.4 31.4-35.3 11.5-10.9 20.8-16.3 28.4-16.3 5.2 0 10.8 1.3 16.3 3.9s12.1 6.7 20.3 12.1c8 5.5 12.7 8.8 14.2 10 9.5 5.7 19.7 11.6 30.4 17.5 10.8 6.2 22.8 12.7 36.1 19.9 13.3 7.2 23.6 12.9 30.8 17.1 26.5 13.3 40.9 23.3 43.2 30.1 1.6 3.2 2.2 7.3 2.2 12.5z" p-id="17133" fill="#f94224"></path></svg>
-            <strong> 17150038158 东易日盛</strong>
+            <strong> {{item.merPhone}} {{item.merName}}</strong>
 
             <div class="left-tenant-site">
               <svg t="1575405816190" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="18127" width="12" height="12"><path d="M512 959.84c-8.77 0-17.17-3.55-23.27-9.85-3.34-3.44-82.64-85.5-163.26-190.93-47.72-62.4-85.85-119.97-113.34-171.09-36.41-67.72-54.11-123.28-54.11-169.85 0-47.77 9.36-94.13 27.83-137.79 17.83-42.15 43.35-80.01 75.85-112.5 32.5-32.5 70.35-58.02 112.5-75.85 43.67-18.46 90.03-27.82 137.8-27.82s94.13 9.36 137.79 27.83c42.16 17.83 80.01 43.35 112.51 75.85 32.5 32.5 58.02 70.35 75.85 112.5 18.47 43.66 27.83 90.02 27.83 137.79 0 46.57-17.7 102.13-54.11 169.85-27.49 51.12-65.62 108.69-113.34 171.09C617.91 864.49 538.61 946.56 535.27 950a32.436 32.436 0 0 1-23.27 9.84z m0-830.87c-159.44 0-289.16 129.72-289.16 289.16 0 35.04 15.56 81.78 46.24 138.9 25.79 48.02 61.96 102.59 107.5 162.18 52.7 68.97 105.96 128.81 135.41 160.84 29.45-32.02 82.71-91.87 135.41-160.84 45.54-59.59 81.71-114.15 107.5-162.18 30.69-57.13 46.24-103.86 46.24-138.9 0.02-159.44-129.7-289.16-289.14-289.16z" p-id="18128" fill="#f94224"></path><path d="M512 570.98c-79.74 0-144.61-64.87-144.61-144.61S432.26 281.75 512 281.75c79.74 0 144.61 64.87 144.61 144.61S591.74 570.98 512 570.98z m0-224.41c-44 0-79.8 35.8-79.8 79.8s35.8 79.8 79.8 79.8 79.8-35.8 79.8-79.8-35.8-79.8-79.8-79.8z" p-id="18129" fill="#f94224"></path></svg>
-              <span>北京市朝阳区酒仙桥北路10号院电子城IT产业园</span>
+              <span>{{item.merServeArea}}</span>
             </div>
           </div>
         </div>
@@ -60,7 +64,7 @@
       <!-- 右侧 -->
       <div class="original-right">
         <div class="original-right-top">
-          <div class="shuxian"></div> <strong class="list-name-top">北京东易日盛装饰原创案例</strong>
+          <div class="shuxian"></div> <strong class="list-name-top">{{item.merName}}</strong>
         </div>
         
         <div class="original-right-bottom" >
@@ -149,6 +153,7 @@ export default {
   },
   data(){
     return{
+      merId:'',
       datatime:'',
       content:'',
       phonenumber:'',
@@ -163,32 +168,45 @@ export default {
       name: '',
       phone:'',
       site:'',
-      area:''
-
+      area:'',
+      rightlist:''
     }
   },
   
   created() {
+    
+    this.merId= location.search.substr(1)
     // this.findCompanyAppointment();
     // this.findDecsheme();
     this.axios
-        .post("/findDecscheme", {
-          merId:1,
-          currentPage: this.currentPage, //当前页
-          pageSize: this.pageSize, //每页显示的条数
-          // caluseState: 0
-        })
-        .then(res => {
-          console.log("分页成功",res.data);
-            this.lists= res.data.data.decschemes;
-            this.totalPage = res.data.data.totalCount;
-        this.findCompanyAppointment();
-        
-          // }
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      .post("/findDecscheme", {
+        merId:this.merId,
+        currentPage: this.currentPage, //当前页
+        pageSize: this.pageSize, //每页显示的条数
+        // caluseState: 0
+      })
+      .then(res => {
+        console.log("分页成功",res.data);
+          this.lists= res.data.data.decschemes;
+          this.totalPage = res.data.data.totalCount;
+      this.findCompanyAppointment();
+      
+        // }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    this.axios.post("/findMerchants",{
+      merId:this.merId,
+    })
+    .then(res => {
+      console.log("右侧列表",res.data.data.merchants1);
+      this.rightlist = res.data.data.merchants1;
+    })
+    .catch(err => {
+      console.log(err);
+    });
   },
 
   methods:{
@@ -293,7 +311,7 @@ export default {
           liuYanDate:new Date(),
           liuYanContext:this.content, //用户留言内容
           liuYanScore:this.grade, //用户评分
-          merId:1
+          merId:this.merId
         })
         .then(res => {
           console.log("留言成功",res);
@@ -313,7 +331,7 @@ export default {
     commentDesc() {
       this.axios
         .post("/findLiuYan", {
-          merId:1, // merId需要动态传参商家ID
+          merId:this.merId, // merId需要动态传参商家ID
         })
         .then(res => {
           console.log("分saadssss",res);
@@ -334,7 +352,7 @@ export default {
       /* 获取当前页码 */
       this.axios
         .post("/findDecscheme", {
-          merId:1,
+          merId:this.merId,
           currentPage: this.currentPage, //当前页
           pageSize: this.pageSize, //每页显示的条数
           // caluseState: 0
@@ -382,7 +400,7 @@ li {
       .original-left-list{
         margin-top: 10px;
         width: 288px;
-        height: 218px;
+        height: 230px;
         padding: 15px;
         border: solid 1px slategrey;
         border-radius: 3px;
@@ -423,7 +441,8 @@ li {
           height: 40px;
           padding: 10px;
           background: #949391;
-          color: white;
+          color: #ffffff;
+          background: #dd6e24;
           border-radius: 5px;
           border: 0;
         }
@@ -436,14 +455,14 @@ li {
       }
       .original-left-tenant{
         width: 288px;
-        height: 304px;
+        height: 275px;
         padding: 15px;
         border: solid 1px slategrey;
         border-radius: 3px;
         background: rgb(255, 255, 255);
         .left-tenant-phone{
           width: 100%;
-          height: 82px;
+          height: 62px;
           margin-top: 10px;
           margin-bottom: 10px;
           // background: #52e2ef;
@@ -460,12 +479,14 @@ li {
           }
         }
         p{
+          color: #ff8c48;
+          font-size: 16px;
           padding-top: 10px;
           padding-bottom: 10px;
           text-align: center;
           margin: auto;
           position: relative;
-          padding-right: 25px;
+          // padding-right: 25px;
           strong{
             position: absolute;
             top:16px;
@@ -475,7 +496,7 @@ li {
           }
         }
         .left-tenant-number{
-          // width: 100%;
+          width: 100%;
           margin: auto;
           height: 40px;
           // background: #5fcfa1;
@@ -484,8 +505,11 @@ li {
           text-align: center;
           border-bottom:1px dashed rgb(110, 110, 110);
           .left-tenant-content{
-            margin-left: 10px;
-            margin-right:7px;
+            width: 100%;
+            text-align: center;
+            // margin-left: 50px;
+            // margin-right:7px;
+            text-align: center;
             float: left;
             span{
               color: #ff8c48;
@@ -493,17 +517,21 @@ li {
           }
         }
         .left-tenant-main{
-          width: 288px;
+          // width: 288px;
           height: 42px;
           // background: aquamarine;
           text-align: center;
+          margin: auto;
           line-height: 42px;
           font-size: 14px;
           vertical-align: middle;
           position: relative;
-          .tenant-main-danger{
-            color: rgb(255, 255, 255);
-            background: #52e2ef;
+          div{
+            // background: red;
+            height: 42px;
+            .tenant-main-danger{
+              color: rgb(255, 255, 255);
+              background: #52e2ef;
               float: left;
               margin-left: 5px;
               width: 20px;
@@ -511,6 +539,7 @@ li {
               line-height: 20px;
               margin-top: 11px;
               font-size: 12px;
+          }
           }
           .tenant-main-card{
             color: rgb(255, 255, 255);
@@ -527,7 +556,7 @@ li {
             color: #ffffff;
               background: #5fcfa1;
               float: left;
-              margin-left: 30px;
+              margin-left: 62px;
               width: 20px;
               height: 20px;
               line-height: 20px;
@@ -551,6 +580,8 @@ li {
           height: 85px;
           background: #fcfcfc;
           border-radius: 5px;
+          line-height: 85px;
+          text-align: center;
           img{
             margin: 7.5px 60px;
           }
