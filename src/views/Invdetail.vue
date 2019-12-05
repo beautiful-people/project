@@ -97,6 +97,7 @@
         </div>
       </el-dialog>
     </div>
+    <footerr></footerr>
   </div>
 </template>
 
@@ -104,6 +105,7 @@
 <script>
 
 import index from '@/components/index'
+import footerr from '@/components/Footer'
 
 export default {
   name: "invdetail",
@@ -128,7 +130,7 @@ export default {
     };
   },
   components:{
-    index
+    index,footerr
   },
   created() {
     this.axios

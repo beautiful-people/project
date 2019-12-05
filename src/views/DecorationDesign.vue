@@ -125,11 +125,13 @@
       background
       layout="prev, pager, next"
     ></el-pagination>
+    <footerr></footerr>
   </div>
 </template>
 
 <script>
 import index from "@/components/index";
+import footerr from '@/components/Footer'
 
 export default {
   name: "decorationDesign",
@@ -138,7 +140,7 @@ export default {
     return {
       pagesize: 4, // 每页显示三条
       currpage: 1, // 默认开始页面
-      totalCount: 10, // 总页数
+      totalCount: 0, // 总页数
 
       h_id: 0,
       houseType: [
@@ -191,7 +193,8 @@ export default {
     };
   },
   components: {
-    index
+    index,
+    footerr
   },
   created() {
     this.axios
@@ -379,7 +382,7 @@ export default {
 }
 .decorationdesign {
   // width: 1366px;
-  height: 1800px;
+  // height: 1800px;
   margin: 0 auto;
 
   // background: yellow;

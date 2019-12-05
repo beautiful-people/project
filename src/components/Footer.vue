@@ -53,7 +53,7 @@ export default {
   background: black;
   box-sizing: border-box;
   line-height: 75px;
-  margin-top: 2400px;
+  margin-top: 20px;  
   flex: 1;
 }
 .footer ul{
