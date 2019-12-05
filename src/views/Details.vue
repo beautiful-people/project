@@ -6,6 +6,13 @@
         <p>在线工地</p>
         <el-button type="text" @click="dialogFormVisible = true">上传图片</el-button>
         <el-dialog title="上传图片" :visible.sync="dialogFormVisible">
+          <div>
+            <span>请选择上传样式：</span>
+            <el-select v-model="styleValue" placeholder="请选择">
+                <el-option v-for="(item,index) in styleList" :key="index" :label="item" :value="item">
+                </el-option>
+            </el-select>
+        </div>
           <form>
             <el-upload
               class="upload-demo"
@@ -53,7 +60,7 @@
         <p class="pe">中建国际城9号楼3单元在施工地</p>
         <el-steps
           :space="200"
-          :active="Number(ListTen.onlinesites.length)"
+          :active="ListTen.onlinesites.length"
           finish-status="success"
           class="el"
         >
@@ -65,35 +72,21 @@
           <el-step title="安装阶段"></el-step>
           <el-step title="验收完成"></el-step>
         </el-steps>
-         <div class="det-cont">
+        <div class="det-cont clear">
           <div class="detailed-cont">
-            <div class="detailed-cont-c">开门大吉</div>
-            <img :src="ListTen.onlinesites[0].caluseImg" alt />
-          </div>
-          <div class="detailed-cont">
-            <div class="detailed-cont-c">水电改造</div>
-            <img :src="ListTen.onlinesites[1].caluseImg" alt />
-          </div>
-          <div class="detailed-cont">
-            <div class="detailed-cont-c">泥瓦阶段</div>
-            <img :src="ListTen.onlinesites[2].caluseImg" alt />
-          </div>
-          <div class="detailed-cont">
-            <div class="detailed-cont-c">木工阶段</div>
-            <img :src="ListTen.onlinesites[3].caluseImg" alt />
-          </div>
-          <div class="detailed-cont">
-            <div class="detailed-cont-c">油漆阶段</div>
-            <img :src="ListTen.onlinesites[4].caluseImg" alt />
-          </div>
-          <div class="detailed-cont">
-            <div class="detailed-cont-c">油漆阶段</div>
-            <img :src="ListTen.onlinesites[5].caluseImg" alt />
+            <div
+              class="detailed-cont-c"
+              v-for="(item,index) in ListTen.onlinesites"
+              :key="index"
+            >开门大吉
+            <img :src="item.caluseImg" alt />
+            </div>
+            
           </div>
         </div>
-    </div>
       </div>
-      
+    </div>
+
     <!-- <footerr></footerr> -->
   </div>
 </template>
@@ -111,7 +104,9 @@ export default {
       dialogTableVisible: false,
       dialogFormVisible: false,
       fileList: [], //上传图片的
-      photo: "" //选取图片时存储的地方
+      photo: "", //选取图片时存储的地方
+      styleValue:0,
+     styleList:[1,2,3,4,5,6,7]
     };
   },
   components: {
@@ -140,6 +135,7 @@ export default {
           console.log(res.data);
           if (res.data.code == 200) {
             this.ListTen = res.data.data.tender;
+            console.log(this.ListTen.onlinesites[0].caluseImg);
           }
         })
         .catch(err => {
@@ -162,7 +158,7 @@ export default {
     startUpload() {
       const formData = new FormData();
       formData.append("tenderId", this.tenderIds);
-      formData.append("caluseState", 6);
+      formData.append("caluseState", this.styleValue);
       formData.append("photo", this.photo);
       this.axios
         .post("/uploadState", formData)
@@ -184,11 +180,11 @@ export default {
       console.log(file);
     },
     open() {
-        this.$message({
-          message: '上传成功',
-          type: 'success'
-        });
-      },
+      this.$message({
+        message: "上传成功",
+        type: "success"
+      });
+    }
   }
 };
 </script>
@@ -274,15 +270,18 @@ export default {
 }
 .detailed-cont {
   width: 100%;
-  height: 150px;
+  height: auto;
   padding-top: 20px;
   padding-bottom: 30px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid red;
 
   img {
+    margin-left: 100px;
     float: left;
-    width: 300px;
-    height: 150px;
+    width: 150px;
+    height: 120px;
+    margin-top: -120px;
+    vertical-align: middle;
   }
 }
 .detailed-cont-c {
