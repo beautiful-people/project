@@ -150,8 +150,13 @@
       <div class="home-paging">
         <el-pagination
           background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page.sync="currentPage"
+          :page-size="pageSize"
           layout="prev, pager, next"
-          :total="100">
+          :total="totalPage"
+          class="pagination">
         </el-pagination>
       </div>
       </div>
@@ -179,6 +184,9 @@ export default {
   },
   data() {
     return {
+      currentPage: 1,/* 当前页码 */
+      totalPage:0,//总页数
+      pageSize:2,//一页三条
       msgs_id: 1,
       time_id: 0,
       msgs: [
@@ -360,23 +368,17 @@ export default {
     };
   },
 
-
-  // data:function(){
-  //   return {
-  //     msg:sessionStorage.getItem("name"),
-  //     list:{},
-  //     mainimg:{},
-  //     foterimg:{}
-  //   }
-  // },
-
   // create 打开即运行
   created() {
-    this.axios.post("/showOne",{
-      styleType:"客厅",
-      pageSize:20,
-      currentPage:1
-    })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
+    this.handleCurrentChange();
+  },
+  methods: {
+    find(){
+      this.axios.post("/showOne",{
+        styleType:"客厅",
+        currentPage: this.currentPage, //当前页
+        pageSize: this.pageSize, //每页显示的条数
+      })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
       .then(res=>{
         console.log("请求成功",res);
         // this.sc= res.data.data.imags;
@@ -386,39 +388,35 @@ export default {
       .cath(err=>{
         console.log("请求失败",err);
       })
+    },
+
+    handleSizeChange(val) {
+      /* 每页多少条数据 */
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange() {
+      this.axios.post("/showOne", {
+        styleType:"客厅",
+        currentPage: this.currentPage, //当前页
+        pageSize: this.pageSize, //每页显示的条数
+        // caluseState: 0
+      })
+      .then(res => {
+        console.log("分页成功",res);
+
+          this.imags= res.data.data.decschemes;
+          this.totalPage = res.data.data.totalCount/this.pageSize;
+          this.find();
+          
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    },
 
 
-    // this.axios
-    //   .post("/tender/findAll", {
-    //     state: this.msgs_id,
-    //     chooseTime: this.time_id
-    //   })
-    //   .then(res => {
-    //     if (res.data.code == 200) {
-    //       console.log(res.data.data.tenders);
-    //       this.tables = res.data.data.tenders;
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
 
 
-      // imgs(i) {
-      //   var img = document.getElementsByClassName("imges")
-      // }
-  },
-  
-  // computed: {
-  //   inv_tableData() {
-  //     return this.$store.state.invitation.inv_tableData;
-  //   }
-  // },
-  // components: {
-    
-  // },
-  //方法
-  methods: {
     msgclick(item) {
       this.msgs_id = item;
       this.axios
@@ -454,14 +452,10 @@ export default {
           console.log(err);
         });
     },
-    handleSizeChange(val) {
-      // 分页-每页条数
-      this.pagesize = val;
-    },
-    handleCurrentChange(val) {
-      // 当前页
-      this.currpage = val;
-    },
+    // handleCurrentChange(val) {
+    //   // 当前页
+    //   this.currpage = val;
+    // },
     fun(id) {
       console.log(id);
       this.axios
@@ -476,7 +470,7 @@ export default {
         .catch(err => {
           console.log(err);
         });
-      this.$router.replace("/invitation/invdetail");
+      this.$router.replace("/invitation/invdetail"+id);
     }
   }
 };
@@ -763,5 +757,10 @@ li {
     bottom: 20px;
     width: 100%;
   }
+}
+.pagination{
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
 }
 </style>

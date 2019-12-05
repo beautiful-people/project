@@ -38,14 +38,14 @@
       </el-form-item>
       <el-form-item label="户型结构" prop="familyStructure">
         <el-select v-model="ruleForm.familyStructure" placeholder="未选择" style="width: 202px;">
-          <el-option label="一居室" value="oneBedroom"></el-option>
-          <el-option label="两居室" value="twoBedrooms"></el-option>
-          <el-option label="三居室" value="threeBedrooms"></el-option>
-          <el-option label="四居室" value="fourBedrooms"></el-option>
-          <el-option label="复式" value="compound"></el-option>
-          <el-option label="别墅" value="villa"></el-option>
-          <el-option label="跃层" value="leapLayer"></el-option>
-          <el-option label="其他结构" value="otherStructures"></el-option>
+          <el-option label="一居室" value="一居室"></el-option>
+          <el-option label="两居室" value="两居室"></el-option>
+          <el-option label="三居室" value="三居室"></el-option>
+          <el-option label="四居室" value="四居室"></el-option>
+          <el-option label="复式" value="复式"></el-option>
+          <el-option label="别墅" value="别墅"></el-option>
+          <el-option label="跃层" value="跃层"></el-option>
+          <el-option label="其他结构" value="其他结构"></el-option>
         </el-select>
       </el-form-item>
 
@@ -62,11 +62,11 @@
 
       <el-form-item label="房屋现状" prop="housingSituation">
         <el-select v-model="ruleForm.housingSituation" placeholder="未选择" style="width: 202px;">
-          <el-option label="未买房" value="weimai"></el-option>
-          <el-option label="未交房" value="weijiao"></el-option>
-          <el-option label="正准备装修" value="zhunbei"></el-option>
-          <el-option label="已定好装修公司" value="dinghao"></el-option>
-          <el-option label="已开始装修" value="kaishi"></el-option>
+          <el-option label="未买房" value="未买房"></el-option>
+          <el-option label="未交房" value="未交房"></el-option>
+          <el-option label="正准备装修" value="正准备装修"></el-option>
+          <el-option label="已定好装修公司" value="已定好装修公司"></el-option>
+          <el-option label="已开始装修" value="已开始装修"></el-option>
         </el-select>
       </el-form-item>
 
@@ -136,7 +136,7 @@ export default {
       rules: {
         linkMan: [
           { required: true, message: "请输入联系人名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          { min: 2, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ],
         phone: [
           { required: true, message: "请输入联系方式", trigger: "blur" },
@@ -231,9 +231,10 @@ export default {
             if(res.data.code == 200) {
               this.$message({
                 showClose: true,
-                message: '发布成功！',
+                message: '发布成功,已向后台发送审核请求',
                 type: 'success'
               });
+              this.$router.push({ path: '/personalCenter/mytender' })
             }
           })
           .catch(err => {

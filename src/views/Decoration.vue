@@ -37,13 +37,13 @@
               <svg t="1575378517179" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5846" width="12" height="12"><path d="M512 85.9l110.8 318.7 337.2 6.8-268.8 203.8 97.7 322.9L512 745.4 235.1 938.1l97.7-322.9L64 411.4l337.2-6.8z" p-id="5847" fill="#ffab00"></path></svg>
               <svg t="1575378517179" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5846" width="12" height="12"><path d="M512 85.9l110.8 318.7 337.2 6.8-268.8 203.8 97.7 322.9L512 745.4 235.1 938.1l97.7-322.9L64 411.4l337.2-6.8z" p-id="5847" fill="#ffab00"></path></svg>
               <svg t="1575378726679" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7230" width="12" height="12"><path d="M957.85 408.72c-4.51-13.87-17.4-23.27-31.98-23.31l-291.08-0.91-90.66-276.55c-4.54-13.85-17.47-23.22-32.04-23.22h-0.01c-0.03 0-0.07 0.01-0.1 0.01-0.13 0-0.25 0.03-0.37 0.03-1.68 0.02-3.35 0.14-4.98 0.41-0.17 0.03-0.33 0.09-0.5 0.12-1.58 0.28-3.13 0.64-4.63 1.14-0.21 0.07-0.41 0.18-0.62 0.26-1.43 0.51-2.85 1.06-4.19 1.75-0.58 0.3-1.1 0.69-1.66 1.02-0.93 0.55-1.89 1.06-2.76 1.69-1.12 0.81-2.16 1.75-3.17 2.69-0.25 0.23-0.54 0.42-0.78 0.66a33.656 33.656 0 0 0-8.3 13.42l-90.84 276.54-291.04 0.78a33.738 33.738 0 0 0-33.24 28.54c-0.27 1.76-0.41 3.52-0.4 5.28 0.03 10.52 4.99 20.68 13.82 27.13l234.93 171.83-89.18 277.09c-4.47 13.87 0.49 29.05 12.27 37.62 5.9 4.29 12.84 6.44 19.78 6.45a33.75 33.75 0 0 0 19.8-6.38l236-170.35 0.06 0.04L747.9 932.87a33.659 33.659 0 0 0 19.75 6.39c6.96 0 13.92-2.15 19.82-6.44 11.79-8.56 16.75-23.74 12.29-37.61l-89.07-277.08 234.99-171.76c11.76-8.6 16.67-23.79 12.17-37.65zM651.21 578.04c-11.74 8.58-16.65 23.71-12.21 37.55l65.07 202.44-172.4-124.5a33.661 33.661 0 0 0-19.7-6.38V226.86l0.07-0.21 66.23 202.03c4.53 13.82 17.41 23.18 31.95 23.22l212.67 0.66-171.68 125.48z" p-id="7231" fill="#ffab00"></path></svg> -->
-               <el-rate
+               <!-- <el-rate
                 v-model="item.merReputation"
                 disabled
                 show-score
                 text-color="#ff9900"
                 score-template="">
-              </el-rate>
+              </el-rate> -->
               <div>{{item.merReputation}}</div>
             </div>
             
@@ -109,10 +109,10 @@
               <!-- :src=item.decschemeList[0].decorationimgs[0].imgPath -->
               <!-- <img v-for="(isc,uid) in item.children" :key="uid" :src=isc.imgs alt=""> -->
               <!-- <img  v-for="(isc,uid) in item.decschemeList[0].decorationimgs" :key="uid" :src=isc.decschemeList[0].decorationimgs[0].imgPath > -->
+              <!-- <img  :src=item.decschemeList[0].decorationimgs[index].imgPath > -->
+              <!-- <img v-for="(isc,uid) in item.decschemeList" :key="uid" :src=isc[index].decorationimgs.imgPath alt="">; -->
               <img  :src=item.decschemeList[0].decorationimgs[0].imgPath >
-              <!-- <img v-for="(isc,uid) in item.decschemeList" :key="uid" :src=isc[0].decorationimgs.imgPath alt="">; -->
-              <!-- <img  :src=item.decschemeList[1].decorationimgs[0].imgPath >
-              <img  :src=item.decschemeList[2].decorationimgs[0].imgPath >
+              <!-- <img  :src=item.decschemeList[2].decorationimgs[0].imgPath >
               <img  :src=item.decschemeList[3].decorationimgs[0].imgPath >
               <img  :src=item.decschemeList[4].decorationimgs[0].imgPath >
               <img  :src=item.decschemeList[5].decorationimgs[0].imgPath > -->
@@ -122,8 +122,12 @@
         
         <el-pagination
           background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page.sync="currentPage"
+          :page-size="3"
           layout="prev, pager, next"
-          :total="1000">
+          :total="totalPage">
         </el-pagination>
       </div>
 
@@ -166,6 +170,9 @@ export default {
   },
   data() {
     return {
+      currentPage: 1,/* 当前页码 */
+      totalPage:0,//总页数
+      pageSize:3,//一页三条
       value:2.5,
       activeIndex: '1',
       activeIndex2: '1',
@@ -241,19 +248,7 @@ export default {
   },
   
   created() {
-    this.axios.post("/findMerchant",{
-      pageSize:20,
-      currentPage:1
-    })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
-    .then(res=>{
-      console.log("请求成功",res);
-      // this.sc= res.data.data.imags;
-      this.imags= res.data.data.merchants;
-      // this.foterimg= res.data.data.imags2;
-    })
-    .cath(err=>{
-      console.log("请求失败",err);
-    })
+    this.handleCurrentChange();
   },
 
   methods: {
@@ -263,6 +258,48 @@ export default {
     onSubmit() {
       console.log('submit!');
       // console.log(list);
+    },
+
+
+    find(){
+      this.axios.post("/findMerchant",{
+      pageSize:20,
+      currentPage:1
+      })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
+      .then(res=>{
+        console.log("请求成功",res);
+        // this.sc= res.data.data.imags;
+        this.imags= res.data.data.merchants;
+        // this.foterimg= res.data.data.imags2;
+      })
+      .cath(err=>{
+        console.log("请求失败",err);
+      })
+    },
+
+    handleSizeChange(val) {
+      /* 每页多少条数据 */
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange() {
+      /* 获取当前页码 */
+      this.axios.post("/findMerchant", {
+          // merId:1,
+          currentPage: this.currentPage, //当前页
+          pageSize: this.pageSize, //每页显示的条数
+          // caluseState: 0
+        })
+        .then(res => {
+          console.log("分页成功",res);
+            this.imags= res.data.data.merchants;
+            this.totalPage = res.data.data.totalCount/this.pageSize;
+            // this.findCompanyAppointment();
+            this.find();
+          // }
+        })
+        .catch(err => {
+          console.log(err);
+        });//sss
     }
   }
   

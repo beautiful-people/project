@@ -8,37 +8,34 @@
       :model="formLabelAlign"
     >
 
-      <el-form-item label="真实姓名">
-        <el-input v-model="formLabelAlign.realName" disabled>{{formLabelAlign.realName}}</el-input>
+      <el-form-item label="商家全称">
+        <el-input v-model="formLabelAlign.merName" disabled>{{formLabelAlign.realName}}</el-input>
       </el-form-item>
-      <el-form-item label="手机号码">
-        <el-input v-model="formLabelAlign.userPhone" clearable validate-event="false"></el-input>
+      <el-form-item label="联系方式">
+        <el-input v-model="formLabelAlign.merFourPhone" disabled></el-input>
       </el-form-item>
-      <el-form-item label="性别">
+      <el-form-item label="服务区域">
         <!-- <el-radio-group v-model="formLabelAlign.userSex">
           <el-radio label="男"></el-radio>
           <el-radio label="女"></el-radio>
         </el-radio-group> -->
-        <el-input v-model="formLabelAlign.userSex" disabled></el-input>
+        <el-input v-model="formLabelAlign.merServeArea" disabled></el-input>
       </el-form-item>
-      <el-form-item label="出生年月">
-        <el-input v-model="formLabelAlign.userBirthday" disabled></el-input>
+      <el-form-item label="业务范围">
+        <el-input v-model="formLabelAlign.merCoverage" disabled></el-input>
       </el-form-item>
-      <el-form-item label="座机电话">
-        <el-input v-model="formLabelAlign.userTelephone" disabled></el-input>
+      <el-form-item label="经营模式">
+        <el-input v-model="formLabelAlign.merPattern" disabled></el-input>
       </el-form-item>
-      <el-form-item label="QQ号码">
-        <el-input v-model="formLabelAlign.userQQ" disabled></el-input>
+      <el-form-item label="商家类型">
+        <el-input v-model="formLabelAlign.merType" disabled></el-input>
       </el-form-item>
-      <el-form-item label="电子邮件">
-        <el-input v-model="formLabelAlign.userEmail" disabled></el-input>
+      <el-form-item label="注册时间">
+        <el-input v-model="formLabelAlign.userDate" disabled></el-input>
       </el-form-item>
-      <div class="Btn">
-        <el-form-item>
-          <el-button class="confirmBtn" @click="onSubmit(formLabelAlign.userPhone)">保存修改</el-button>
-          <el-button>取消</el-button>
-        </el-form-item>
-      </div>
+      <el-form-item label="详细地址">
+        <el-input v-model="formLabelAlign.merAddress" disabled></el-input>
+      </el-form-item>
     </el-form>
   </div>
 </template>
@@ -49,43 +46,23 @@ export default {
     return {
       labelPosition: "right",
       formLabelAlign: {
+
       }
     };
   },
   methods: {
-    onSubmit(tel) {
-      // 验证是否为手机号
- 
-      
-        var telReg = /^[1][3,4,5,7,8][0-9]{9}$/;
-        if (!telReg.test(tel)) {
-          alert("请输入正确的手机号码");
-        } else {
-          // console.log("修改后手机号：",tel);
-          this.axios.post('/changeUserPhone', {
-            accId: 1,
-            // sessionStorage.getItem('userId'),
-            userPhone: tel
-          }) // 后台请求地址
-          .then(res => {
-            console.log('这里：', res.data.code)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-        }
-      } 
-    
+  
   },
   created () {
-    this.axios.post('/showUserInfo', {
-      accId: 1
+    this.axios.post('/showMerchantInfo', {
+      // accId: 1
       // userId: sessionStorage.getItem('userId'),
       /* sessionStorage.getItem('userId') */
     }) // 后台请求地址
     .then(res => {
-      console.log('获取用户信息：', res.data.data.users)
-      this.formLabelAlign = res.data.data.users[0]
+      console.log(res)
+      // console.log('获取用户信息：', res.data.data.users)
+      this.formLabelAlign = res.data.data.merchants[0]
     })
     .catch(err => {
       console.log(err)

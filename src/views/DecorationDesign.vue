@@ -79,17 +79,14 @@
     <div class="content">
       <div class="box" v-for="(item,index) in boxtext" :key="index">
         <div class="box-left" @click="getin(item.schemeId)">
-         <img :src="item.deimglist[0].imgPath" style="width:325px;height:280px;" alt="">
-          
+          <img :src="item.deimglist[0].imgPath" style="width:325px;height:280px;" alt />
         </div>
         <div class="box-right">
           <div class="rig-top" @click="getin(item.schemeId)">
-         <img :src="item.deimglist[1].imgPath" style="width:100%;height:135px;" alt="">
-
+            <img :src="item.deimglist[1].imgPath" style="width:100%;height:135px;" alt />
           </div>
           <div class="rig-bottom" @click="getin(item.schemeId)">
-         <img :src="item.deimglist[2].imgPath" style="width:100%;height:135px;" alt="">
-
+            <img :src="item.deimglist[2].imgPath" style="width:100%;height:135px;" alt />
           </div>
         </div>
 
@@ -128,11 +125,13 @@
       background
       layout="prev, pager, next"
     ></el-pagination>
+    <footerr></footerr>
   </div>
 </template>
 
 <script>
 import index from "@/components/index";
+import footerr from '@/components/Footer'
 
 export default {
   name: "decorationDesign",
@@ -141,7 +140,7 @@ export default {
     return {
       pagesize: 4, // 每页显示三条
       currpage: 1, // 默认开始页面
-      totalCount: 10, // 总页数
+      totalCount: 0, // 总页数
 
       h_id: 0,
       houseType: [
@@ -194,13 +193,18 @@ export default {
     };
   },
   components: {
-    index
+    index,
+    footerr
   },
   created() {
     this.axios
       .post("/selectdecordByrandom", {
         currentPage: 1,
-        pageSize: this.pagesize
+        pageSize: this.pagesize,
+        roomtypes: this.h_id,
+        roomareas: this.a_id,
+        roomcosts: this.p_id,
+        roomstyles: this.s_id
       })
       .then(res => {
         if (res.data.code == 200) {
@@ -222,12 +226,11 @@ export default {
       // 当前页
       this.currpage = val;
 
-      console.log(this.currpage)
+      console.log(this.currpage);
       this.axios
         .post("/selectdecordByrandom", {
           currentPage: this.currpage,
-          pageSize: this.pagesize,
-          
+          pageSize: this.pagesize
         })
         .then(res => {
           if (res.data.code == 200) {
@@ -245,7 +248,7 @@ export default {
     houseTypeClick(item) {
       // 户型的点击事件
       this.h_id = item;
-      console.log(this.boxtext)
+      console.log(this.boxtext);
       this.axios
         .post("/selectdecordByrandom", {
           roomtypes: this.h_id,
@@ -255,7 +258,7 @@ export default {
         .then(res => {
           if (res.data.code == 200) {
             console.log(res.data);
-            this.boxtext = res.data;
+            this.boxtext = res.data.data.schemeOfmerVoList;
           }
         })
         .catch(err => {
@@ -274,7 +277,7 @@ export default {
         .then(res => {
           if (res.data.code == 200) {
             console.log(res.data);
-            this.boxtext = res.data;
+            this.boxtext = res.data.data.schemeOfmerVoList;
           }
         })
         .catch(err => {
@@ -294,7 +297,7 @@ export default {
         .then(res => {
           if (res.data.code == 200) {
             console.log(res.data);
-            this.boxtext = res.data;
+            this.boxtext = res.data.data.schemeOfmerVoList;
           }
         })
         .catch(err => {
@@ -314,7 +317,7 @@ export default {
         .then(res => {
           if (res.data.code == 200) {
             console.log(res.data);
-            this.boxtext = res.data;
+            this.boxtext = res.data.data.schemeOfmerVoList;
           }
         })
         .catch(err => {
@@ -379,7 +382,7 @@ export default {
 }
 .decorationdesign {
   // width: 1366px;
-  height: 1800px;
+  // height: 1800px;
   margin: 0 auto;
 
   // background: yellow;
@@ -462,6 +465,7 @@ export default {
       float: left;
       margin: 10px 10px 0px 0px;
       position: relative;
+      border: 1px solid #7791dd;
 
       .box-left {
         width: 325px;

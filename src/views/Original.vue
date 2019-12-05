@@ -40,47 +40,19 @@
         </div>
 
         <div class="original-left-main">
-          <input type="text" placeholder="您的称呼">
-          <input type="text" placeholder="您的电话">
-          <select name="" id="">
-            <option value="chengdu">成都</option>
-            <option value="beijing">北京</option>
-            <option value="shanghai">上海</option>
-            <option value="shenzhen">深圳</option>
-          </select>
-          <button>申请装修服务</button>
+          <input type="text" placeholder="您的称呼" v-model="name">
+          <input type="text" placeholder="您的电话" v-model="phone">
+          <input type="text" placeholder="所在区域-如：武侯区" v-model="site">
+          <input type="text" placeholder="您的住房面积 ㎡" v-model="area  ">
+          <button type="submit" @click="addCompanyAppointment">申请装修服务</button>
         </div>
 
         <div class="original-left-list">
           <h5>最新预约</h5>
-          <ul>
-            <li>小书书</li>
-            <li>成都</li>
-            <li>97 ㎡</li>
-            <li>面议</li>
-          </ul>
-          <ul>
-            <li>小书书</li>
-            <li>成都</li>
-            <li>97 ㎡</li>
-            <li>面议</li>
-          </ul>
-          <ul>
-            <li>小书书</li>
-            <li>成都</li>
-            <li>97 ㎡</li>
-            <li>面议</li>
-          </ul>
-          <ul>
-            <li>小书书</li>
-            <li>成都</li>
-            <li>97 ㎡</li>
-            <li>面议</li>
-          </ul>
-          <ul>
-            <li>小书书</li>
-            <li>成都</li>
-            <li>97 ㎡</li>
+          <ul v-for="(item,index) in order" :key="index">
+            <li>{{order[index].name}}</li>
+            <li>{{order[index].areaName}}</li>
+            <li>{{order[index].decorateArea}}㎡</li>
             <li>面议</li>
           </ul>
         </div>
@@ -90,79 +62,54 @@
         <div class="original-right-top">
           <div class="shuxian"></div> <strong class="list-name-top">北京东易日盛装饰原创案例</strong>
         </div>
-
+        
         <div class="original-right-bottom" >
           <div class="right-bottom-list" v-for="(item,index) in lists" :key="index">
             <img :src=item.decorationimgs[0].imgPath >
             <span>{{item.schemeName}}</span><br>
-            <span>简约/二居/全包/81㎡</span>
+            <span>{{item.roomType}}/{{item.roomStyle}}/{{item.roomArea}} ㎡</span>
           </div>
-
-
-          <!-- <div class="right-bottom-list">
-            <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
-            <span>光华城81平简约风格装修案例</span><br>
-            <span>简约/二居/全包/81㎡</span>
-          </div>
-          <div class="right-bottom-list">
-            <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
-            <span>光华城81平简约风格装修案例</span><br>
-            <span>简约/二居/全包/81㎡</span>
-          </div>
-          <div class="right-bottom-list">
-            <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
-            <span>光华城81平简约风格装修案例</span><br>
-            <span>简约/二居/全包/81㎡</span>
-          </div>
-          <div class="right-bottom-list">
-            <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
-            <span>光华城81平简约风格装修案例</span><br>
-            <span>简约/二居/全包/81㎡</span>
-          </div>
-          <div class="right-bottom-list">
-            <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
-            <span>光华城81平简约风格装修案例</span><br>
-            <span>简约/二居/全包/81㎡</span>
-          </div>
-          <div class="right-bottom-list">
-            <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
-            <span>光华城81平简约风格装修案例</span><br>
-            <span>简约/二居/全包/81㎡</span>
-          </div>
-          <div class="right-bottom-list">
-            <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
-            <span>光华城81平简约风格装修案例</span><br>
-            <span>简约/二居/全包/81㎡</span>
-          </div>
-          <div class="right-bottom-list">
-            <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
-            <span>光华城81平简约风格装修案例</span><br>
-            <span>简约/二居/全包/81㎡</span>
-          </div>
-          <div class="right-bottom-list">
-            <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
-            <span>光华城81平简约风格装修案例</span><br>
-            <span>简约/二居/全包/81㎡</span>
-          </div>
-          <div class="right-bottom-list">
-            <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
-            <span>光华城81平简约风格装修案例</span><br>
-            <span>简约/二居/全包/81㎡</span>
-          </div>
-          <div class="right-bottom-list">
-            <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1119/thumb_472_330_20191119132053_60540.jpg" alt="">
-            <span>光华城81平简约风格装修案例</span><br>
-            <span>简约/二居/全包/81㎡</span>
-          </div> -->
 
         <div class="original-right-pages">
+          <!-- <el-pagination
+            background
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage"
+            :page-size="12"
+            layout="prev, pager, next, jumper"
+            :total="2"
+            class="pag"
+          > -->
           <el-pagination
             background
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage"
+            :page-size="pageSize"
             layout="prev, pager, next"
-            :total="50">
+            :total="totalPage">
           </el-pagination>
+            <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
+          <!-- </el-pagination> -->
+        </div>
+
+        
+        </div>
+        <div class="original-right-footer">
+          <div class="original-footer-top">
+            <div class="shuxian"></div> <strong class="list-name-top">北京东易日盛装饰怎么样？—用户留言</strong>
+          </div>
+          
+        <div class="original-footer-main">
+          <div class="leftimg">
+            <img src="//www.zx123.cn/templates/zx123new/mobile_new/img/compan_eg4.jpg" alt="">
+          </div>
+          <div class="right-comment"></div>
         </div>
         </div>
+
+
       </div>
     </div>
   </div>
@@ -177,25 +124,97 @@ export default {
   },
   data(){
     return{
-      lists:{}
+      currentPage: 1,/* 当前页码 */
+      totalPage:0,//总页数
+      pageSize:1,//一页三条
+      lists:{},
+      order:{},
+      name: '',
+      phone:'',
+      site:'',
+      area:''
     }
   },
   
   created() {
-    this.axios.post("/findDecscheme",{
-      merId:1,
-      pageSize:20,
-      currentPage:1
-    })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
-    .then(res=>{
-      console.log("请求成功",res);
-      // this.sc= res.data.data.imags;
-      this.lists= res.data.data.decschemes;
-      // this.foterimg= res.data.data.imags2;
-    })
-    .cath(err=>{
-      console.log("请求失败",err);
-    })
+    // this.findCompanyAppointment();
+    // this.findDecsheme();
+    this.handleCurrentChange();
+  },
+
+  methods:{
+    // 请求图片
+    findDecsheme() {
+      this.axios.post("/findDecscheme",{
+        merId:1,
+        currentPage: this.currentPage, //当前页
+        pageSize: this.pageSize, //每页显示的条数
+      })//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
+      .then(res=>{
+        console.log("请求成功",res);
+        this.lists= res.data.data.decschemes;
+        this.findCompanyAppointment();
+      })
+      .cath(err=>{
+        console.log("请求失败",err);
+      })
+    },
+    // 预约
+     addCompanyAppointment() {
+      console.log(this.name)
+       this.axios.post("/addCompanyAppointment",{
+        name: this.name,
+        number:this.phone,
+        areaName:this.site,
+        decorateArea:this.area,
+      })
+      .then(res=>{
+        console.log("请求成功",res);
+        this.findCompanyAppointment();
+      })
+      .cath(err=>{
+        console.log("请求失败",err);
+      })
+    },
+    // 加载
+    findCompanyAppointment() {
+       this.axios.post("/findCompanyAppointment")//在括号中111，需要请求数据需要在("/",{})括号中需要的请求。
+      .then(res=>{
+        console.log("加载成功",res);
+        this.order= res.data.data.companyAppointments;
+      })
+      .cath(err=>{
+        console.log("加载失败",err);
+      })
+    },
+
+
+
+    handleSizeChange(val) {
+      /* 每页多少条数据 */
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange() {
+      /* 获取当前页码 */
+      this.axios
+        .post("/findDecscheme", {
+          merId:1,
+          currentPage: this.currentPage, //当前页
+          pageSize: this.pageSize, //每页显示的条数
+          // caluseState: 0
+        })
+        .then(res => {
+          console.log("分页成功",res);
+            this.lists= res.data.data.decschemes;
+            this.totalPage = res.data.data.totalCount/this.pageSize;
+        this.findCompanyAppointment();
+          // }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
   }
 }
 </script>
@@ -408,6 +427,57 @@ li {
       border-radius: 5px;
       margin-left: 12px;
       background: palegreen;
+      .original-right-footer{
+        padding: 18px 20px 0 20px;
+        width: 908px;
+        // height: 100px;
+        background: red;
+        float: left;
+        border-radius: 5px;
+        margin-top: 10px;
+        .original-footer-main{
+          background: #52e2ef;
+          height: 85px;
+          width: 865px;
+          padding: 20px;
+          .right-comment{
+            float: left;
+            background: #fcfcfc;
+            width: 90%;
+            height: 85px;
+          }
+          .leftimg{
+            width: 65px;
+            height: 65px;
+            margin-right: 15px;
+            float: left;
+            img{
+              width: 65px;
+              height: 65px;
+            }
+          }
+        }
+        .original-footer-top{
+            height: 20px;
+            padding: 18px;
+            border-radius: 5px;
+            border-bottom: solid 1px rgb(204, 204, 204);
+            .shuxian{
+              width: 5px;
+              height: 16px;
+              margin-top: 2px;
+              border-radius: 5px;
+              background: #333333;
+              float: left;
+            }
+            .list-name-top{
+              float: left;
+              margin-left: 5px;
+              font-size: 14px;
+            }
+          }
+        }
+        
       .original-right-bottom{
         width: 905px;
         background: #5fcfa1;

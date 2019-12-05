@@ -7,17 +7,20 @@
     
     </el-carousel-item>
   </el-carousel>
+  <footerr></footerr>
   </div>
 </template>
 
 <script>
 
  import index from '@/components/index'
+import footerr from '@/components/Footer'
 
 export default {
   name: "design",
   components:{
-    index
+    index,
+    footerr
   },
   data(){
      return {
