@@ -168,11 +168,14 @@
       </div>
 
     </div>
+
+  <footerr class="footerr"></footerr>
   </div>
 </template>
 
 <script>
 import index from "@/components/index";
+import footerr from '@/components/Footer.vue'
 // import Waterfall from 'vue-waterfall/lib/waterfall'
 // import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot'
 
@@ -180,7 +183,8 @@ import index from "@/components/index";
 export default {
   name: "invitation",
   components: {
-    index
+    index,
+    footerr
     // Waterfall,
     // WaterfallSlot
   },
@@ -658,10 +662,17 @@ li {
 .invitation {
   // width: 1366px;
   margin: 0 auto;
+  position: relative;
+
+  .footerr{
+    position: absolute;
+    bottom: 0px;
+  }
 }
 .Dec-list {
   margin: auto;
   width: 1211px;
+  padding-bottom: 90px;
   // background: red;
   // height: 1300px;
   padding-top: 10px;

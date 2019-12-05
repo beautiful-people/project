@@ -27,7 +27,7 @@
 
           <div class="left-tenant-number">
             <!-- <div class="left-tenant-content">文章:<span>22</span>篇</div>  -->
-            <div class="left-tenant-content">案例:<span>41</span>套 工地:<span>9</span>个</div> 
+            <!-- <div class="left-tenant-content">案例:<span>41</span>套 工地:<span>9</span>个</div>  -->
             <!-- <div class="left-tenant-content">工地:<span>9</span>个</div>  -->
             <!-- <div class="left-tenant-content">设计师:<span>8</span>位</div> -->
           </div>
@@ -64,7 +64,7 @@
       <!-- 右侧 -->
       <div class="original-right">
         <div class="original-right-top">
-          <div class="shuxian"></div> <strong class="list-name-top">{{item.merName}}</strong>
+          <div class="shuxian"></div> <strong class="list-name-top">{{item.merName}}原创案例</strong>
         </div>
         
         <div class="original-right-bottom" >
@@ -126,14 +126,26 @@
             留言内容： <input type="textarea" v-model="content"> <br>
             手机号码： <input type="text" v-model="phonenumber"> <br>
             您的称呼： <input type="text" v-model="yourname"> <br>
-            满 意 度 ： <select @change="changeSelect" v-model="grade">
+            满 意 度 : <div class="block">
+                        <el-rate
+                          v-model="grade"
+                          :colors="colors"
+                          :class="pinfen">
+                        </el-rate>
+                      </div>
+
+            
+
+
+
+             <!-- <select @change="changeSelect" v-model="grade">
                         <option>请选择</option>
                         <option value="5">非常满意</option>
                         <option value="4">满意</option>
                         <option value="3">一般</option>
                         <option value="2">不满意</option>
                         <option value="1">很不满意</option>
-                      </select><br>
+                      </select><br> -->
             <button @click="leaveMessage"> 提交留言</button>
           </div>
         </div>
@@ -141,15 +153,18 @@
 
       </div>
     </div>
+    <footerr class="footerr"></footerr>
   </div>
 </template>
 <script>
 import index from "@/components/index";
+ import footerr from '@/components/Footer.vue'
 
 export default {
   name:"Original",
   components: {
-    index
+    index,
+    footerr
   },
   data(){
     return{
@@ -158,10 +173,12 @@ export default {
       content:'',
       phonenumber:'',
       yourname:'',
+      colors: ['#99A9BF', '#F7BA2A', '#FF9900'] , // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
+      
       grade:'',
       currentPage: 1,/* 当前页码 */
       totalPage:0,//总页数
-      pageSize:2,//一页三条
+      pageSize:12,//一页三条
       lists:{},
       order:{},
       comment:{},//评论区
@@ -387,10 +404,30 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
+.block{
+  margin-left: 90px;
+  margin-top: -16px;
+  width: 240px;
+  height: 30px;
+}
+.pinfen{
+  margin-left: 50px;
+  width: 240px;
+  height: 30px;
+}
+.orig{
+  position: relative;
+  .footerr{
+    position: absolute;
+    // bottom: -160px;
+    bottom: 0;
+  }
+}
   .original-max{
     width: 1280px;
     // height: 500px;
     // background: rebeccapurple;
+    overflow: hidden;
     margin: auto;
     .original-left{
       width: 320px;
@@ -428,6 +465,11 @@ li {
         background-size: 100% auto;
         input:nth-child(1){
           margin-top: 62px;
+          // margin-top: 10px;
+          margin-left: 7px;
+          width: 256px;
+          height: 20px;
+          padding: 10px;
         }
         input{
           margin-top: 10px;
@@ -455,7 +497,7 @@ li {
       }
       .original-left-tenant{
         width: 288px;
-        height: 275px;
+        height: 255px;
         padding: 15px;
         border: solid 1px slategrey;
         border-radius: 3px;
@@ -498,7 +540,7 @@ li {
         .left-tenant-number{
           width: 100%;
           margin: auto;
-          height: 40px;
+          height: 20px;
           // background: #5fcfa1;
           line-height: 40px;
           font-size: 12px;
@@ -603,12 +645,14 @@ li {
         float: left;
         border-radius: 5px;
         margin-top: 10px;
+        margin-bottom: 120px;
         .original-footer-comment{
           
-          background: pink;
+          background: #f7f7f7;
           height: 275px;
           width: 845px;
           padding: 30px;
+          
           border-radius: 5px;
           button:hover{
             color: #ffffff;
@@ -678,8 +722,8 @@ li {
         .original-footer-top{
             height: 20px;
             padding: 18px;
-            border-radius: 5px;
-            border-bottom: solid 1px rgb(204, 204, 204);
+            // border-radius: 5px;
+            // border-bottom: solid 1px rgb(204, 204, 204);
             .shuxian{
               width: 5px;
               height: 16px;
