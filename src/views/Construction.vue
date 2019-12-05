@@ -24,7 +24,7 @@
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right ">
-            <p @click="getDeTailed">{{item.calusename}}</p>
+            <p @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域:
@@ -79,7 +79,7 @@
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域：
@@ -127,14 +127,14 @@
         </el-pagination>
       </div>
       <div class="onLine-main" v-show="inex===3">
-         <div class="main" v-for="item in LinelistTwo" :key="item.tenterId">
+         <div class="main" v-for="item in LinelistTwo" :key="item.tenterId" >
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p  @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
-              <li>
+              <li >
                 区域:
                 <span>{{item.location}}</span>
               </li>
@@ -186,7 +186,7 @@
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p  @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域:
@@ -240,7 +240,7 @@
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p  @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域：
@@ -294,7 +294,7 @@
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p  @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域：
@@ -348,7 +348,7 @@
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p  @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域：
@@ -402,7 +402,7 @@
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p  @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域：
@@ -485,7 +485,8 @@ export default {
         currentPagesssssss:1,
       totalPage: 0,
       pageSize: 4,
-      tenderId:""
+      tenderId:"",
+       tenderIdss:""
     };
   },
   created() {
@@ -513,6 +514,7 @@ export default {
           console.log(res.data);
           if (res.data.code == 200) {
             this.Linelist = res.data.data.Tender;
+          
             this.totalPage = res.data.data.totalCount;
           }
         })
@@ -548,9 +550,9 @@ export default {
       this.inex=8;
       this.getSeven();
     },
-    getDeTailed(){
+    getDeTailed(id){
   this.$router.push("/detailed");
-  var tenderIds= this.Linelist.onlinesites.tenderId;
+  var tenderIds= id;
   sessionStorage.setItem("tenderIds",tenderIds)
     },
     getbegin() {
