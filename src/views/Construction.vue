@@ -481,17 +481,14 @@ export default {
        currentPagess:1,
         currentPagesss:1,
         currentPagessss:1,
-<<<<<<< HEAD
       // currentPage: 1 /* 当前页码 */,
       //   currentPagesssss:1,
       //   currentPagessssss:1,
       //   currentPagesssssss:1,
-=======
      
         currentPagesssss:1,
         currentPagessssss:1,
         currentPagesssssss:1,
->>>>>>> 9ba4fce62347dc613f875ed14f262ad01dbe82d8
       totalPage: 0,
       pageSize: 4,
       tenderId:"",
