@@ -65,7 +65,7 @@
         
         <div class="original-right-bottom" >
           <div class="right-bottom-list" v-for="(item,index) in lists" :key="index">
-            <img :src=item.decorationimgs[0].imgPath >
+            <img :src=item.decorationimgs[0].imgPath style="width: 290px;height:217px;">
             <span>{{item.schemeName}}</span><br>
             <span>{{item.roomType}}/{{item.roomStyle}}/{{item.roomArea}} ㎡</span>
           </div>
@@ -98,15 +98,40 @@
         </div>
         <div class="original-right-footer">
           <div class="original-footer-top">
-            <div class="shuxian"></div> <strong class="list-name-top">北京东易日盛装饰怎么样？—用户留言</strong>
+            <div class="shuxian"></div> <strong class="list-name-top">这家装饰公司怎么样？—用户留言</strong>
           </div>
           
-        <div class="original-footer-main">
-          <div class="leftimg">
-            <img src="//www.zx123.cn/templates/zx123new/mobile_new/img/compan_eg4.jpg" alt="">
+          <div class="original-footer-main" v-for="(com,cin) in comment" :key="cin">
+            <div class="leftimg">
+              <img src="//www.zx123.cn/templates/zx123new/mobile_new/img/compan_eg4.jpg" alt="">
+            </div>
+            <div class="right-comment">
+              <div>{{com.liuYanName}}</div>
+              <div>{{getTime(com.liuYanDate)}}</div>
+              <div>{{com.liuYanContext}}</div>
+            </div>
           </div>
-          <div class="right-comment"></div>
-        </div>
+
+          <!-- 发布留言 -->
+          <div class="original-footer-button">
+            <div class="shuxian"></div> 
+            <strong class="list-name-top">发布留言</strong>
+          </div>
+          
+          <div class="original-footer-comment">
+            留言内容： <input type="textarea" v-model="content"> <br>
+            手机号码： <input type="text" v-model="phonenumber"> <br>
+            您的称呼： <input type="text" v-model="yourname"> <br>
+            满 意 度 ： <select @change="changeSelect" v-model="grade">
+                        <option>请选择</option>
+                        <option value="5">非常满意</option>
+                        <option value="4">满意</option>
+                        <option value="3">一般</option>
+                        <option value="2">不满意</option>
+                        <option value="1">很不满意</option>
+                      </select><br>
+            <button @click="leaveMessage"> 提交留言</button>
+          </div>
         </div>
 
 
@@ -124,25 +149,95 @@ export default {
   },
   data(){
     return{
+      datatime:'',
+      content:'',
+      phonenumber:'',
+      yourname:'',
+      grade:'',
       currentPage: 1,/* 当前页码 */
       totalPage:0,//总页数
-      pageSize:1,//一页三条
+      pageSize:2,//一页三条
       lists:{},
       order:{},
+      comment:{},//评论区
       name: '',
       phone:'',
       site:'',
       area:''
+
     }
   },
   
   created() {
     // this.findCompanyAppointment();
     // this.findDecsheme();
-    this.handleCurrentChange();
+    this.axios
+        .post("/findDecscheme", {
+          merId:1,
+          currentPage: this.currentPage, //当前页
+          pageSize: this.pageSize, //每页显示的条数
+          // caluseState: 0
+        })
+        .then(res => {
+          console.log("分页成功",res.data);
+            this.lists= res.data.data.decschemes;
+            this.totalPage = res.data.data.totalCount;
+        this.findCompanyAppointment();
+        
+          // }
+        })
+        .catch(err => {
+          console.log(err);
+        });
   },
 
   methods:{
+    // 改变select的值
+    changeSelect(){
+      // this.grade=event;
+      console.log(this.grade);
+    },
+     getTime(time) {
+      /**
+       * 时间对象的格式化;
+       */
+      Date.prototype.format = function(format) {
+        /*
+         * eg:format="YYYY-MM-dd hh:mm:ss";
+         */
+        var o = {
+          "M+": this.getMonth() + 1, // month
+          "d+": this.getDate(), // day
+          "h+": this.getHours(), // hour
+          "m+": this.getMinutes(), // minute
+          "s+": this.getSeconds(), // second
+          "q+": Math.floor((this.getMonth() + 3) / 3), // quarter
+          S: this.getMilliseconds() // millisecond
+        };
+        if (/(y+)/.test(format)) {
+          format = format.replace(
+            RegExp.$1,
+            (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+          );
+        }
+        for (var k in o) {
+          if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(
+              RegExp.$1,
+              RegExp.$1.length == 1
+                ? o[k]
+                : ("00" + o[k]).substr(("" + o[k]).length)
+            );
+          }
+        }
+        return format;
+      };
+
+      var jsDate = new Date(time).toLocaleDateString();
+      var date = jsDate.split("/");
+      var times = date.join("-");
+      return times;
+    },
     // 请求图片
     findDecsheme() {
       this.axios.post("/findDecscheme",{
@@ -182,13 +277,54 @@ export default {
       .then(res=>{
         console.log("加载成功",res);
         this.order= res.data.data.companyAppointments;
+        this.commentDesc();
       })
       .cath(err=>{
         console.log("加载失败",err);
       })
     },
+    // 发布留言
+    leaveMessage() {
+      // this.datatime=;
+      this.axios
+        .post("/addLiuYan", {
+          liuYanNumber:this.phonenumber, // 用户电话
+          liuYanName:this.yourname,//用户姓名
+          liuYanDate:new Date(),
+          liuYanContext:this.content, //用户留言内容
+          liuYanScore:this.grade, //用户评分
+          merId:1
+        })
+        .then(res => {
+          console.log("留言成功",res);
+            this.commentDesc();
+            // this.comment= res.data.data.liuyans;
+            // this.totalPage = res.data.data.data.totalCounte;
+            // console.log(res.data.data.totalCounte)
+        // this.findCompanyAppointment();
+          // }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
 
-
+    // 加载留言
+    commentDesc() {
+      this.axios
+        .post("/findLiuYan", {
+          merId:1, // merId需要动态传参商家ID
+        })
+        .then(res => {
+          console.log("分saadssss",res);
+            this.comment= res.data.data.liuyans;
+            // this.totalPage = res.data.data.data.totalCounte;
+            // console.log(res.data.data.totalCounte)
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
 
     handleSizeChange(val) {
       /* 每页多少条数据 */
@@ -204,10 +340,11 @@ export default {
           // caluseState: 0
         })
         .then(res => {
-          console.log("分页成功",res);
+          console.log("分页成功",res.data.data);
             this.lists= res.data.data.decschemes;
-            this.totalPage = res.data.data.totalCount/this.pageSize;
-        this.findCompanyAppointment();
+            this.totalPage = res.data.data.data.totalCounte;
+            console.log(res.data.data.totalCounte)
+        // this.findCompanyAppointment();
           // }
         })
         .catch(err => {
@@ -426,25 +563,74 @@ li {
       float: left;
       border-radius: 5px;
       margin-left: 12px;
-      background: palegreen;
+      // background: palegreen;
       .original-right-footer{
         padding: 18px 20px 0 20px;
         width: 908px;
         // height: 100px;
-        background: red;
+        // background: red;
         float: left;
         border-radius: 5px;
         margin-top: 10px;
+        .original-footer-comment{
+          
+          background: pink;
+          height: 275px;
+          width: 845px;
+          padding: 30px;
+          border-radius: 5px;
+          button:hover{
+            color: #ffffff;
+          }
+          button{
+            width: 120px;
+            height: 40px;
+            margin-top: 14px;
+            margin-left: 92px;
+            background: #ff5722;
+            cursor: pointer;
+            border: 0;
+          }
+          input:nth-child(1){
+            width: 480px;
+            height: 20px;
+            padding: 10px;
+            margin-top: 7px;
+            margin-left: 10px;
+            margin-bottom: 7px;
+            border: solid 1px rgb(224, 224, 224);
+          }
+          select{
+            width: 240px;
+            height: 40px;
+            // padding: 10px;
+            margin: 7px;
+            border: solid 1px rgb(224, 224, 224);
+          }
+          input{
+            width: 240px;
+            height: 20px;
+            padding: 10px;
+            margin: 7px;
+            border: solid 1px rgb(224, 224, 224);
+          }
+        }
         .original-footer-main{
-          background: #52e2ef;
+          // background: #52e2ef;
           height: 85px;
           width: 865px;
           padding: 20px;
+          border-bottom: solid 1px rgb(209, 209, 209);
           .right-comment{
             float: left;
-            background: #fcfcfc;
+            // background: #fcfcfc;
             width: 90%;
             height: 85px;
+            div{
+              height: 20px;
+              padding-top: 10px;
+              // background:red;
+            }
           }
           .leftimg{
             width: 65px;
@@ -457,6 +643,7 @@ li {
             }
           }
         }
+        .original-footer-button,
         .original-footer-top{
             height: 20px;
             padding: 18px;
@@ -474,6 +661,7 @@ li {
               float: left;
               margin-left: 5px;
               font-size: 14px;
+              color: #52e2ef;
             }
           }
         }

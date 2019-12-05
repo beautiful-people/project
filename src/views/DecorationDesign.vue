@@ -73,10 +73,10 @@
 
     <div class="msg">
       为你找到了
-      <span style="color:#f76d4e;font-size:20px;">&nbsp;{{boxtext.length}} &nbsp;</span>个适合的装修方案
+      <span style="color:#f76d4e;font-size:20px;">&nbsp;{{totalCount}} &nbsp;</span>个适合的装修方案
     </div>
 
-    <div class="content">
+    <div class="content clearfix">
       <div class="box" v-for="(item,index) in boxtext" :key="index">
         <div class="box-left" @click="getin(item.schemeId)">
           <img :src="item.deimglist[0].imgPath" style="width:325px;height:280px;" alt />
@@ -125,7 +125,7 @@
       background
       layout="prev, pager, next"
     ></el-pagination>
-    <footerr></footerr>
+    <footerr class="footer"></footerr>
   </div>
 </template>
 
@@ -384,10 +384,15 @@ export default {
   // width: 1366px;
   // height: 1800px;
   margin: 0 auto;
+  position: relative;
 
   // background: yellow;
   // border: 1px solid black;
 
+.footer {
+  position: absolute;
+  bottom: -80px;
+}
   .inv-nav {
     width: 90%;
     max-width: 1200px;

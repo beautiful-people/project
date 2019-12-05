@@ -37,6 +37,9 @@
         </div>
       </div>
     </div>
+   <!--  <div class="qwer">
+      <img src="../../public/img/qwer.jpg" alt="">
+    </div> -->
     <div class="tails">
 <el-row type="flex" class="row-bg" justify="center">
   <el-col :span="6"> <el-form :inline="true"  class="demo-form-inline">
@@ -154,6 +157,15 @@ export default {
 .clear::after {
   clear: both;
 }
+.qwer{
+  width: 100%;
+  height: auto;
+  float: left;
+  img{
+    width: 100%;
+    height: auto;
+  }
+}
 .userdetails{
  
   width: 100%;
@@ -167,16 +179,18 @@ export default {
     width: 800px;
     height: 400px;
     display: flex;
-    justify-content: space-between;
-     align-items:space-around;
-    border: 1px solid red;
+    /* justify-content: space-between;
+     align-items:space-around; */
+    border: 1px solid rgba(0, 102, 255, 0.904);
+    background:ddd;
+    
     position: absolute;
     top:120px;
     left:0;
     bottom: 0;
     right: 0;
     margin: 0 auto;
-
+    transform: translateY(100px);
 }
 }
 
