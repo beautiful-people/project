@@ -33,14 +33,16 @@
           <el-step title="验收完成"></el-step>
         </el-steps>
       </div>
-      <div v-for="item in ListTens" :key="item.caluseId">
+      <div v-for="item in ListTens" :key="item.caluseId" class="dmg">
         <img :src=item.caluseImg alt="">
       </div>
     </div>
+    <footerr class="foott"></footerr>
   </div>
 </template>
 <script>
 import index from "@/components/index";
+import footerr from "@/components/Footer.vue";
 export default {
   name: "Detailed",
   data: function() {
@@ -51,7 +53,8 @@ export default {
     };
   },
   components: {
-    index
+    index,
+    footerr
   },
   created() {
     this.getmain();
@@ -122,9 +125,17 @@ export default {
 .clear::after {
   clear: both;
 }
+.detailed {
+  position: relative;
+  .foott{
+    position: absolute;
+    bottom: -1000px;
+    left: 0;
+  }
+}
 .det {
   width: 800px;
-  height: 600px;
+  height: auto;
   border: 1px solid rgba(0, 0, 0, 0.267);
   margin-top: 40px;
   margin-left: 340px;
@@ -133,13 +144,18 @@ export default {
     height: 50px;
     border: 1px solid rgba(0, 0, 0, 0.267);
     line-height: 50px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgba(0, 89, 255, 0.788);
   }
   .detailed-main {
     width: 800px;
-    height: 200px;
+    height: auto;
     border-bottom: 1px solid rgba(0, 0, 0, 0.479);
     p {
-      width: 100%;
+      display:block;
+      width: 60%;
       height: 40px;
       line-height: 40px;
       padding-left: 40px;
@@ -147,6 +163,7 @@ export default {
       font-size: 18px;
       font-weight: 600;
       border-bottom: 1px solid rgba(0, 0, 0, 0.479);
+     /*  transform: translateX(30px); */
     }
     .pe {
       color: rgba(0, 0, 0, 0.479);
@@ -166,9 +183,29 @@ export default {
     }
     .el {
       margin-left: 40px;
-      margin-top: 10px;
+      
       font-size: 16px;
+      height: 120px;
+      margin-top: 60px;
+      div{
+        height: 100px;
+        width: 100px;
+      }
     }
+  }
+}
+.dmg{
+  width: 46%;
+  height: 200px;
+  margin-top: 20px;
+  margin-left: 30px;
+  float: left;
+  img{
+    width: 300px;
+    height: 160px;
+    float: left;
+    /* transform: translateX(100px); */
+    
   }
 }
 </style>
