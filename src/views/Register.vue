@@ -398,7 +398,7 @@ export default {
           console.log(res.data);
           if (res.data.code == "200") {
            this.open();
-           this.$router.push("/login");
+           this.$router.push("/userdetails");
             
           } else if (res.data.code == "404"){
               this.open4();
@@ -512,8 +512,8 @@ export default {
           console.log(res.data);
           if(res.data.code==200){
 
-                this.open1();
-                this.$router.push("/login");
+                this.open();
+                this.$router.push("/userdetails");
           }  else if(res.data.code==400){
               this.open5();
           }
