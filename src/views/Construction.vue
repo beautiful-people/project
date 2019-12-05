@@ -307,11 +307,12 @@ export default {
       LinelistTwo:{},
        LinelistThree:{},
        LinelistFour:{},
-      currentPage: 1 /* 当前页码 */,
+      
       currentPages:1,
        currentPagess:1,
         currentPagesss:1,
         currentPagessss:1,
+      currentPage: 1 /* 当前页码 */,
       totalPage: 0,
       pageSize: 4,
       tenderId:""
