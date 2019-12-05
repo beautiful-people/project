@@ -79,7 +79,7 @@ export default {
   },
   created() {
     
-  }
+  },
 };
 </script>
 

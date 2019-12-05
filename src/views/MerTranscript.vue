@@ -1,7 +1,7 @@
 <template>
   <div>
    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-  <el-menu-item index="1" @click="ind=0">全部</el-menu-item>
+  <el-menu-item index="1" @click="f">全部</el-menu-item>
   <el-menu-item index="2" @click="fn">中标</el-menu-item>
   <el-menu-item index="3" @click="fnn">未中标</el-menu-item>
 </el-menu>
@@ -39,19 +39,6 @@
           label="招标状态"
           prop="state" width="120px">
         </el-table-column>
-        <!-- <el-table-column
-          fixed="right"
-          label="操作"
-          width="120">
-          <template slot-scope="scope">
-            <el-button
-              @click.native.prevent="deleteRow(scope.$index, tableData)"
-              type="text"
-              size="small">
-              移除
-            </el-button>
-          </template>
-        </el-table-column> -->
       </el-table>
        <el-pagination
           background
@@ -269,6 +256,10 @@ export default {
           console.log(err);
         });
     },
+     f(){
+      this.ind=0,
+      this.getline()
+    },
     fn(){
       this.ind=1,
       this.getline1()
@@ -330,7 +321,67 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    }
+    },
+    handleSizeChange(val) {
+      /* 每页多少条数据 */
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChanges() {
+      /* 获取当前页码 */
+      this.axios
+        .post("/tender/selectMyTender", {
+          currentPage: this.currentPages, //当前页
+          pageSize: this.pageSize, //每页显示的条数
+        })
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == 200) {
+            this.tableData = res.data.data.Tender;
+           this.totalPage = res.data.data.totalCount;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    handleCurrentChangess() {
+      /* 获取当前页码 */
+      this.axios
+        .post("/tender/selectMyTender", {
+          currentPage: this.currentPagess, //当前页
+          pageSize: this.pageSize, //每页显示的条数
+          caluseState: 0
+        })
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == 200) {
+            this.tableDatas = res.data.data.Tender;
+           this.totalPage = res.data.data.totalCount;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    handleCurrentChangesss() {
+      /* 获取当前页码 */
+      this.axios
+        .post("/tender/selectMyTender", {
+          currentPage: this.currentPagesss, //当前页
+          pageSize: this.pageSize, //每页显示的条数
+          caluseState: 0
+        })
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == 200) {
+            this.tableDatass = res.data.data.Tender;
+           this.totalPage = res.data.data.totalCount;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
   },
   data() {
     return {

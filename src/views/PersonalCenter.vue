@@ -1,6 +1,10 @@
 <template>
   <div class="box">
+    <index></index>
+
+    <!-- <el-page-header @back="goBack" content="详情页面"></el-page-header> -->
     <el-container>
+      
       <!-- 侧边导航 -->
       <el-aside width="200px">
         <Sidenav></Sidenav>
@@ -16,6 +20,7 @@
 
 <script>
 import Sidenav from '../components/Sidenav'
+import index from "@/components/index";
 
 export default {
   name: 'PersonalCenter',
@@ -23,8 +28,14 @@ export default {
     
   },
   components: {
-    Sidenav
+    Sidenav,
+    index
   },
+  methods: {
+    goBack() {
+      console.log('go back');
+    }
+  }
   // Vue.http.interceptors.push((request, next) => {
   //   	request.headers.set('lanId', ‘100’);
   //  })
@@ -34,7 +45,7 @@ export default {
 <style scoped lang="less">
 .box{
   margin: 0 auto;
-  width: 1100px;
+  // width: 1100px;
   background: #eee;
 }
 .wrap{
