@@ -170,8 +170,9 @@ export default {
         })
         .then(res => {
           if (res.data.code == 200) {
-            console.log(res.data.data.tenders);
+            console.log(res.data.data);
             this.tables = res.data.data.tenders;
+            this.totalCount =res.data.data.totalCount;
           }
         })
         .catch(err => {
@@ -198,6 +199,8 @@ export default {
           if (res.data.code == 200) {
             console.log(res.data.data.tenders);
             this.tables = res.data.data.tenders;
+            this.totalCount =res.data.data.totalCount;
+
           }
         })
         .catch(err => {
