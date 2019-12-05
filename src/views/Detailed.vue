@@ -33,6 +33,9 @@
           <el-step title="验收完成"></el-step>
         </el-steps>
       </div>
+      <div v-for="item in ListTens" :key="item.caluseId">
+        <img :src=item.caluseImg alt="">
+      </div>
     </div>
   </div>
 </template>
@@ -43,7 +46,8 @@ export default {
   data: function() {
     return {
       tenderId: sessionStorage.getItem("tenderIds"),
-     ListTen:[]
+     ListTen:[],
+      ListTens:[]
     };
   },
   components: {
@@ -59,7 +63,7 @@ export default {
         .post(
           "/selectOnlinepicWorker",
           {
-            tenderId: 1
+            tenderId: this.tenderId
           },
 
           {
@@ -72,7 +76,6 @@ export default {
           console.log(res.data);
           if(res.data.code==200){
               this.ListTen=res.data.data.tenderss;
-              console.log( this.ListTen.calusename)
           }
         })
         .catch(err => {
@@ -84,7 +87,7 @@ export default {
         .post(
           "/selectOnlineoneWorker",
           {
-            tenderId: 1
+            tenderId:this.tenderId
           },
 
           {
@@ -96,8 +99,7 @@ export default {
         .then(res => {
           console.log(res.data);
           if(res.data.code==200){
-              this.ListTen=res.data.data.tenderss;
-              console.log( this.ListTen.calusename)
+              this.ListTens=res.data.data.onlinesites;
           }
         })
         .catch(err => {

@@ -10,8 +10,9 @@
         <li><img src="img/index-img/qq.png" class="main-Stick-img" alt=""> 在线咨询</li>
         <li><img src="img/index-img/tel.png" class="main-Stick-img" alt=""> <span>400-123-169</span></li>
         <li @click="backone"><img src="img/index-img/geren.png" class="main-Stick-img" alt=""> 进入会员中心</li>
-        <li @click="back"><img src="img/index-img/login.png" class="main-Stick-img" >请先登录或者注册</li>
-        <li><img src="img/index-img/quit.png" class="main-Stick-img" > 退出</li>
+        <li  v-if="index"><img src="img/index-img/login.png" class="main-Stick-img" >已经登陆</li>
+        <li v-else @click="back"><img src="img/index-img/login.png" class="main-Stick-img" >请先登录或者注册</li>
+        <li ><img src="img/index-img/quit.png" class="main-Stick-img" > 退出</li>
       </ul>
     </div>
 
@@ -78,13 +79,15 @@ export default {
   data() {
     return {
       input: "",
+      index:location.search.substr(1),
       msg:sessionStorage.getItem("name")
     };
   },
   methods:{
    back(){
-      console.log("123")
-       this.$router.replace("/login");
+    
+       this.$router.replace("/login?"+this.index);
+       
     },
   },
   backone(){

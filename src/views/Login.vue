@@ -98,12 +98,14 @@
       </div>
     </div>
   </div>
+  
 </template>
 <script>
 export default {
   name: "Login",
   data: function() {
     return {
+      index:false,
       ind: 0,
       username: "",
       userpass: "",
@@ -166,7 +168,7 @@ export default {
             // 获取参数（未登录时想访问的路由）
             var url = this.$route.query.redirect;
             this.open2();
-            url = url ? url : "/home";
+            url = url ? url : "/home?"+this.index;
 
             // 切换路由
             this.$router.replace(url);
@@ -238,7 +240,7 @@ export default {
             // 获取参数（未登录时想访问的路由）
             var url = this.$route.query.redirect;
             this.open2();
-            url = url ? url : "/home";
+            url = url ? url : "/home?"+this.index;
             // 切换路由
             this.$router.replace(url);
             // this.axios.post("/test")

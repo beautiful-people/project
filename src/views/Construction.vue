@@ -18,13 +18,13 @@
       <div class="onLineHead">
         <span>在线工地</span>
       </div>
-      <div class="onLine-main" v-show="inex===0">
+      <div class="onLine-main clear" v-show="inex===0">
         <div class="main" v-for="item in Linelist" :key="item.tenterId">
           <div class="main-left ">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right ">
-            <p @click="getDeTailed">{{item.calusename}}</p>
+            <p @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域:
@@ -73,13 +73,13 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===2">
+      <div class="onLine-main clear" v-show="inex===2">
          <div class="main" v-for="item in Linelistone" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域：
@@ -126,15 +126,15 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===3">
+      <div class="onLine-main clear" v-show="inex===3">
          <div class="main" v-for="item in LinelistTwo" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p  @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
-              <li>
+              <li >
                 区域:
                 <span>{{item.location}}</span>
               </li>
@@ -180,13 +180,13 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===4">
+      <div class="onLine-main clear" v-show="inex===4">
          <div class="main" v-for="item in LinelistThree" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p  @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域:
@@ -234,13 +234,13 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===5">
+      <div class="onLine-main clear" v-show="inex===5">
          <div class="main" v-for="item in LinelistFour" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p  @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域：
@@ -288,13 +288,13 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===6">
+      <div class="onLine-main clear" v-show="inex===6">
          <div class="main" v-for="item in LinelistFive" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p  @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域：
@@ -342,13 +342,13 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===7">
+      <div class="onLine-main clear" v-show="inex===7">
          <div class="main" v-for="item in LinelistSix" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p  @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域：
@@ -396,13 +396,13 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
-      <div class="onLine-main" v-show="inex===8">
+      <div class="onLine-main clear" v-show="inex===8">
          <div class="main" v-for="item in LinelistSeven" :key="item.tenterId">
           <div class="main-left clear">
             <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right clear">
-            <p>{{item.calusename}}</p>
+            <p  @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
               <li>
                 区域：
@@ -450,17 +450,19 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
+      <footerr class="footers"></footerr>
     </div>
   </div>
 </template>
 
 <script>
 import index from "@/components/index";
-
+import footerr from "@/components/Footer.vue";
 export default {
   name: "Construction",
   components: {
-    index
+    index,
+    footerr
   },
   data: function() {
     return {
@@ -479,13 +481,21 @@ export default {
        currentPagess:1,
         currentPagesss:1,
         currentPagessss:1,
+<<<<<<< HEAD
       // currentPage: 1 /* 当前页码 */,
       //   currentPagesssss:1,
       //   currentPagessssss:1,
       //   currentPagesssssss:1,
+=======
+     
+        currentPagesssss:1,
+        currentPagessssss:1,
+        currentPagesssssss:1,
+>>>>>>> 9ba4fce62347dc613f875ed14f262ad01dbe82d8
       totalPage: 0,
       pageSize: 4,
-      tenderId:""
+      tenderId:"",
+       tenderIdss:""
     };
   },
   created() {
@@ -513,6 +523,7 @@ export default {
           console.log(res.data);
           if (res.data.code == 200) {
             this.Linelist = res.data.data.Tender;
+          
             this.totalPage = res.data.data.totalCount;
           }
         })
@@ -548,9 +559,9 @@ export default {
       this.inex=8;
       this.getSeven();
     },
-    getDeTailed(){
+    getDeTailed(id){
   this.$router.push("/detailed");
-  var tenderIds= this.Linelist.onlinesites.tenderId;
+  var tenderIds= id;
   sessionStorage.setItem("tenderIds",tenderIds)
     },
     getbegin() {
@@ -1023,6 +1034,11 @@ export default {
       }
     }
   }
+ .footers{
+   position: absolute;
+   bottom: -1500px;
+   left: 0;
+ }
   .pag {
     position: absolute;
     bottom: 20px;

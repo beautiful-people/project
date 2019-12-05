@@ -169,12 +169,17 @@
         </div>
       </div>
     </div>
+     <footerr></footerr>
   </div>
 </template>
 
 <script>
+import footerr from "@/components/Footer.vue";
 export default {
   name: "membership",
+  components: {
+    footerr
+  },
   data: function() {
     return {
       freeService: [
@@ -518,7 +523,7 @@ export default {
   text-align: center;
   .membership-head {
     width: 100%;
-    height: 1500px;
+    height: 1490px;
     background-image: url(../../public/img/denglu-bg.png);
     background-position: center;
     background-repeat: no-repeat;
@@ -526,7 +531,7 @@ export default {
     position: relative;
     .membership-main {
       width: 700px;
-      height: 1490px;
+      height: 1438px;
       position: absolute;
       top: 50px;
       left: 0;
