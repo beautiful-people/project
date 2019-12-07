@@ -450,6 +450,76 @@
           <!-- total:总共数据  page-size:每页显示条目个数    :current-page.sync="currentPage"当前所在的页码-->
         </el-pagination>
       </div>
+      <div class="left clear">
+        <div class="left_one">
+          <div class="left-one">
+
+              <span>免费送装修设计保价</span>
+          </div>
+          <div class="left-input">
+            <span>10秒登记，轻松获得</span>
+            <input type="text" placeholder="你的称呼">
+             <input type="text" placeholder="你的电话">
+             <input type="button" value="立即免费申请">
+             <div class="">
+               <span>了解更多免费服务</span>
+             </div>
+          </div>
+        </div>
+        <div class="left_two">
+            <img src="../../public/img/meitu.jpg"/>
+        </div>
+        <div class="left_three">
+          <div class="left-three">
+            <span>热门小区推荐</span>
+          </div>
+          <div class="left-ui">
+            <ul>
+              <li>山海同湾</li>
+              <li>中关村公馆</li>
+              <li>欧郡香水城</li>
+              <li>戛纳35号</li>
+            </ul>
+          </div>
+          <div class="left-more">
+            <span>了解更多小区</span>
+          </div>
+        </div>
+        <div class="left_three">
+          <div class="left-three">
+            <span>热门设计推荐 </span>
+          </div>
+          <div class="left-ui">
+            <ul>
+              <li>国瑞城</li>
+              <li>新裕家园</li>
+              <li>绿景馨园</li>
+              <li>世华龙樾</li>
+            </ul>
+          </div>
+          <div class="left-more">
+            <span>了解更多设计</span>
+          </div>
+        </div>
+        <div class="left_four">
+            <div class="left-four">
+                <span>大家都在搜</span>
+            </div>
+            <div class="four-ui">
+              <ul>
+                <li>新型装修</li>
+                <li>办公楼</li>
+                <li>别墅庭院</li>
+                <li>庭院大门</li>
+                <li>欧式休闲区</li>
+                <li>外观别墅设计</li>
+                <li>上海写字楼</li>
+                <li>别墅庭院装修</li>
+                <li>庭院装修</li>
+              </ul>
+            </div>
+        </div>
+      </div>
       <footerr class="footers"></footerr>
     </div>
   </div>
@@ -481,11 +551,6 @@ export default {
        currentPagess:1,
         currentPagesss:1,
         currentPagessss:1,
-      // currentPage: 1 /* 当前页码 */,
-      //   currentPagesssss:1,
-      //   currentPagessssss:1,
-      //   currentPagesssssss:1,
-     
         currentPagesssss:1,
         currentPagessssss:1,
         currentPagesssssss:1,
@@ -941,16 +1006,12 @@ export default {
   margin-top: 50px;
   position: relative;
   background-color: rgba(255, 255, 255, 0.582);
-  //   .onLine-head ul li:hover{
-  //   background: rgb(39, 3, 3);
-  //   color: #ccc;
-  // }
   .onLine-head {
     ul {
       width: 902px;
       height: 50px;
-      border: 1px solid rgba(0, 0, 0, 0.562);
-      margin-left: 285px;
+      border: 1px solid rgba(0, 0, 0, 0.253);
+      margin-left: 185px;
       li {
         text-align: center;
         width: 100px;
@@ -962,8 +1023,7 @@ export default {
       }
    
       .on {
-        border: 1px solid rgba(0, 0, 0, 0.5);
-        background-color: black;
+        background-color: rgba(0, 0, 0, 0.295);
         color: white;
       }
      
@@ -972,7 +1032,7 @@ export default {
 
   .onLineHead {
     color: black;
-    margin-left: 280px;
+    margin-left: 185px;
     font-size: 18px;
     font-weight: 600;
     margin-top: 10px;
@@ -980,9 +1040,9 @@ export default {
   .onLine-main {
     width: 900px;
    height: 1380px;
-    position: absolute;
-    top: 100px;
-    left: 280px;
+   float: left;
+   margin-left: 180px;
+   position: relative;
     .main {
       width: 870px;
       height: 300px;
@@ -1027,6 +1087,119 @@ export default {
         .el {
           margin-top: 30px;
           margin-left: 20px;
+        }
+      }
+    }
+  }
+  .left{
+    float: left;
+    width: 240px;
+    height: 800px;
+   
+    margin-left: 30px;
+    .left_one {
+      width: 240px;
+      height: 250px;
+      border: 1px solid rgba(0, 0, 0, 0.11);
+      margin-top: 5px;
+      .left-one {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background-color: #27BC9C;
+        color:white;
+        font-size: 14px;
+      }
+      .left-input {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        span {
+          font-size: 14px;
+        }
+        input {
+          width: 200px;
+          height: 30px;
+          text-indent: 10px;
+        }
+        input[type="button"]{
+          background-color: #F39943;
+          outline: none;
+          border: none;
+          width: 200px;
+          color: white;
+          font-size: 14px;
+        }
+      }
+    }
+    .left_two {
+      margin-top: 30px;
+    }
+    .left_three {
+       width: 240px;
+      height: 250px;
+      border: 1px solid rgba(0, 0, 0, 0.11);
+      margin-top:30px;
+      .left-three {
+         width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+        background-color: #F39943;
+      }
+      .left-ui {
+        width: 100%;
+        ul {
+          margin-left: 10%;
+          width: 80%;
+          text-align: center;
+          li {
+             border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+            height: 40px;
+            line-height: 40px;
+            list-style-type: none;
+            cursor: pointer;
+          }
+          li:nth-child(4) {
+            border:none;
+          }
+          li:hover {
+            background-color: rgba(0, 0, 0, 0.356);
+          }
+        }
+      }
+      .left-more{
+        border-top: 1px solid  rgba(0, 0, 0, 0.185);
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+      }
+    }
+    .left_four {
+      width: 240px;
+      height: 250px;
+      border: 1px solid rgba(0, 0, 0, 0.11);
+      margin-top:30px;
+      .left-four {
+         width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+        background-color: #27BC9C;
+      }
+      .four-ui{
+        margin-top: 30px;
+        width: 90%;
+        li{
+          float: left;
+          list-style-type: none;
+          padding-left: 20px;
+          height: 30px;
+          line-height: 30px;
         }
       }
     }

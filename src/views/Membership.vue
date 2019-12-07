@@ -495,7 +495,7 @@ export default {
           console.log(err);                                                                                                                                                                  
         });
     },
-      open() {
+    open() {
         this.$message({
           message: '恭喜你完善资料成功！',
           type: 'success'
