@@ -1,7 +1,6 @@
 <template>
-    
-<div class="userdetails">
-     <div class="main-top-header">
+  <div class="userdetails">
+    <div class="main-top-header">
       <div class="main-top-center">
         <div class="main-top-header-logo">
           <!-- LOGO图片 -->
@@ -37,117 +36,172 @@
         </div>
       </div>
     </div>
-   <!--  <div class="qwer">
-      <img src="../../public/img/qwer.jpg" alt="">
-    </div> -->
-    <div class="tails">
-<el-row type="flex" class="row-bg" justify="center">
-  <el-col :span="6"> <el-form :inline="true"  class="demo-form-inline">
-  <el-form-item label="真实姓名:">
-    <el-input v-model="relName" placeholder="请输入姓名"></el-input>
-  </el-form-item>
-    <el-form-item label="手机号码:">
-    <el-input v-model="userPhone" placeholder="请输入手机号码"></el-input>
-  </el-form-item>
-    <el-form-item label="性别:">
-    <el-input v-model="userSex" placeholder="请输入性别"></el-input>
-  </el-form-item>
-   <el-form-item label="电子邮件:">
-    <el-input v-model="userEmail" placeholder="电子邮件"></el-input>
-  </el-form-item>
-  <el-form-item>
-    <button type="button" @click="getdeng" class="deng">提交</button>
-  </el-form-item>
-  
-  </el-form></el-col>
-  <el-col :span="6"><div class="grid-content bg-purple-light"></div></el-col>
-  <el-col :span="6">
-      <el-form :inline="true" class="demo-form-inline">
-      <el-form-item label="出生年月:">
-    <el-input v-model="userBirthday" placeholder="请输入出生年月"></el-input>
-  </el-form-item>
-    <el-form-item label="座机号码:">
-    <el-input v-model="userTelephone" placeholder="请输入座机号码"></el-input>
-  </el-form-item>
- <el-form-item label="QQ号码:">
-    <el-input v-model="userAddress" placeholder="请输入QQ号码"></el-input>
-  </el-form-item>
-<el-form-item label="详细地址:">
-    <el-input v-model="userAddress" placeholder="请输入地址"></el-input>
-  </el-form-item>
-  <el-form-item>
-    <button type="button" @click="getdeng" class="deng">重置</button>
-  </el-form-item>
-  
-</el-form></el-col>
-</el-row>
-   
-    
+     <div class="qwer">
+      <img src="../../public/img/denlu.png" />
     </div>
-</div>
+    <div class="tails">
+      <el-row type="flex" class="row-bg" justify="center">
+        <el-col :span="6">
+          <el-form :inline="true" class="demo-form-inline">
+            <el-form-item label="真实姓名:">
+              <el-input v-model="relName" placeholder="请输入姓名" @blur="user(relName)"></el-input>
+              <span class="in">*必填</span>
+            </el-form-item>
+            <el-form-item label="手机号码:">
+              <el-input v-model="userPhone" placeholder="请输入手机号码" @change="phone(userphone)"></el-input>
+              <span class="in">*必填</span>
+            </el-form-item>
+            <el-form-item label="性别:">
+              <el-input v-model="userSex" placeholder="请输入性别"></el-input>
+              <span class="in">*必填</span>
+            </el-form-item>
+            <el-form-item label="电子邮件:">
+              <el-input v-model="userEmail" placeholder="电子邮件" @blur="email(userEmail)"></el-input>
+              <span class="in">*必填</span>
+            </el-form-item>
+            <el-form-item>
+              <button type="button" @click="getdeng" class="deng">提交</button>
+            </el-form-item>
+          </el-form>
+        </el-col>
+        <el-col :span="6">
+          <div class="grid-content bg-purple-light"></div>
+        </el-col>
+        <el-col :span="6">
+          <el-form :inline="true" class="demo-form-inline">
+            <el-form-item label="出生年月:">
+              <el-input v-model="userBirthday" placeholder="请输入出生年月" @blur="year(userBirthday)"></el-input>
+              <span class="in">*必填</span>
+            </el-form-item>
+            <el-form-item label="座机号码:">
+              <el-input v-model="userTelephone" placeholder="请输入座机号码"></el-input>
+              <span class="in">*必填</span>
+            </el-form-item>
+            <el-form-item label="QQ号码:">
+              <el-input v-model="userAddress" placeholder="请输入QQ号码" @blur="QQ(userAddress)"> </el-input>
+              <span class="in">*必填</span>
+            </el-form-item>
+            <el-form-item label="详细地址:">
+              <el-input v-model="userQQ" placeholder="请输入地址"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <button type="button" @click="getdengs" class="dengs">重置</button>
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+    </div>
+  </div>
 </template>
 <script>
 export default {
-    name:"userdetails",
-    data:function(){
-        return {
-           relName:"",
-          userPhone:"",
-          userSex:"",
-           userEmail:"",
-           userBirthday:"",
-          userTelephone:"",
-           userAddress:"",
-        }
-    },
-    methods:{
-        getdeng(){
-            this.axios
-                .post(
-                "/register/regUser",
-                {
-               user:{
-                    "realName":this.relName,
-                    "userPhone":this.userPhone,
-                    "userSex":this.userSex,
-                    "userEmail":this.userEmail,
-                    "userBirthday":this.userBirthday,
-                    "userTelephone":this.userTelephone,
-                    "userQQ":this.userAddress
-               }
-                },
-                {
-                    headers: {
-                    "content-type": "application/json"
-                    }
-                }
-                )
-                .then(res => {
-                console.log(res.data);
-                if (res.data.code == "200") {
-                this.open();
-                this.$router.push("/login");
-                    
-                } else if (res.data.code == "404"){
-                    this.open4();
-                } 
-                })
-                .catch(err => {
-                console.log(err);
-                });
-        },
-         open() {
-          this.$message({
-          message: '恭喜你，注册成功',
-          type: 'success'
+  name: "userdetails",
+  data: function() {
+    return {
+      relName: "",
+      userPhone: "",
+      userSex: "",
+      userEmail: "",
+      userBirthday: "",
+      userTelephone: "",
+      userAddress: "",
+      userQQ: ""
+    };
+  },
+  methods: {
+    getdeng() {
+      this.axios
+        .post(
+          "/register/regUser",
+          {
+            user: {
+              realName: this.relName,
+              userPhone: this.userPhone,
+              userSex: this.userSex,
+              userEmail: this.userEmail,
+              userBirthday: this.userBirthday,
+              userTelephone: this.userTelephone,
+              userQQ: this.userAddress
+            }
+          },
+          {
+            headers: {
+              "content-type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == "200") {
+            this.open();
+            this.$router.push("/login");
+          } else if (res.data.code == "404") {
+            this.open4();
+          }
+        })
+        .catch(err => {
+          console.log(err);
         });
     },
-      open4() {
-          this.$message.error('手机号已存在');
-          this.usertelphone=""
+    getdengs() {
+      this.relName="",
+        this.userPhone="",
+        this.userSex="",
+        this.userEmail="",
+        this.userBirthday="",
+        this.userTelephone="",
+        this.userAddress="";
+        this.userQQ="";
     },
-    }
-}
+    open() {
+      this.$message({
+        message: "恭喜你，注册成功",
+        type: "success"
+      });
+    },
+    open4() {
+      this.$message.error("手机号已存在");
+      this.usertelphone = "";
+    },
+    phone: function(value) {
+      var pat = /^1[3456789]\d{9}$/;
+      console.log(pat.test(value));
+      if (pat.test(value)) {
+
+        console.log("正确的手机格式");
+      } else {
+        this.$message.error("请输入正确手机的格式");
+      }
+    },
+    QQ(value){
+       var pat = /[1-9]([0-9]{4,10})/;
+      console.log(pat.test(value));
+      if (pat.test(value)) {
+        console.log("正确的手机格式");
+      } else {
+        this.$message.error("请输入正确的QQ格式");
+      }
+    },
+    email(value){
+       var pat = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
+      console.log(pat.test(value));
+      if (pat.test(value)) {
+        console.log("正确的手机格式");
+      } else {
+        this.$message.error("请输入正确的邮箱格式");
+      }
+    },
+    user(value){
+       var pat = /[A-Za-z0-9_\-\u4e00-\u9fa5]+/;
+      console.log(pat.test(value));
+      if (pat.test(value)) {
+  console.log("true")
+      } else {
+        this.$message.error("不能为空");
+      }
+    },
+  }
+};
 </script>
 <style lang="less" scoped>
 * {
@@ -163,17 +217,18 @@ export default {
 .clear::after {
   clear: both;
 }
-.qwer{
-  width: 100%;
+.qwer {
+  width: 500px;
   height: auto;
   float: left;
-  img{
-    width: 100%;
-    height: auto;
+  margin-left: 100px;
+  margin-top: 60px;
+  img {
+    width: 500px;
+    height: 500px;
   }
 }
-.userdetails{
- 
+.userdetails {
   width: 100%;
   height: 700px;
   background-image: url(../../public/img/denglu-bg.png);
@@ -181,19 +236,19 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-.tails{
+  .tails {
     width: 800px;
     height: 400px;
     display: flex;
-   
+
     /* justify-content: space-between;
      align-items:space-around; */
-    border: 1px solid rgba(0, 0, 0, 0.363);
-    background:white;
-    
+   
+    background: white;
+
     position: absolute;
-    top:120px;
-    left:250px;
+    top: 120px;
+    left: 550px;
     bottom: 0;
     right: 0;
     margin: 0 auto;
@@ -208,7 +263,24 @@ export default {
       background-color: orange;
       border-radius: 5px;
     }
-}
+    .dengs {
+      width: 100px;
+      height: 30px;
+      margin-left: 8px;
+      margin-top: 13px;
+      outline: none;
+      border: none;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 5px;
+    }
+    .in {
+     position: absolute;
+     top:0;
+     right: -34px; 
+     font-size: 15px;
+     color: rgba(255, 0, 0, 0.692);  
+      }
+  }
 }
 
 .main-top-header {
