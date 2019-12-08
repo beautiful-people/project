@@ -44,11 +44,11 @@
         <el-col :span="6">
           <el-form :inline="true" class="demo-form-inline">
             <el-form-item label="真实姓名:">
-              <el-input v-model="relName" placeholder="请输入姓名"></el-input>
+              <el-input v-model="relName" placeholder="请输入姓名" @blur="user(relName)"></el-input>
               <span class="in">*必填</span>
             </el-form-item>
             <el-form-item label="手机号码:">
-              <el-input v-model="userPhone" placeholder="请输入手机号码" @blur="phone(userphone)"></el-input>
+              <el-input v-model="userPhone" placeholder="请输入手机号码" @change="phone(userphone)"></el-input>
               <span class="in">*必填</span>
             </el-form-item>
             <el-form-item label="性别:">
@@ -56,7 +56,7 @@
               <span class="in">*必填</span>
             </el-form-item>
             <el-form-item label="电子邮件:">
-              <el-input v-model="userEmail" placeholder="电子邮件"></el-input>
+              <el-input v-model="userEmail" placeholder="电子邮件" @blur="email(userEmail)"></el-input>
               <span class="in">*必填</span>
             </el-form-item>
             <el-form-item>
@@ -70,7 +70,7 @@
         <el-col :span="6">
           <el-form :inline="true" class="demo-form-inline">
             <el-form-item label="出生年月:">
-              <el-input v-model="userBirthday" placeholder="请输入出生年月"></el-input>
+              <el-input v-model="userBirthday" placeholder="请输入出生年月" @blur="year(userBirthday)"></el-input>
               <span class="in">*必填</span>
             </el-form-item>
             <el-form-item label="座机号码:">
@@ -78,7 +78,7 @@
               <span class="in">*必填</span>
             </el-form-item>
             <el-form-item label="QQ号码:">
-              <el-input v-model="userAddress" placeholder="请输入QQ号码"></el-input>
+              <el-input v-model="userAddress" placeholder="请输入QQ号码" @blur="QQ(userAddress)"> </el-input>
               <span class="in">*必填</span>
             </el-form-item>
             <el-form-item label="详细地址:">
@@ -167,12 +167,39 @@ export default {
       var pat = /^1[3456789]\d{9}$/;
       console.log(pat.test(value));
       if (pat.test(value)) {
-        this.userBirthday = true;
+
         console.log("正确的手机格式");
       } else {
-        this.$message.error("请输入正确的格式");
+        this.$message.error("请输入正确手机的格式");
       }
-    }
+    },
+    QQ(value){
+       var pat = /[1-9]([0-9]{4,10})/;
+      console.log(pat.test(value));
+      if (pat.test(value)) {
+        console.log("正确的手机格式");
+      } else {
+        this.$message.error("请输入正确的QQ格式");
+      }
+    },
+    email(value){
+       var pat = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
+      console.log(pat.test(value));
+      if (pat.test(value)) {
+        console.log("正确的手机格式");
+      } else {
+        this.$message.error("请输入正确的邮箱格式");
+      }
+    },
+    user(value){
+       var pat = /[A-Za-z0-9_\-\u4e00-\u9fa5]+/;
+      console.log(pat.test(value));
+      if (pat.test(value)) {
+  console.log("true")
+      } else {
+        this.$message.error("不能为空");
+      }
+    },
   }
 };
 </script>

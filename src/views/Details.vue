@@ -34,13 +34,13 @@
                 size="small"
                 type="success"
                 @click="startUpload()"
-              >上传到服务器</el-button>
+              class="btn">上传到服务器</el-button>
             </el-upload>
           </form>
 
           <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+            <el-button @click="dialogFormVisible = false" class="btn">取 消</el-button>
+            <el-button type="primary" @click="dialogFormVisible = false" class="btn">确 定</el-button>
           </div>
         </el-dialog>
       </div>
@@ -78,7 +78,7 @@
               class="detailed-cont-c"
               v-for="(item,index) in ListTen.onlinesites"
               :key="index"
-            >开门大吉
+            >{{item.caluseState}}
             <img :src="item.caluseImg" alt />
             </div>
             
@@ -86,13 +86,48 @@
         </div>
       </div>
     </div>
+    <div class="left clear">
+        <div class="left_one">
+          <div class="left-one">
 
-    <!-- <footerr></footerr> -->
+              <span>免费送装修设计保价</span>
+          </div>
+          <div class="left-input">
+            <span>10秒登记，轻松获得</span>
+            <input type="text" placeholder="你的称呼">
+             <input type="text" placeholder="你的电话">
+             <input type="button" value="立即免费申请">
+             <div class="">
+               <span>了解更多免费服务</span>
+             </div>
+          </div>
+        </div>
+        <div class="left_two">
+            <img src="../../public/img/meitu.jpg"/>
+        </div>
+        <div class="left_three">
+          <div class="left-three">
+            <span>热门小区推荐</span>
+          </div>
+          <div class="left-ui">
+            <ul>
+              <li>山海同湾</li>
+              <li>中关村公馆</li>
+              <li>欧郡香水城</li>
+              <li>戛纳35号</li>
+            </ul>
+          </div>
+          <div class="left-more">
+            <span>了解更多小区</span>
+          </div>
+        </div>
+      </div>
+    <footerr class="foote"></footerr>
   </div>
 </template>
 <script>
 import index from "@/components/index";
-// import footerr from "@/components/Footer.vue";
+import footerr from "@/components/Footer.vue";
 export default {
   name: "Detailed",
   data: function() {
@@ -106,12 +141,13 @@ export default {
       fileList: [], //上传图片的
       photo: "", //选取图片时存储的地方
       styleValue:0,
-     styleList:[1,2,3,4,5,6,7]
+     styleList:[1,2,3,4,5,6,7],
+     text:""
     };
   },
   components: {
-    index
-    // footerr
+    index,
+    footerr
   },
   created() {
     this.getmain();
@@ -206,8 +242,10 @@ export default {
   width: 800px;
   height: auto;
   border: 1px solid rgba(0, 0, 0, 0.267);
-  margin-top: 40px;
-  margin-left: 340px;
+  margin-top: 30px;
+  margin-left: 300px;
+    float: left;
+    position: relative;
 
   .detailed-head {
     width: 800px;
@@ -265,22 +303,140 @@ export default {
     }
   }
 }
+.left{
+    float: left;
+    width: 240px;
+    height: 800px;
+   margin-top: 30px;
+    margin-left: 50px;
+    .left_one {
+      width: 240px;
+      height: 250px;
+      border: 1px solid rgba(0, 0, 0, 0.11);
+      margin-top: 5px;
+      .left-one {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background-color: #27BC9C;
+        color:white;
+        font-size: 14px;
+      }
+      .left-input {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        span {
+          font-size: 14px;
+        }
+        input {
+          width: 200px;
+          height: 30px;
+          text-indent: 10px;
+        }
+        input[type="button"]{
+          background-color: #F39943;
+          outline: none;
+          border: none;
+          width: 200px;
+          color: white;
+          font-size: 14px;
+        }
+      }
+    }
+    .left_two {
+      margin-top: 30px;
+    }
+    .left_three {
+       width: 240px;
+      height: 250px;
+      border: 1px solid rgba(0, 0, 0, 0.11);
+      margin-top:30px;
+      .left-three {
+         width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+        background-color: #F39943;
+      }
+      .left-ui {
+        width: 100%;
+        ul {
+          margin-left: 10%;
+          width: 80%;
+          text-align: center;
+          li {
+             border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+            height: 40px;
+            line-height: 40px;
+            list-style-type: none;
+            cursor: pointer;
+          }
+          li:nth-child(4) {
+            border:none;
+          }
+          li:hover {
+            background-color: rgba(0, 0, 0, 0.356);
+          }
+        }
+      }
+      .left-more{
+        border-top: 1px solid  rgba(0, 0, 0, 0.185);
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+      }
+    }
+    .left_four {
+      width: 240px;
+      height: 250px;
+      border: 1px solid rgba(0, 0, 0, 0.11);
+      margin-top:30px;
+      .left-four {
+         width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+        background-color: #27BC9C;
+      }
+      .four-ui{
+        margin-top: 30px;
+        width: 90%;
+        li{
+          float: left;
+          list-style-type: none;
+          padding-left: 20px;
+          height: 30px;
+          line-height: 30px;
+        }
+      }
+    }
+  }
 .det-cont {
   margin-top: 50px;
+ 
 }
+   .foote {
+     position: absolute;
+     bottom: -550px;
+     left: 0;
+   }
 .detailed-cont {
+   border: 1px solid rgba(0, 0, 0, 0.479);
   width: 100%;
-  height: auto;
+  height: 600px;
   padding-top: 20px;
   padding-bottom: 30px;
-  border-bottom: 1px solid red;
-
   img {
     margin-left: 100px;
     float: left;
     width: 150px;
     height: 120px;
-    margin-top: -120px;
+    margin-top: -110px;
     vertical-align: middle;
   }
 }
@@ -293,5 +449,9 @@ export default {
   margin-right: 100px;
   color: rgba(0, 89, 255, 0.788);
   font-weight: bold;
+}
+.btn {
+  width: 100px;
+  height: 30px;
 }
 </style>
