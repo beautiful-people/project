@@ -19,25 +19,25 @@
         <span>在线工地</span>
       </div>
       <div class="onLine-main clear" v-show="inex===0">
-        <div class="main" v-for="item in Linelist" :key="item.tenterId">
+        <div class="main" v-for="item in Linelist.onlinesites" :key="item.tenterId">
           <div class="main-left ">
-            <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
+            <img :src="item.caluseImg" alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right ">
-            <p @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
+            <p @click="getDeTailed(item.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
-              <li>
+              <li v-for="(it,index) in Linelist" :key="index">
                 区域:
                 
-                <span>{{item.location}}</span>
+                <span>{{it.location}}</span>
               </li>
               <li>
                 风格:
-                <span>{{item.familyStructure}}</span>
+                <span>{{it.familyStructure}}</span>
               </li>
               <li>
                 面积:
-                <span>{{item.area}}</span>
+                <span>{{it.area}}</span>
               </li>
             </ul>
             <p>
@@ -46,7 +46,7 @@
             </p>
             <el-steps
               :space="200"
-              :active="Number(item.onlinesites.caluseState)"
+              :active="Number(item.caluseState)"
               finish-status="success"
               class="el"
             >
@@ -467,15 +467,15 @@ export default {
   data: function() {
     return {
       inex: 0,
-      Linelist: {},
-      Linelistone:{},
-      LinelistTwo:{},
-       LinelistThree:{},
-       LinelistFour:{},
+      Linelist: [],
+      Linelistone:[],
+      LinelistTwo:[],
+       LinelistThree:[],
+       LinelistFour:[],
       
-       LinelistFive:{},
-       LinelistSix:{},
-       LinelistSeven:{},
+       LinelistFive:[],
+       LinelistSix:[],
+       LinelistSeven:[],
       currentPage: 1 /* 当前页码 */,
       currentPages:1,
        currentPagess:1,
@@ -517,9 +517,10 @@ export default {
           }
         )
         .then(res => {
-          console.log(res.data);
+          console.log(res.data.data.Tender[0]);
+          console.log(res.data.data.Tender[0].onlinesites.tenderId);
           if (res.data.code == 200) {
-            this.Linelist = res.data.data.Tender;
+            this.Linelist = res.data.data.Tender[0];
           
             this.totalPage = res.data.data.totalCount;
           }

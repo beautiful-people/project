@@ -15,7 +15,7 @@
         </div>
 
         <!-- 中间内容 -->
-        <div class="decor-left-main" v-for="(item,index) in imags" :key="index">
+        <div class="decor-left-main">
           <div class="left-main-left">
             <!-- 左侧顶部 -->
             <div class="main-left-img">
@@ -25,14 +25,14 @@
               </div>
               <!-- 商家LOGO -->
               
-              <h2 @click="link(item.merId)">{{item.merName}}</h2>
+              <h2 @click="link(item.merId)">商家名字</h2>
               <!-- <img src="//img.zx123.cn/Resources/zx123cn/uploadfile/2019/1118/thumb_168_20191118092539_29884.jpg" alt=""> -->
             </div>
               
             <p>
               <!-- <img src="http://www.zx123.cn/templates/zx123cs/img_new/iou23.png" alt="">
               <span>数据通信 {{item.year}} 年</span> -->
-              注册时间： {{getTime(item.userDate)}}
+              注册时间： 2019年12月06号
             </p>
             <div class="satisfaction">
               <!-- <svg t="1575378517179" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5846" width="12" height="12"><path d="M512 85.9l110.8 318.7 337.2 6.8-268.8 203.8 97.7 322.9L512 745.4 235.1 938.1l97.7-322.9L64 411.4l337.2-6.8z" p-id="5847" fill="#ffab00"></path></svg>
@@ -58,7 +58,7 @@
           <div class="left-main-right">
             <div class="right-main-top">
               <div class="right-top-left">
-                <h3 @click="link(item.merId)">{{item.merName}}<img src="//www.zx123.cn/templates/zx123cs/img_new/i_zhuans.gif" alt=""></h3>
+                <h3 @click="link(item.merId)">名字<img src="//www.zx123.cn/templates/zx123cs/img_new/i_zhuans.gif" alt=""></h3>
                 <div class="compaskbd">
                   <div class="compaskbd-attestation" :v-if="item.auth=true">
                     <svg t="1575386003590" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6195" width="12" height="12"><path d="M976.571429 296q-5.714286 134.857143-189.714286 372-190.285714 246.285714-321.142857 246.285714-81.142857 0-137.142857-150.285714-25.142857-91.428571-75.428572-275.428571-41.142857-149.714286-89.714286-149.714286-10.285714 0-72.571428 43.428571l-44-56q13.714286-12 61.714286-55.142857T182.857143 205.142857q89.142857-78.857143 137.714286-83.428571 54.285714-5.142857 87.428571 31.714285T454.285714 269.714286q25.142857 164 37.714286 213.142857 31.428571 142.285714 68.571429 142.285714 29.142857 0 88-92 57.714286-92 62.285714-140.571428 7.428571-79.428571-62.285714-79.428572-32.571429 0-69.142858 14.857143 68.571429-224.571429 262.285715-218.285714 143.428571 4.571429 134.857143 186.285714z" p-id="6196" fill="#ffffff"></path></svg>
@@ -87,7 +87,7 @@
                 </div> -->
                 <div class="site-top-left">
                   <svg t="1575389032687" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="16007" width="14" height="14"><path d="M716.816 593.728C759.576 544.636 783.5 481.974 783.5 415.5 783.5 265.555 661.945 144 512 144S240.5 265.555 240.5 415.5c0 66.474 23.924 129.136 66.684 178.228a42.751 42.751 0 0 1 2.198 2.742L512 854.269l202.618-257.8a42.751 42.751 0 0 1 2.198-2.741zM160.5 415.5C160.5 221.372 317.872 64 512 64s351.5 157.372 351.5 351.5c0 85.5-30.687 166.35-85.441 229.714l-234.61 298.504c-16.015 20.376-46.883 20.376-62.898 0L245.94 645.214C191.187 581.85 160.5 501 160.5 415.5zM512 563c-81.462 0-147.5-66.038-147.5-147.5S430.538 268 512 268s147.5 66.038 147.5 147.5S593.462 563 512 563z m0-80c37.28 0 67.5-30.22 67.5-67.5S549.28 348 512 348s-67.5 30.22-67.5 67.5S474.72 483 512 483z" p-id="16008" fill="#6d6d6d"></path></svg>
-                  <span>{{item.merAddress}}</span>
+                  <span>地址</span>
                 </div>
 
                 <div class="national-top-left">
@@ -109,7 +109,7 @@
               </div>
             </div>
             <div class="right-main-bottom">
-              <img v-for="(it,i) in imgchild[0].decschemeList" :src="it.decorationimgs[0].imgPath" :key="i">
+              <img src="" alt="图片">
             </div>
           </div>
         </div>
