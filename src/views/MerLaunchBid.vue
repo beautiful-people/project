@@ -233,12 +233,20 @@ export default {
           .then(res => {
             console.log(res);
             if(res.data.code == 200) {
+
+              this.ruleForm = {}
               this.$message({
                 showClose: true,
                 message: '发布成功！',
                 type: 'success'
               });
+
+
+
+     
+            
             }
+             
           })
           .catch(err => {
             console.log(err);
