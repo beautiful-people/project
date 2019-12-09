@@ -364,7 +364,7 @@ export default {
         // caluseState: 0
       })
       .then(res => {
-        console.log("分页成功", res.data.data.merchantsImg);
+        console.log("分页成功", res.data.data);
         this.imags = res.data.data.merchants;
         this.imgchild = res.data.data.merchantsImg;
         this.totalPage = res.data.data.totalCount;

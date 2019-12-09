@@ -19,25 +19,25 @@
         <span>在线工地</span>
       </div>
       <div class="onLine-main clear" v-show="inex===0">
-        <div class="main" v-for="item in Linelist.onlinesites" :key="item.tenterId">
+        <div class="main" v-for="item in Linelist" :key="item.onlinesites.tenterId">
           <div class="main-left ">
-            <img :src="item.caluseImg" alt="" style="width:150px;height:150px;">
+            <img :src="item.onlinesites.caluseImg" alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right ">
-            <p @click="getDeTailed(item.tenderId)">{{item.calusename}}</p>
+            <p @click="getDeTailed(item.tenderId)">{{item.caluseName}}</p>
             <ul class="clear">
               <li v-for="(it,index) in Linelist" :key="index">
                 区域:
                 
-                <span>{{it.location}}</span>
+                <span>{{item.location}}</span>
               </li>
               <li>
                 风格:
-                <span>{{it.familyStructure}}</span>
+                <span>{{item.familyStructure}}</span>
               </li>
               <li>
                 面积:
-                <span>{{it.area}}</span>
+                <span>{{item.area}}</span>
               </li>
             </ul>
             <p>
@@ -46,7 +46,7 @@
             </p>
             <el-steps
               :space="200"
-              :active="Number(item.caluseState)"
+              :active="Number(item.onlinesites.caluseState)"
               finish-status="success"
               class="el"
             >
@@ -541,8 +541,7 @@ export default {
       Linelistone:[],
       LinelistTwo:[],
        LinelistThree:[],
-       LinelistFour:[],
-      
+       LinelistFour:[],      
        LinelistFive:[],
        LinelistSix:[],
        LinelistSeven:[],
@@ -574,7 +573,6 @@ export default {
             caluseState:0,
             state:0
           },
-
           {
             headers: {
               "content-type": "application/json"
@@ -582,11 +580,10 @@ export default {
           }
         )
         .then(res => {
-          console.log(res.data.data.Tender[0]);
+          console.log(res.data.data.Tender);
           console.log(res.data.data.Tender[0].onlinesites.tenderId);
           if (res.data.code == 200) {
-            this.Linelist = res.data.data.Tender[0];
-          
+            this.Linelist = res.data.data.Tender;          
             this.totalPage = res.data.data.totalCount;
           }
         })
