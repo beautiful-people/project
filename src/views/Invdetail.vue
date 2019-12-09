@@ -143,7 +143,7 @@ export default {
         })
       .then(res => {
         if (res.data.code == 200) {
-          console.log(res.data.data.tender);
+          // console.log(res.data.data.tender);
           this.tableData = res.data.data.tender;
           this.count = res.data.data.count
           console.log(res.data.data);
