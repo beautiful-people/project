@@ -23,7 +23,7 @@
         </div>
 
         <!-- 中间内容 -->
-        <div class="decor-left-main">
+        <div class="decor-left-main" v-for="(item,index) in imags" :key="index">
           <div class="left-main-left">
             <!-- 左侧顶部 -->
             <div class="main-left-img">

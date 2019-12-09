@@ -19,14 +19,14 @@
         <span>在线工地</span>
       </div>
       <div class="onLine-main clear" v-show="inex===0">
-        <div class="main" v-for="item in Linelist" :key="item.onlinesites.tenterId">
+        <div class="main" v-for="item in Linelist" :key="item.tenterId">
           <div class="main-left ">
-            <img :src="item.onlinesites.caluseImg" alt="" style="width:150px;height:150px;">
+            <img :src=item.onlinesites.caluseImg alt="" style="width:150px;height:150px;">
           </div>
           <div class="main-right ">
-            <p @click="getDeTailed(item.tenderId)">{{item.caluseName}}</p>
+            <p @click="getDeTailed(item.onlinesites.tenderId)">{{item.calusename}}</p>
             <ul class="clear">
-              <li v-for="(it,index) in Linelist" :key="index">
+              <li>
                 区域:
                 
                 <span>{{item.location}}</span>
@@ -537,14 +537,15 @@ export default {
   data: function() {
     return {
       inex: 0,
-      Linelist: [],
-      Linelistone:[],
-      LinelistTwo:[],
-       LinelistThree:[],
-       LinelistFour:[],      
-       LinelistFive:[],
-       LinelistSix:[],
-       LinelistSeven:[],
+      Linelist: {},
+      Linelistone:{},
+      LinelistTwo:{},
+       LinelistThree:{},
+       LinelistFour:{},
+      
+       LinelistFive:{},
+       LinelistSix:{},
+       LinelistSeven:{},
       currentPage: 1 /* 当前页码 */,
       currentPages:1,
        currentPagess:1,
@@ -580,10 +581,10 @@ export default {
           }
         )
         .then(res => {
-          console.log(res.data.data.Tender);
-          console.log(res.data.data.Tender[0].onlinesites.tenderId);
+          console.log(res.data);
           if (res.data.code == 200) {
-            this.Linelist = res.data.data.Tender;          
+            this.Linelist = res.data.data.Tender;
+          
             this.totalPage = res.data.data.totalCount;
           }
         })
