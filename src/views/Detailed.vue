@@ -181,7 +181,7 @@ export default {
   position: relative;
   .foott{
     position: absolute;
-    bottom: -1200px;
+    bottom: -1400px;
     left: 0;
   }
 }
