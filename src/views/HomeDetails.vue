@@ -89,4 +89,8 @@ export default {
       line-height: 150px;
       margin: 0;
     }
+
+    .homedecor {
+      height: 600px;
+    }
 </style>
