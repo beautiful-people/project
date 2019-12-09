@@ -83,10 +83,10 @@
         </div>
         <div class="box-right">
           <div class="rig-top" @click="getin(item.schemeId)">
-            <img :src="item.deimglist[1].imgPath" style="width:100%;height:135px;" alt />
+            <img :src="item.deimglist[0].imgPath" style="width:100%;height:135px;" alt />
           </div>
           <div class="rig-bottom" @click="getin(item.schemeId)">
-            <img :src="item.deimglist[2].imgPath" style="width:100%;height:135px;" alt />
+            <img :src="item.deimglist[0].imgPath" style="width:100%;height:135px;" alt />
           </div>
         </div>
 
