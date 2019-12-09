@@ -353,6 +353,6 @@ export default {
 }
 footerr{
   position: absolute;
-  bottom: -80px;
+  bottom: -20px;
 }
 </style>
